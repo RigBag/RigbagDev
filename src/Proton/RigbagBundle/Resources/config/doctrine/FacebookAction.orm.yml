@@ -1,0 +1,66 @@
+Proton\RigbagBundle\Entity\FacebookAction:
+    type: entity
+    table: facebook_action
+    repositoryClass: Proton\RigbagBundle\Repository\FacebookActionRepository
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        # TYPE: ask, buy, create, publish, reply, sell, swap, take, give 
+        type:
+            type: string
+            length: 30
+        facebook_id:
+            type: string
+            length: 50
+        from_app:
+            type: integer
+            length: 1
+        created_by:
+            type: integer
+            length: 20
+            nullable: true
+        advert_id:
+            type: integer
+            length: 20
+            nullable: true
+        user_id:
+            type: integer
+            length: 20
+            nullable: true
+        qa_position_id:
+            type: integer
+            length: 20
+            nullable: true
+        created_at:
+            type: datetime
+        updated_at:
+            type: datetime
+    lifecycleCallbacks:
+        prePersist: [ setCreatedAtValue, setUpdatedAtValue ]
+        preUpdate: [ setUpdatedAtValue ]
+    manyToOne:
+        created:
+            targetEntity: User
+            joinColumn:
+                name: created_by
+                referencedColumnName: id
+        advert:
+            targetEntity: Advert
+            joinColumn:
+                name: advert_id
+                referencedColumnName: id
+        user:
+            targetEntity: User
+            inversedBy: facebookActions
+            joinColumn:
+                name: user_id
+                referencedColumnName: id
+        qaPosition:
+            targetEntity: QaPosition
+            inversedBy: facebookActions
+            joinColumn:
+                name: qa_position_id
+                referencedColumnName: id
+   

@@ -1,0 +1,139 @@
+Proton\RigbagBundle\Entity\User:
+    type: entity
+    table: user
+    repositoryClass: Proton\RigbagBundle\Repository\UserRepository
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        name:
+            type: string
+            length: 100
+        bio:
+            type: text
+            nullable: true
+        phone:
+            type: string
+            length: 50
+            nullable: true
+        post_code:
+            type: string
+            length: 20
+            nullable: true
+        email:
+            type: string
+            length: 200
+            nullable: true
+        paypal_id:
+            type: string
+            length: 200
+            nullable: true
+        facebook_id:
+            type: string
+            length: 50
+            nullable: true
+        twitter_id:
+            type: string
+            length: 50
+            nullable: true
+        google_id:
+            type: string
+            length: 50
+            nullable: true
+        facebook_token:
+            type: string
+            length: 50
+            nullable: true
+        twitter_token:
+            type: string
+            length: 50
+            nullable: true
+        google_token:
+            type: string
+            length: 50
+            nullable: true
+        profile_picture:
+            type: string
+            length: 200
+            nullable: true
+        location:
+            type: string
+            length: 100
+            nullable: true
+        location_country_code:
+            type: string
+            length: 20
+            nullable: true
+        location_formated:
+            type: string
+            length: 250
+            nullable: true
+        location_lat:
+            type: float
+            nullable: true
+        location_lng:
+            type: float
+            nullable: true
+        account_type:
+            type: string
+            length: 10
+        state:
+            type: string
+            length: 10 
+        created_at:
+            type: datetime
+        updated_at:
+            type: datetime
+        expired_at:
+            type: datetime
+            nullable: true
+        payment_mode:
+            type: string
+            length: 1
+    lifecycleCallbacks:
+        prePersist: [ setCreatedAtValue, setUpdatedAtValue ]
+        preUpdate: [ setUpdatedAtValue ]
+    manyToMany:
+        interests:
+            targetEntity: Interest
+            joinTable:
+                name: user_has_interest
+                joinColumns:
+                    user_id:
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    interest_id:
+                        referencedColumnName: id
+        circles:
+            targetEntity: Circle
+            joinTable:
+                name: user_has_circle
+                joinColumns:
+                    user_id:
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    circle_id:
+                        referencedColumnName: id
+    oneToMany:
+        adverts:
+            targetEntity: Advert
+            mappedBy: user
+            cascade: [persist]
+        questions:
+            targetEntity: QaPosition
+            mappedBy: user
+            cascade: [persist]
+        answers:
+            targetEntity: QaPosition
+            mappedBy: toUser
+            cascade: [persist]
+        options:
+            targetEntity: UserOption
+            mappedBy: user
+            cascade: [persist]
+        facebookActions:
+            targetEntity: FacebookAction
+            mappedBy: user
+            cascade: [persist]
+        

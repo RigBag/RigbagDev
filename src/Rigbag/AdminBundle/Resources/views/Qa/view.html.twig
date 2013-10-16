@@ -1,0 +1,60 @@
+{% extends '::admin.html.twig' %}
+
+{% block body %}
+<div class="row advert-view">
+	<div class="span12">
+		<h2>
+			Q&amp;A view
+			&nbsp;&nbsp;&nbsp;
+			<a onclick="return confirm('Are you sure?');" href="{{ path('rb_admin_qa_delete', { qaId: question.id }) }}"><i class="icon-remove"></i></a>
+		</h2>
+	</div>
+	<div class="span12">
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>&nbsp</th>
+					<th>added</th>
+					<th>user</th>
+					<th style="width: 60px;">&nbsp;</th>
+				<tr>
+			</thead>
+			<tbody>
+				<tr style="font-weight: bold;">
+					<td>{{ question.id }}</td>
+					<td>
+						{{ question.body }}
+						{% if question.advertId %}
+						<br/>
+						<span style="font-weight: normal;">ADVERT:</span> <a href="{{ path('rb_admin_adverts_view', { advertId: question.advertId }) }}">{{ question.advert.title }}</a>
+						{% endif %}
+					</td>
+					<td>{{ question.createdAt|date( 'd.m.Y H:i:s' ) }}</td>
+					<td>
+						{{ question.user.name }}
+					</td>
+					<td>
+						<a onclick="return confirm('Are you sure?');" href="{{ path('rb_admin_qa_delete', { qaId: question.id }) }}"><i class="icon-remove"></i></a>
+					</td>
+				</tr>
+				{% for qa in question.answers %}
+				<tr>
+					<td>{{ qa.id }}</td>
+					<td>
+						{{ qa.body }}
+					</td>
+					<td>{{ qa.createdAt|date( 'd.m.Y H:i:s' ) }}</td>
+					<td>
+						{{ qa.user.name }}
+					</td>
+					<td>
+						<a onclick="return confirm('Are you sure?');" href="{{ path('rb_admin_qa_delete', { qaId: qa.id }) }}"><i class="icon-remove"></i></a>
+					</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+			</table>
+	</div>
+</div>
+{% endblock %}

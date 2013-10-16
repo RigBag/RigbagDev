@@ -1,0 +1,136 @@
+Proton\RigbagBundle\Entity\TransactionPayPalDetails:
+    type: entity
+    table: transaction_paypal_details
+    repositoryClass: Proton\RigbagBundle\Repository\TransactionPayPalDetailsRepository
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+       transaction_id:
+           type: integer
+       created_at:
+           type: datetime
+       type:
+           type: string
+           length: 50
+       verify_sign:
+           type: string
+           length: 50
+       notify_version:
+           type: string
+           length: 20
+       parent_id:
+           type: integer
+           nullable: true
+       receipt_id:
+           type: string
+           length: 50
+           nullable: true
+       receiver_id:
+           type: string
+           length: 50
+           nullable: true
+       receiver_email:
+           type: string
+           length: 200
+           nullable: true
+       receiver_name:
+           type: string
+           length: 250
+           nullable: true
+       resend:
+           type: integer
+       sender_id:
+           type: string
+           length: 50
+           nullable: true
+       sender_email:
+           type: string
+           length: 200
+           nullable: true
+       sender_buisness:
+           type: string
+           length: 200
+           nullable: true
+       sender_name:
+           type: string
+           length: 250
+           nullable: true
+       sender_phone:
+           type: string
+           length: 50
+           nullable: true
+       sender_address_status:
+           type: string
+           length: 15
+           nullable: true
+       sender_country_code:
+           type: string
+           length: 10
+           nullable: true
+       sender_country:
+           type: string
+           length: 50
+           nullable: true
+       sender_city:
+           type: string
+           length: 100
+           nullable: true
+       sender_street:
+           type: string
+           length: 200
+           nullable: true
+       sender_zip:
+           type: string
+           length: 20
+           nullable: true
+       authorization_status:
+           type: string
+           length: 30
+           nullable: true
+       exchange_rate:
+           type: string
+           length: 10
+           nullable: true
+       payment_status:
+           type: string
+           length: 50
+           nullable: true
+       payment_type:
+           type: string
+           length: 50
+           nullable: true
+       pending_reason:
+           type: string
+           length: 200
+           nullable: true
+       mc_currency:
+           type: string
+           length: 10
+           nullable: true
+       mc_gross:
+           type: string
+           length: 20
+           nullable: true
+       memo:
+           type: string
+           length: 250
+           nullable: true
+       tracking_id:
+           type: string
+           length: 50
+           nullable: true
+       reasone_code:
+           type: string
+           length: 50
+           nullable: true
+    lifecycleCallbacks:
+        prePersist: [ setCreatedAtValue ]
+    manyToOne:
+        transaction:
+            targetEntity: Transaction
+            inversedBy: logs
+            joinColumn:
+                name: transaction_id
+                referencedColumnName: id

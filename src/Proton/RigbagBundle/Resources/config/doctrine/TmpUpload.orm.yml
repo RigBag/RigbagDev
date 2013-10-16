@@ -1,0 +1,22 @@
+Proton\RigbagBundle\Entity\TmpUpload:
+    type: entity
+    table: tmp_upload
+    repositoryClass: Proton\RigbagBundle\Repository\TmpUploadRepository
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        type:
+            type: string
+            length: 20
+        path:
+            type: string
+            length: 250
+        session_key:
+            type: string
+            length: 100
+        created_at:
+            type: datetime
+    lifecycleCallbacks:
+        prePersist: [ setCreatedAtValue ]

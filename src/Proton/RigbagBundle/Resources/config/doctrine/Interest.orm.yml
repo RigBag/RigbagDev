@@ -1,0 +1,38 @@
+Proton\RigbagBundle\Entity\Interest:
+    type: entity
+    table: interest
+    repositoryClass: Proton\RigbagBundle\Repository\InterestRepository
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        name:
+            type: string
+            length: 250
+        picture:
+            type: string
+            length: 250
+        created_at:
+            type: datetime
+        updated_at:
+            type: datetime
+    lifecycleCallbacks:
+        prePersist: [ setCreatedAtValue, setUpdatedAtValue ]
+        preUpdate: [ setUpdatedAtValue ]
+    manyToMany:
+        users:
+            targetEntity: User
+            joinTable:
+                name: user_has_interest
+                joinColumns:
+                    interest_id:
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    user_id:
+                        referencedColumnName: id
+    oneToMany:
+        circles:
+            targetEntity: Circle
+            mappedBy: interest
+            cascade: [persist]

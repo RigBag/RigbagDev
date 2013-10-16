@@ -1,0 +1,17 @@
+<form action="#" method="post" class="search" id="formSearch" onsubmit="return false;">
+	<div class="search-container">
+		<input type="text" class="required" name="search" id="searchQuery" autocomplete="off"/>
+		<input type="hidden" name="searchCategory" id="searchCategory"/>
+		<div class="but-clear"></div>
+	</div>
+	<input type="hidden" name="category" id="searchCategory"/>
+	{% include 'ProtonRigbagBundle:Extras:dropdown-sports.html.twig' with { 'sports': interests, 'id': 'dropdown-search-top', 'fieldId': 'searchCategory' } %}
+</form>      
+<script>
+$(document).ready( function() {
+	observerSearch('#searchQuery');
+	$('#searchQuery').keyup( function() {
+		rbApp.qa.search();
+	});
+});
+</script>

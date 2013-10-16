@@ -1,0 +1,15 @@
+<!-- SPAN10: start -->
+<div class="span10">
+	{% if news %}
+	<ul id="news-list">
+	{% for newsPosition in news %}
+		{% include 'ProtonRigbagBundle:News:list-box.html.twig' with { 'news': newsPosition } %}
+	{% endfor %}                            	
+	</ul>
+	{% else %}
+		<div class="no-items">
+			{% trans %}No news{% endtrans %}
+		</div>
+	{% endif %}
+</div>
+<!-- SPAN10: end -->

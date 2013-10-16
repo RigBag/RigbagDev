@@ -1,0 +1,108 @@
+@import "proton-pre.less";
+
+
+
+@media only screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:landscape) {
+//@media  (max-width: 1199px) {
+
+	#main-loader {
+		top: 195px;
+		left: 427px;
+		color: @linkColor;
+		font-weight: 300;
+		background: @white;
+		.box-shadow( 1px 1px 4px rgba(0, 0, 0, 0.4) );
+		padding: 15px;
+		width: 170px;
+		text-align: center;
+			
+		img {
+			margin-right: 5px;
+		}
+	}
+
+	.container, .navbar-static-top .container, .navbar-fixed-top .container, .navbar-fixed-bottom .container {
+    	width: 1024px;
+	}
+
+
+	.sidebar.closed {
+		left: -136px;
+		width: 190px;
+		
+		.ipad-menu-button {
+			background: url(../images/rb-logo-ipad.png) no-repeat;
+			width: 32px;
+			height: 14px;
+			position: absolute;
+			top: 11px;
+			right: 11px;
+			display: block;
+		}
+		
+		.logo {
+			a {
+				display: none;
+			}
+		}
+		
+		.user-short-info {
+			display: none;
+		}
+		
+		.menu-switch {
+			background: url(../images/menu-switch.png) no-repeat 0 0 #32a3be;
+		}
+		
+		.social {
+			display: none;
+		}
+		
+		.menu {
+			ul {
+				li {
+					a {
+						.info {
+							display: none;
+						}
+						.ico {
+							margin-left: 118px;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	.sidebar {
+		left: 0;
+		-webkit-transition: all 0.3s ease-out;
+		
+		.ipad-menu-button {
+			display: none;
+		}
+		
+		.logo {
+			a {
+				display: block;
+			}
+		}
+		
+		.user-short-info {
+			display: block;
+		}
+		
+		.menu-switch {
+			height: 46px;
+			width: 54px;
+			background: url(../images/menu-switch.png) no-repeat 0 -46px #32a3be;
+			position: absolute;
+			right: 0;
+			top: 580px;
+		}
+	}
+	
+	.content {
+		margin-left: 54px;
+	}
+}

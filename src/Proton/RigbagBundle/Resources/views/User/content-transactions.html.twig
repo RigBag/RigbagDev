@@ -1,0 +1,120 @@
+<div class="span10">
+{% if transactions %}
+<table class="table table-bordered">
+<thead>
+	<tr>
+		<th class="cell-thumb"></th>
+		<th class="cell-date-time">{% trans %}date &amp; time{% endtrans %}</th>
+		<th class="cell-type">{% trans %}type{% endtrans %}</th>
+		<th class="cell-description">{% trans %}description{% endtrans %}</th>
+		<th class="cell-amount">{% trans %}amount{% endtrans %}</th>
+		<th class="cell-state">{% trans %}state{% endtrans %}</th>
+	</tr>
+</thead>
+<tbody>
+{% for transaction in transactions %}
+<tr>
+	<td class="cell-thumb">
+		{% if transaction.advertId %}
+			<div class="ico"{% if transaction.advert.mainImage != null %} style="background-image: url({{ mediaUrl }}{{ transaction.advert.mainImage.path|replace({'%size%': '160x160' }) }});"{% endif %}></div>
+		{% else %}
+			&nbsp;
+		{% endif %}
+	</td>
+	<td class="cell-date-time">
+		{{ transaction.createdAt|date('d.m.Y') }}<br/>
+		{{ transaction.createdAt|date('H:i') }}
+	</td>
+	<td class="cell-type">
+		{{ transaction.typeLabel( user.id ) }}
+	</td>
+	<td class="cell-description">
+		{% if transaction.type == 'advert' %}
+			{% if transaction.advertId %}
+				{% trans %}Advert no.{% endtrans %} {{ transaction.advertId }}: <a href="#" onclick="setUrl( '#/adverts/view/{{ transaction.advert.hash }}/' ); return false;">{{ transaction.advert.title}}</a><br/>
+				{% if transaction.advert.mode == 'sale' %}{% trans %}FOR SALE{% endtrans %}{% endif %}
+			{% else %}
+				{{ transaction.description }}
+			{% endif %}
+		{% elseif transaction.type == 'buy' %}
+			{% if transaction.advertId %}
+				{% trans %}Advert no.{% endtrans %} {{ transaction.advertId }}: <a href="#" onclick="setUrl( '#/adverts/view/{{ transaction.advert.hash }}/' ); return false;">{{ transaction.advert.title}}</a>
+				<hr/>
+				{% if transaction.fromUserId == user.id %}
+					{{ transaction.toUserName }}<br/>
+					<span>{% trans %}email:{% endtrans %}</span> <a href="mailto:{{ transaction.toUserEmail }}">{{ transaction.toUserEmail }}</a>
+					{% if transaction.toUserId %}, <span>{% trans %}phone:{% endtrans %}</span> {% if transaction.toUser.phone %}{{ transaction.toUser.phone }}{% else %}-{% endif %}{% endif %}
+					{% if transaction.toUserId %}<br/><span>{% trans %}address:{% endtrans %}</span> {% if transaction.toUser.locationFormated %}{{ transaction.toUser.locationFormated }}{% else %}-{% endif %}{% endif %}
+				{% else %}
+					{{ transaction.fromUserName }}<br/>
+					<span>{% trans %}email:{% endtrans %}</span> <a href="mailto:{{ transaction.fromUserEmail }}">{{ transaction.fromUserEmail }}</a>
+					{% if transaction.fromUserId %}, <span>{% trans %}phone:{% endtrans %}</span> {% if transaction.fromUser.phone %}{{ transaction.fromUser.phone }}{% else %}-{% endif %}{% endif %}
+					{% if transaction.fromUserId %}<br/><span>{% trans %}address:{% endtrans %}</span> {% if transaction.fromUser.locationFormated %}{{ transaction.fromUser.locationFormated }}{% else %}-{% endif %}{% endif %}
+				{% endif %}
+			{% else %}
+				{{ transaction.description }}
+			{% endif %}
+		{% elseif transaction.type == 'swap' %}
+			{% if transaction.advertId %}
+				{% trans %}Advert no.{% endtrans %} {{ transaction.advertId }}: <a href="#" onclick="setUrl( '#/adverts/view/{{ transaction.advert.hash }}/' ); return false;">{{ transaction.advert.title}}</a><br/>
+				<span>{% trans %}swap for:{% endtrans %}</span> {{ transaction.advert.swapFor }}
+				<hr/>
+				{% if transaction.fromUserId == user.id %}
+					{{ transaction.toUserName }}<br/>
+					<span>{% trans %}email:{% endtrans %}</span> <a href="mailto:{{ transaction.toUserEmail }}">{{ transaction.toUserEmail }}</a>
+					{% if transaction.toUserId %}, <span>{% trans %}phone:{% endtrans %}</span> {% if transaction.toUser.phone %}{{ transaction.toUser.phone }}{% else %}-{% endif %}{% endif %}
+					{% if transaction.toUserId %}<br/><span>{% trans %}address:{% endtrans %}</span> {% if transaction.toUser.locationFormated %}{{ transaction.toUser.locationFormated }}{% else %}-{% endif %}{% endif %}
+				{% else %}
+					{{ transaction.fromUserName }}<br/>
+					<span>{% trans %}email:{% endtrans %}</span> <a href="mailto:{{ transaction.fromUserEmail }}">{{ transaction.fromUserEmail }}</a>
+					{% if transaction.fromUserId %}, <span>{% trans %}phone:{% endtrans %}</span> {% if transaction.fromUser.phone %}{{ transaction.fromUser.phone }}{% else %}-{% endif %}{% endif %}
+					{% if transaction.fromUserId %}<br/><span>{% trans %}address:{% endtrans %}</span> {% if transaction.fromUser.locationFormated %}{{ transaction.fromUser.locationFormated }}{% else %}-{% endif %}{% endif %}
+				{% endif %}
+			{% else %}
+				{{ transaction.description }}
+			{% endif %}
+		{% elseif transaction.type == 'freebie' %}
+			{% if transaction.advertId %}
+				{% trans %}Advert no.{% endtrans %} {{ transaction.advertId }}: <a href="#" onclick="setUrl( '#/adverts/view/{{ transaction.advert.hash }}/' ); return false;">{{ transaction.advert.title}}</a>
+				<hr/>
+				{% if transaction.fromUserId == user.id %}
+					{{ transaction.toUserName }}<br/>
+					<span>{% trans %}email:{% endtrans %}</span> <a href="mailto:{{ transaction.toUserEmail }}">{{ transaction.toUserEmail }}</a>
+					{% if transaction.toUserId %}, <span>{% trans %}phone:{% endtrans %}</span> {% if transaction.toUser.phone %}{{ transaction.toUser.phone }}{% else %}-{% endif %}{% endif %}
+					{% if transaction.toUserId %}<br/><span>{% trans %}address:{% endtrans %}</span> {% if transaction.toUser.locationFormated %}{{ transaction.toUser.locationFormated }}{% else %}-{% endif %}{% endif %}
+				{% else %}
+					{{ transaction.fromUserName }}<br/>
+					<span>{% trans %}email:{% endtrans %}</span> <a href="mailto:{{ transaction.fromUserEmail }}">{{ transaction.fromUserEmail }}</a>
+					{% if transaction.fromUserId %}, <span>{% trans %}phone:{% endtrans %}</span> {% if transaction.fromUser.phone %}{{ transaction.fromUser.phone }}{% else %}-{% endif %}{% endif %}
+					{% if transaction.fromUserId %}<br/><span>{% trans %}address:{% endtrans %}</span> {% if transaction.fromUser.locationFormated %}{{ transaction.fromUser.locationFormated }}{% else %}-{% endif %}{% endif %}
+				{% endif %}
+			{% else %}
+				{{ transaction.description }}
+			{% endif %}
+		{% elseif transaction.type == 'subscription' %}
+			{% trans %}RigBag annual subscription{% endtrans %}
+			{% if transaction.state == 'completed' %}
+			- {% trans %}till{% endtrans %} {{ transaction.fromUser.expiredAt|date('d.m.Y') }}
+			{% endif %}
+		{% endif %}
+	</td>
+	<td class="cell-amount">
+		{% if transaction.amount %}
+			{% if transaction.isIncome( user.id ) %}{% else %}-{% endif %}{{ transaction.amount }} {{ transaction.currencyLabel }}
+		{% else %}
+		-
+		{% endif %}
+	</td>
+	<td class="cell-state">
+	 	{{ transaction.state|capitalize }}
+	</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+{% else %}
+	<div class="alert alert-success">
+    	{% trans %}You haven't any transactions.{% endtrans %}
+    </div>
+{% endif %}
+</div>

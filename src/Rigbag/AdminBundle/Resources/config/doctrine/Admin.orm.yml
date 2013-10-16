@@ -1,0 +1,18 @@
+Rigbag\AdminBundle\Entity\Admin:
+    type: entity
+    table: admin
+    repositoryClass: Rigbag\AdminBundle\Repository\AdminRepository
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+       name:
+            type: string
+            length: 250
+       email:
+            type: string
+            length: 200
+       password:
+            type: string
+            length: 50

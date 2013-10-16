@@ -1,0 +1,76 @@
+{% if questions %}
+<ul class="messages">
+	{% for question in questions %}
+	<li{% if question.state == 'swap_rejected' or question.state == 'free_rejected' %} class="rejected"{% elseif question.state == 'swap_accepted' or question.state == 'free_accepted' %} class="accepted"{% endif %}>
+		<div class="ico" style="background: url({{ mediaUrl }}{{ question.user.profilePicture|replace({'%size%': '60x60' }) }})"></div>
+		<div class="info">
+			<h5><a href="#/profile/{{ question.user.id }}/adverts/list/" title="">{{ question.user.displayName|stripslashes }}</a></h6>
+			<h6>{{ question.user.location|stripslashes }} &bull; {% include 'ProtonRigbagBundle:Extras:ago.html.twig' with { 'addedAgo': question.addedAgo } %}</h6>
+			<p>
+				{{ question.body }}
+			</p>
+			{% if question.state == 'swap_suggest' and hasAccepted == false and user.id == advert.userId %}
+			<div class="actions-2">
+				<ul>
+					<li><a href="#" onclick="if( confirm('{% trans %}Are you sure?{% endtrans %}') ) { rbApp.advert.swapAccept( {{ question.id }} ); } return false;" title="">{% trans %}accept{% endtrans %}</a></li>
+					<li class="reject"><a href="#" onclick="if( confirm('{% trans %}Are you sure?{% endtrans %}') ) { rbApp.advert.swapReject( {{ question.id }} ); } return false;" onclick="if( confirm( '{% trans %}Are you sure?{% endtrans %}') ) {} return false;" title="">{% trans %}reject{% endtrans %}</a></li>
+				</ul>
+			</div>
+			{% elseif question.state == 'free_suggest' and hasAccepted == false and user.id == advert.userId %}
+			<div class="actions-2">
+				<ul>
+					<li><a href="#" onclick="if( confirm('{% trans %}Are you sure?{% endtrans %}') ) { rbApp.advert.freeAccept( {{ question.id }} ); } return false;" title="">{% trans %}accept{% endtrans %}</a></li>
+					<li class="reject"><a href="#" onclick="if( confirm('{% trans %}Are you sure?{% endtrans %}') ) { rbApp.advert.freeReject( {{ question.id }} ); } return false;" onclick="if( confirm( '{% trans %}Are you sure?{% endtrans %}') ) {} return false;" title="">{% trans %}reject{% endtrans %}</a></li>
+				</ul>
+			</div>
+			{% endif %}
+			{% if ( user.id == advert.user.id or user.id == question.user.id ) and question.state != 'swap_accepted' and question.state != 'free_accepted' %}
+				<div class="remove"><a href="#" onclick="if( confirm( '{% trans %}Are you sure?{% endtrans %}') ) { rbApp.qa.remove( {{ question.id }}, 'fade-out', $(this).parent().parent().parent() );  } return false;" title="">{% trans %}remove{% endtrans %}</a></div>
+			{% endif %}
+			<div class="answers">
+				<ul id="answers-{{ question.id }}">
+				{% for answer in question.answers %}
+					<li id="answer-{{ answer.id }}" data-id="{{ answer.id }}">
+						<div class="user">{{ answer.user.displayName|stripslashes }}</div>
+						<div class="answer">{{ answer.body|stripslashes }}</div>
+						<div class="date" date-stamp="">
+							{% include 'ProtonRigbagBundle:Extras:ago.html.twig' with { 'addedAgo': answer.addedAgo } %}
+							{% if user.id == answer.userId %}
+							&bull; <a href="#" onclick="if( confirm( '{% trans %}Are you sure?{% endtrans %}' ) ) { rbApp.qa.remove( $(this).parent().parent().attr('data-id'), 'fade-out', $(this).parent().parent() ); } return false;" title="" class="remove-2">{% trans %}remove{% endtrans %}</a>
+							{% endif %}
+						</div>
+					</li>
+				{% endfor %}
+				</ul>
+			</div>
+			{% if question.state != 'swap_rejected' and  question.state != 'free_rejected' %}
+			<div class="answer-form">
+				<form action="#" onsubmit="return false;" id="formAnswer-{{ question.id }}">
+					<textarea name="answer" data-parent="{{ question.id }}" class="f-comment required autosize" style="height: 14px;" placeholder="{% trans %}Write answer...{% endtrans %}"></textarea>
+				</form>
+			</div>
+			{% endif %}
+		</div>
+		<div class="clearfix"></div>
+	</li>
+	{% endfor %} 
+</ul>
+<script>
+$(document).ready( function() {
+	$('.autosize').autosize();
+	$('.f-comment').keydown( function( event ) {
+		if( event.which == 13 ) {
+			rbApp.qa.advertPrivateReply( $(this) );
+			return false;
+		}
+	});
+	$('.f-comment').keyup( function() {
+		if( $(this).val().length ) {
+			$(this).addClass( 'with-content' );
+		} else {
+			$(this).removeClass( 'with-content' );
+		}
+	});
+});
+</script>
+{% endif %}

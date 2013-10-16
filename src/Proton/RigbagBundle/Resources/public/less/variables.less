@@ -1,0 +1,383 @@
+//
+// Variables
+// --------------------------------------------------
+
+
+// Global values
+// --------------------------------------------------
+
+
+// Grays
+// -------------------------
+@black:                 #000;
+@grayDarker:            #222;
+@grayDark:              #383737;
+@gray:                  #555;
+@grayLight:             #9b9b9b;
+@grayLighter:           #eee;
+@grayBackground:		#e3e3e3;
+@mainText:				#53514f;
+@mainText2:				#d3d3d3;
+@headerText:			#676768;
+@white:                 #fff;
+@previewBackground:     #daf2fa;
+
+// Headers
+// ----------------------
+@h2Size:				24px;
+@h2Color:				@linkColor;
+@h2Weight:				100;
+
+// Lists
+// ----------------------
+@liImage1:				'../images/li.png';
+@liImage2:				'../images/li-2.png';
+
+// Buttons
+// ----------------------
+@btnBackgroundColor1:	#69c8ec;
+@btnBorderColor1:		transparent;
+
+
+// Accent colors
+// -------------------------
+@blue:                  #049cdb;
+@blueDark:              #0064cd;
+@green:                 #46a546;
+@red:                   #9d261d;
+@yellow:                #ffc40d;
+@orange:                #f89406;
+@pink:                  #c3325f;
+@purple:                #7a43b6;
+
+// Header
+// ------------------------
+@headerBarHeight:			60px;
+@headerBarBorderColor1:		#747373;
+@headerBarBorderColor2:		#33b5e5;
+@headerBarBorderHeight: 	5px;
+@headerBarBgColor1:			#e3e3e3;
+@headerBarBgColor2:			#53514f;
+@headerBarBgImage1:			'../images/bg-bar-top-1.png';
+@headerBarBgImage2:			'../images/bg-bar-top-2.png';	
+@headerFontSize:			30px;
+@headerFontSize2:			18px;
+@headerMenuLinkColor1:		#908f8e;
+@headerMenuLinkColor2:		#33b5e5;
+@headerMenuBorderColor1:	#393a3a;
+@headerMenuBorderColor2:	#747373;
+@headerNavIcoBack:			'../images/ico/ico-nav-back.png';
+@headerNavIcoAdd:			'../images/ico/ico-nav-add.png';
+@headerNavIcoEdit:			'../images/ico/ico-nav-edit.png';
+@headerIcoSearch:			'../images/ico/ico-search.png';
+
+// Dropdown
+// ----------------
+@dropdownIcoArrow:			'../images/ico/ico-dropdown-arrow.png';
+@dropdownIcoChecked:		'../images/ico/ico-checked-3.png';
+
+// Sidebar
+// ----------------
+@sideBarWidth:				200px;
+@sideBarBorderColor:		#181818;
+@sideBarColor1:				#e6e1e1;
+@sideBarColor2:				@linkColor;
+@sideBarMenuBackground:		#565351;
+@sideBarMenuIcoAdverts:		'../images/ico/ico-menu-adverts.png';
+@sideBarMenuIcoCircles:		'../images/ico/ico-menu-circles.png';
+@sideBarMenuIcoQA:			'../images/ico/ico-menu-qa.png';
+@sideBarMenuIcoMyProfile:	'../images/ico/ico-menu-my-profile.png';		
+@sideBarMenuIcoNews:		'../images/ico/ico-menu-news.png';
+@sideBarMenuIcoSettings:	'../images/ico/ico-menu-settings.png';
+
+// Icons
+@icoUncheckedImg:			'../images/ico/ico-unchecked.png';
+@icoCheckedImg:				'../images/ico/ico-checked.png';
+@icoCirclesImg:				'../images/ico/ico-circles.png';
+@icoWhenImg:				'../images/ico/ico-when.png';
+@icoWhereImg:				'../images/ico/ico-where.png';
+@icoCloseImg:				'../images/ico/ico-close.png';
+@icoSocialShareImg:			'../images/ico/ico-social-share.png';
+@icoSearch:					'../images/ico/ico-search-2.png';
+@icoAdd:					'../images/ico/ico-add-2.png';
+@icoDelete:					'../images/ico/ico-delete.png';
+
+// Scaffolding
+// -------------------------
+@bodyBackground:        @grayBackground;
+@textColor:             @mainText;
+
+
+// Links
+// -------------------------
+@linkColor:             #33b5e5;
+@linkColorHover:        darken(@linkColor, 5%);
+
+
+// Typography
+// -------------------------
+@sansFontFamily:        "Roboto","Helvetica Neue", Helvetica, Arial, sans-serif;
+@serifFontFamily:       Georgia, "Times New Roman", Times, serif;
+@monoFontFamily:        Monaco, Menlo, Consolas, "Courier New", monospace;
+
+@baseFontSize:          14px;
+@baseFontFamily:        @sansFontFamily;
+@baseLineHeight:        20px;
+@altFontFamily:         @serifFontFamily;
+
+@headingsFontFamily:    inherit; // empty to use BS default, @baseFontFamily
+@headingsFontWeight:    bold;    // instead of browser default, bold
+@headingsColor:         inherit; // empty to use BS default, @textColor
+
+
+// Component sizing
+// -------------------------
+// Based on 14px font-size and 20px line-height
+
+@fontSizeLarge:         @baseFontSize * 1.25; // ~18px
+@fontSizeSmall:         @baseFontSize * 0.85; // ~12px
+@fontSizeMini:          @baseFontSize * 0.75; // ~11px
+
+@paddingLarge:          11px 19px; // 44px
+@paddingSmall:          2px 10px;  // 26px
+@paddingMini:           1px 6px;   // 24px
+
+@baseBorderRadius:      4px;
+@borderRadiusLarge:     6px;
+@borderRadiusSmall:     3px;
+
+
+// Tables
+// -------------------------
+@tableBackground:                   transparent; // overall background-color
+@tableBackgroundAccent:             #f9f9f9; // for striping
+@tableBackgroundHover:              #f5f5f5; // for hover
+@tableBorder:                       #bbb; // table and cell border
+
+// Buttons
+// -------------------------
+@btnBackground:                     @btnBackgroundColor1;
+@btnBackgroundHighlight:            darken(@btnBackgroundColor1, 10%);
+@btnBorder:                         #bbb;
+
+@btnPrimaryBackground:              @linkColor;
+@btnPrimaryBackgroundHighlight:     spin(@btnPrimaryBackground, 20%);
+
+@btnInfoBackground:                 #5bc0de;
+@btnInfoBackgroundHighlight:        #2f96b4;
+
+@btnSuccessBackground:              #62c462;
+@btnSuccessBackgroundHighlight:     #51a351;
+
+@btnWarningBackground:              lighten(@orange, 15%);
+@btnWarningBackgroundHighlight:     @orange;
+
+@btnDangerBackground:               #ee5f5b;
+@btnDangerBackgroundHighlight:      #bd362f;
+
+@btnInverseBackground:              #444;
+@btnInverseBackgroundHighlight:     @grayDarker;
+
+
+// Forms
+// -------------------------
+@inputErrorBorder:				@btnDangerBackground;
+@inputBackground:               @white;
+@inputBorder:                   #ccc;
+@inputBorderRadius:             @baseBorderRadius;
+@inputDisabledBackground:       @grayLighter;
+@formActionsBackground:         #f5f5f5;
+@inputHeight:                   @baseLineHeight + 10px; // base line-height + 8px vertical padding + 2px top/bottom border
+@inputBackgroundLocation:		'../images/ico/ico-input-location.png';
+
+
+// Dropdowns
+// -------------------------
+@dropdownBackground:            @white;
+@dropdownBorder:                rgba(0,0,0,.2);
+@dropdownDividerTop:            #e5e5e5;
+@dropdownDividerBottom:         @white;
+
+@dropdownLinkColor:             @grayDark;
+@dropdownLinkColorHover:        @white;
+@dropdownLinkColorActive:       @dropdownLinkColor;
+
+@dropdownLinkBackgroundActive:  @linkColor;
+@dropdownLinkBackgroundHover:   @dropdownLinkBackgroundActive;
+
+
+
+// COMPONENT VARIABLES
+// --------------------------------------------------
+
+
+// Z-index master list
+// -------------------------
+// Used for a bird's eye view of components dependent on the z-axis
+// Try to avoid customizing these :)
+@zindexDropdown:          1000;
+@zindexPopover:           1010;
+@zindexTooltip:           1030;
+@zindexFixedNavbar:       1030;
+@zindexModalBackdrop:     1040;
+@zindexModal:             1050;
+
+
+// Sprite icons path
+// -------------------------
+@iconSpritePath:          "../images/glyphicons-halflings.png";
+@iconWhiteSpritePath:     "../images/glyphicons-halflings-white.png";
+
+
+// Input placeholder text color
+// -------------------------
+@placeholderText:         #ccc;
+
+
+// Hr border color
+// -------------------------
+@hrBorder:                @grayLighter;
+
+
+// Horizontal forms & lists
+// -------------------------
+@horizontalComponentOffset:       180px;
+
+
+// Wells
+// -------------------------
+@wellBackground:                  #f5f5f5;
+
+
+// Navbar
+// -------------------------
+@navbarCollapseWidth:             979px;
+@navbarCollapseDesktopWidth:      @navbarCollapseWidth + 1;
+
+@navbarHeight:                    40px;
+@navbarBackgroundHighlight:       #ffffff;
+@navbarBackground:                darken(@navbarBackgroundHighlight, 5%);
+@navbarBorder:                    darken(@navbarBackground, 12%);
+
+@navbarText:                      #777;
+@navbarLinkColor:                 #777;
+@navbarLinkColorHover:            @grayDark;
+@navbarLinkColorActive:           @gray;
+@navbarLinkBackgroundHover:       transparent;
+@navbarLinkBackgroundActive:      darken(@navbarBackground, 5%);
+
+@navbarBrandColor:                @navbarLinkColor;
+
+// Inverted navbar
+@navbarInverseBackground:                #111111;
+@navbarInverseBackgroundHighlight:       #222222;
+@navbarInverseBorder:                    #252525;
+
+@navbarInverseText:                      @grayLight;
+@navbarInverseLinkColor:                 @grayLight;
+@navbarInverseLinkColorHover:            @white;
+@navbarInverseLinkColorActive:           @navbarInverseLinkColorHover;
+@navbarInverseLinkBackgroundHover:       transparent;
+@navbarInverseLinkBackgroundActive:      @navbarInverseBackground;
+
+@navbarInverseSearchBackground:          lighten(@navbarInverseBackground, 25%);
+@navbarInverseSearchBackgroundFocus:     @white;
+@navbarInverseSearchBorder:              @navbarInverseBackground;
+@navbarInverseSearchPlaceholderColor:    #ccc;
+
+@navbarInverseBrandColor:                @navbarInverseLinkColor;
+
+
+// Pagination
+// -------------------------
+@paginationBackground:                #fff;
+@paginationBorder:                    #ddd;
+@paginationActiveBackground:          #f5f5f5;
+
+
+// Hero unit
+// -------------------------
+@heroUnitBackground:              @grayLighter;
+@heroUnitHeadingColor:            inherit;
+@heroUnitLeadColor:               inherit;
+
+
+// Form states and alerts
+// -------------------------
+@warningText:             #c09853;
+@warningBackground:       #fcf8e3;
+@warningBorder:           darken(spin(@warningBackground, -10), 3%);
+
+@errorText:               #b94a48;
+@errorBackground:         #f2dede;
+@errorBorder:             darken(spin(@errorBackground, -10), 3%);
+
+@successText:             #468847;
+@successBackground:       #dff0d8;
+@successBorder:           darken(spin(@successBackground, -10), 5%);
+
+@infoText:                #3a87ad;
+@infoBackground:          #d9edf7;
+@infoBorder:              darken(spin(@infoBackground, -10), 7%);
+
+
+// Tooltips and popovers
+// -------------------------
+@tooltipColor:            #fff;
+@tooltipBackground:       #000;
+@tooltipArrowWidth:       5px;
+@tooltipArrowColor:       @tooltipBackground;
+
+@popoverBackground:       #fff;
+@popoverArrowWidth:       10px;
+@popoverArrowColor:       #fff;
+@popoverTitleBackground:  @linkColor;
+
+// Special enhancement for popovers
+@popoverArrowOuterWidth:  @popoverArrowWidth + 1;
+@popoverArrowOuterColor:  rgba(0,0,0,.25);
+
+
+
+// GRID
+// --------------------------------------------------
+
+
+// Default 1200px min
+// -------------------------
+@gridColumns:             12;
+@gridColumnWidth:         70px;
+@gridGutterWidth:         30px;
+@gridRowWidth:            (@gridColumns * @gridColumnWidth) + (@gridGutterWidth * (@gridColumns - 1));
+
+// 980px-1199px
+@gridColumnWidth980:     60px;
+@gridGutterWidth980:     20px;
+@gridRowWidth980:        (@gridColumns * @gridColumnWidth980) + (@gridGutterWidth980 * (@gridColumns - 1));
+
+// 768px-979px
+@gridColumnWidth768:      42px;
+@gridGutterWidth768:      20px;
+@gridRowWidth768:         (@gridColumns * @gridColumnWidth768) + (@gridGutterWidth768 * (@gridColumns - 1));
+
+// iPad Landscape
+@gridColumnWidthIPadL:    80px;
+@gridGutterWidthIPadL:    20px;
+@gridRowWidthIPadL:       (@gridColumns * @gridColumnWidthIPadL) + (@gridGutterWidthIPadL * (@gridColumns - 1));
+
+// Fluid grid
+// -------------------------
+@fluidGridColumnWidth:    percentage(@gridColumnWidth/@gridRowWidth);
+@fluidGridGutterWidth:    percentage(@gridGutterWidth/@gridRowWidth);
+
+// iPad Landscape
+@fluidGridColumnWidthIPadL:     percentage(@gridColumnWidthIPadL/@gridRowWidthIPadL);
+@fluidGridGutterWidthIPadL:     percentage(@gridGutterWidthIPadL/@gridRowWidthIPadL);
+
+// 980px-1199px
+@fluidGridColumnWidth980:     percentage(@gridColumnWidth980/@gridRowWidth980);
+@fluidGridGutterWidth980:     percentage(@gridGutterWidth980/@gridRowWidth980);
+
+// 768px-979px
+@fluidGridColumnWidth768:      percentage(@gridColumnWidth768/@gridRowWidth768);
+@fluidGridGutterWidth768:      percentage(@gridGutterWidth768/@gridRowWidth768);

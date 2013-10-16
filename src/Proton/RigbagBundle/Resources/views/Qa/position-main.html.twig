@@ -1,0 +1,33 @@
+<!-- QUESTION: start -->
+<li onclick="$('.search-new-form').slideUp();setUrl('/qa/view/{{ position.id }}/');">
+	<div class="ico" style="background-image: url({{ mediaUrl }}{{ position.user.profilePicture|replace({'%size%': '60x60' }) }});"></div>
+	<div class="question">
+		<a href="#/qa/view/{{ position.id }}/" title="">{{ position.body|stripslashes }}</a>
+		{% if position.advertId %}
+		<div class="advert-preview">
+			<div class="ico"{% if position.advert.mainImage != null %} style="background: url('{{ mediaUrl }}{{ position.advert.mainImage.path|replace({'%size%': '50x50' }) }}');"{% endif %}></div>
+			<div class="info">
+				<p>
+					<span class="label-head">{% trans %}FOR{% endtrans %} {{ position.advert.mode|upper }}:</span> {{ position.advert.description|stripslashes }}
+				</p>
+				<p class="underinfo">
+					{{ position.advert.condition.name|stripslashes }}, 
+					{{ position.advert.locationDisplay|stripslashes }}{% if position.advert.mode == 'sale' %},{% endif %}
+					{% if position.advert.mode == 'sale' %}
+						{{ position.advert.price }}{{position.advert.currency|upper }}
+					{% endif %}
+				</p>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+		{% endif %}
+		<div class="info">
+			{{ position.user.name|stripslashes }} <span>asked {% include 'ProtonRigbagBundle:Extras:ago.html.twig' with { 'addedAgo': position.updatedAgo } %} in</span> {{ position.circle.name|stripslashes }} 
+		</div>
+	</div>
+	<div class="answers-info">
+		<a href="#/qa/view/{{ position.id }}/" title="">{% if position.answersNum == 1 %}1 {% trans %}answer{% endtrans %}{% else %}{{position.answersNum}} {% trans %}answers{% endtrans %}{% endif %}</a>
+	</div>
+	<div class="clearfix"></div>
+</li>
+<!-- QUESTION: end -->

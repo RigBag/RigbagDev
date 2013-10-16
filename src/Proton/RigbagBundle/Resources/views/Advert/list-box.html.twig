@@ -1,0 +1,35 @@
+{% if hideLabel is not defined %}
+	{% set hideLabel = false %}
+{% endif %}
+<!-- LI /ADVERT/: begin-->
+<li onclick="window.location ='{{ path('start') }}#/adverts/view/{{ advert.hash }}/'; return false;" class="{% if advert.state == 'waiting_for_payment' %} unpaid{% endif %}">
+	<div class="ico{% if advert.state == 'waiting_for_payment' %} {% endif %}" style="{% if advert.mainImage %}background-image:url({{ mediaUrl }}{{ advert.mainImage.path|replace({'%size%': '220x190' }) }});{%  endif %}"></div>
+	<p><strong>
+		{% if hideLabel == false %}
+			{% if advert.mode == 'sale' %}{% trans %}FOR{% endtrans %} {% endif %}{{ advert.mode|upper }}:</strong>
+		{% endif %}
+		{{ advert.description|stripslashes }}
+		{% if hideLabel == true %}</strong>{% endif %}
+	</p>
+	<p>{{ advert.locationDisplay }}</p>
+	<div class="bottom-content">
+		<div class="price">
+			{% if advert.mode == 'sale' %}
+				{% if advert.currency == 'eur' %}&euro;{% else %}{{ advert.currency|upper }}{% endif %}{{ advert.price }}
+			{% else %}
+				&nbsp;
+			{% endif %}
+		</div>
+		<div class="info">
+			{% include 'ProtonRigbagBundle:Extras:ago.html.twig' with { 'addedAgo': advert.addedAgo } %}
+		</div>
+	</div>
+	{% if advert.state == 'closed' %}
+	<div class="label-closed"></div>
+	{% elseif advert.state == 'waiting_for_payment' %}
+	<div class="label-unpaid"></div>
+	{% elseif advert.state == 'sold' %}
+	<div class="label-sold"></div>
+	{% endif %}
+</li>
+<!-- LI /ADVERT/: end -->

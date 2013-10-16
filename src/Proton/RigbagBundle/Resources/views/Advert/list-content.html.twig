@@ -1,0 +1,36 @@
+<!-- SPAN10: start -->
+<div class="span10">
+	{% if adverts %}
+		<ul id="adverts-list">
+		{% for advert in adverts %}
+			{% include 'ProtonRigbagBundle:Advert:list-box.html.twig' with { 'advert': advert } %}
+		{% endfor %}
+		</ul>
+
+		<div class="load-more{% if showLoadMore %}{% else %} hide{% endif %}">
+			<div class="clearfix"></div>
+		</div>
+	{% else %}
+		<div class="no-items">
+			{% trans %}No adverts{% endtrans %}
+		</div>
+	{% endif %}
+</div>
+<!-- SPAN10: end -->
+<script>
+$(document).ready( function() {
+
+	{% if user.id < 1 %}
+		rbApp.mustLoginInit();
+	{% endif %}
+});
+
+$(document).scroll( function() {
+
+	if( $(document).height() == ( $(document).scrollTop() + $(window).height() ) ) {
+		if( !$('.load-more').hasClass( 'hide' ) ) {
+			rbApp.loadMoreAdverts( 'mode' );
+		}
+	}
+});
+</script>

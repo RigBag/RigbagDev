@@ -1,0 +1,8 @@
+
+		{% for circle in circles %}
+			<li data-id="{{ circle.id }}" data-name="{{  circle.name }}" data-description="{{ circle.description }}" data-image="{{ path('image_sport', { sportId: circle.interest.id, width: 50, height: 50 }) }}">
+				<div class="ico" style="background-image: url({{ path('image_sport', { sportId: circle.interest.id, width: 50, height: 50 }) }});"></div>
+				<h4>{{ circle.name|stripslashes }}</h4>
+				<a href="#/circles/{{ circle.id }}/adverts/list/" class="btn btn-view">{% trans %}view{% endtrans %} &raquo;</a>
+			</li>
+		{% endfor %}

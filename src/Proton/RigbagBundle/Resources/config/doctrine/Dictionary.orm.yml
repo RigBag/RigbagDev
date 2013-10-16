@@ -1,0 +1,26 @@
+Proton\RigbagBundle\Entity\Dictionary:
+    type: entity
+    table: dictionary
+    repositoryClass: Proton\RigbagBundle\Repository\LocationRepository
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        name:
+            type: string
+            length: 250
+        code:
+            type: string
+            length: 20
+        is_opened:
+            type: string
+            length: 1
+        is_updated:
+            type: string
+            length: 20
+    oneToMany:
+        values:
+            targetEntity: DictionaryValue
+            mappedBy: dictionary
+            cascade: [persist]

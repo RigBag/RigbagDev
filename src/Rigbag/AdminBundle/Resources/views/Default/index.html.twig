@@ -1,0 +1,193 @@
+{% extends '::admin.html.twig' %}
+
+{% block body %}
+<div class="row profile-view">
+	<div class="span12">
+		<h2>
+			Dashboard
+		</h2>
+	</div>
+	<div class="span12" style="position: relative; margin-bottom: 50px;">
+		
+		<div class="dates" style="position: absolute; top: 0; right: 10px;">
+			<form class="form-inline">
+				<label style="opacity: 0.5;">from</label>
+				<input type="text" style="width: 80px;" id="fromDate" name="from" value="{{ fromDate }}" data-date-format="dd.mm.yyyy"/>
+				&nbsp;
+				<label style="opacity: 0.5;">to</label>
+				<input type="text" style="width: 80px;" id="toDate" name="to" value="{{ toDate }}" data-date-format="dd.mm.yyyy"/>
+				&nbsp;
+				<button type="submit" class="btn">apply</button>
+			</from>
+		</div>
+		
+		<ul class="nav nav-tabs" id="dashboardTab">
+		  	<li class="active"><a href="#adverts">Adverts</a></li>
+		  	<li><a href="#profiles">Profiles</a></li>
+		</ul>
+		
+		<div class="tab-content">
+	  		<div class="tab-pane active" id="adverts">
+	  			<div id="chart_adverts"></div>
+	  			<div id="chart_adverts_sale"></div>
+	  			<div id="chart_adverts_swap"></div>
+	  			<div id="chart_adverts_freebie"></div>
+	  		</div>
+			<div class="tab-pane" id="profiles">
+			
+				<div id="chart_profiles"></div>
+				<div id="chart_profiles_geo"></div>
+			
+			
+			</div>
+			<div class="tab-pane" id="qa">
+			Q&amp;A
+			</div>
+	  	</div>
+	</div>
+</div>
+
+<script>
+  $(function () {
+  	$('#fromDate').datepicker();
+  	$('#toDate').datepicker();
+  	$('#dashboardTab').tab();
+  	$('#dashboardTab a').click(function (e) {
+	  e.preventDefault();
+	  $(this).tab('show');
+	});
+  });
+  
+  	google.load("visualization", "1", {packages:["corechart",'geochart']});
+  	google.setOnLoadCallback(drawCharts);
+  
+	function drawCharts() {
+		drawAdvertsChart();
+		drawAdvertsSaleChart();
+		drawAdvertsSwapChart();
+		drawAdvertsFreebieChart();
+		drawProfilesChart();
+		drawProfilesGeoChart();	    	       
+	}
+	
+	function drawAdvertsChart() {
+		 var data = google.visualization.arrayToDataTable([
+				          ['date', 'num'],
+				          {% for pos in adverts %}
+				          ['{{ pos.key }}',  {{ pos.value }} ],
+				          {% endfor %}
+		]);
+				
+		var options = {
+			title: 'Total',
+			isStacked: true,
+    		width: 940,
+    		height: 400
+		};
+				
+		var chart = new google.visualization.AreaChart(document.getElementById('chart_adverts'));
+		chart.draw(data, options);
+	}
+	
+	function drawAdvertsSaleChart() {
+		 var data = google.visualization.arrayToDataTable([
+				          ['date', 'num'],
+				          {% for pos in advertsSale %}
+				          ['{{ pos.key }}',  {{ pos.value }} ],
+				          {% endfor %}
+		]);
+				
+		var options = {
+			title: 'Sale',
+			isStacked: true,
+    		width: 940,
+    		height: 400
+		};
+				
+		var chart = new google.visualization.AreaChart(document.getElementById('chart_adverts_sale'));
+		chart.draw(data, options);
+	}
+	
+	function drawAdvertsSwapChart() {
+		 var data = google.visualization.arrayToDataTable([
+				          ['date', 'num'],
+				          {% for pos in advertsSwap %}
+				          ['{{ pos.key }}',  {{ pos.value }} ],
+				          {% endfor %}
+		]);
+				
+		var options = {
+			title: 'Swap',
+			isStacked: true,
+    		width: 940,
+    		height: 400
+		};
+				
+		var chart = new google.visualization.AreaChart(document.getElementById('chart_adverts_swap'));
+		chart.draw(data, options);
+	}
+	
+	function drawAdvertsFreebieChart() {
+		 var data = google.visualization.arrayToDataTable([
+				          ['date', 'num'],
+				          {% for pos in advertsFreebie %}
+				          ['{{ pos.key }}',  {{ pos.value }} ],
+				          {% endfor %}
+		]);
+				
+		var options = {
+			title: 'Freebie',
+			isStacked: true,
+    		width: 940,
+    		height: 400
+		};
+				
+		var chart = new google.visualization.AreaChart(document.getElementById('chart_adverts_freebie'));
+		chart.draw(data, options);
+	}
+	
+	function drawProfilesChart() {
+		 var data = google.visualization.arrayToDataTable([
+				          ['date', 'accounts'],
+				          {% for pos in profiles %}
+				          ['{{ pos.key }}',  {{ pos.value }} ],
+				          {% endfor %}
+		]);
+				
+		var options = {
+			title: 'New accounts',
+			isStacked: true,
+    		width: 940,
+    		height: 400
+		};
+				
+		var chart = new google.visualization.AreaChart(document.getElementById('chart_profiles'));
+		chart.draw(data, options);
+	}
+	
+	function drawProfilesGeoChart() {
+		 var data = google.visualization.arrayToDataTable([
+				          ['contry', 'profiles'],
+				          {% for pos in profilesGeo %}
+				          ['{{ pos.key }}',  {{ pos.value }} ],
+				          {% endfor %}
+		]);
+				
+		var options = {
+			region: '150',
+			title: 'Accounts',
+			isStacked: true,
+    		width: 940,
+    		height: 400
+		};
+				
+		var chart = new google.visualization.GeoChart(document.getElementById('chart_profiles_geo'));
+		chart.draw(data, options);
+	}
+				
+				
+				      
+  
+  
+</script>
+{% endblock %}

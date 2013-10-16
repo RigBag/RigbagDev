@@ -1,0 +1,277 @@
+@media (max-width: 1199px) {
+  .input-xlarge {
+    width: 342px;
+  }
+  .container {
+    width: 970px;
+  }
+  .sidebar {
+    width: 190px;
+  }
+  .content {
+    margin-left: 190px;
+  }
+  .content .header .bottom .column-left {
+    width: 40%;
+  }
+  .content .header .bottom .column-right {
+    width: 60%;
+  }
+  .content .header .bottom .column-right .search input {
+    width: 223px;
+  }
+  .content .header .bottom ul.size-23 li {
+    width: 285px;
+  }
+  .content .header .bottom ul.size-23 li.active a span {
+    padding-right: 40px;
+  }
+  .content .header .bottom ul.size-23 li.short {
+    width: 150px;
+  }
+  .content .header .bottom ul.size-23 li.space {
+    width: 195px;
+  }
+  .content .header .bottom .search input {
+    width: 540px;
+  }
+  .content .header .question-new-form form .fields textarea {
+    width: 570px;
+  }
+  .content .body .column-left {
+    margin-left: 20px;
+  }
+  .content .body .column-right {
+    margin-right: 20px;
+  }
+  .adverts .content .body .span10 ul li {
+    width: 173px;
+    height: 270px;
+  }
+  .adverts .content .body .span10 ul li .ico {
+    width: 173px;
+    height: 149px;
+  }
+  .adverts .content .body .span10 ul li .bottom-content {
+    width: 173px;
+  }
+  .adverts .content .body .span10 ul li:nth-child(odd) {
+    padding-left: 10px;
+  }
+  .my-profile .content .header .bottom .column-left,
+  .my-profile .content .header .bottom .column-right {
+    width: 50%;
+  }
+  .my-profile .content .header .bottom .column-left .ico {
+    width: 80px;
+    height: 80px;
+  }
+  .my-profile .content .header .bottom .column-left p {
+    width: 280px;
+  }
+  .my-profile .content .body .adverts-list ul li {
+    width: 173px;
+    height: 270px;
+  }
+  .my-profile .content .body .adverts-list ul li .ico {
+    width: 173px;
+    height: 149px;
+  }
+  .my-profile .content .body .adverts-list ul li .bottom-content {
+    width: 173px;
+  }
+  .my-profile .content .body .adverts-list ul .new-action .border {
+    height: 270px;
+  }
+  .my-profile .content .body .adverts-list ul .new-action .border .ico-add {
+    margin-top: 60px;
+  }
+  .my-profile .content .body .q-and-a-list ul li .question {
+    width: 600px;
+  }
+  .my-profile .content .body .q-and-a-list .advert-preview {
+    width: 580px;
+  }
+  .my-profile .content .body .q-and-a-list .advert-preview .info {
+    width: 510px;
+  }
+  .my-profile .content .body .mysports ul li {
+    width: 369px;
+  }
+  .signup-subscription .content .body .or {
+    left: 375px;
+  }
+  .transactions .content .body table {
+    margin: 30px 20px;
+    width: 740px;
+  }
+  .my-sports .content .body .span10 ul li {
+    width: 369px;
+  }
+  .circles .content .search-new-form {
+    margin-left: 195px;
+  }
+  .circles .content .search-new-form .span10 {
+    width: 584px;
+  }
+  .circles .content .search-new-form form input {
+    width: 475px;
+  }
+  .circles .content .body .circles-sidebar {
+    width: 193px;
+  }
+  .circles .content .body .circles-sidebar .other-circles span span {
+    display: none;
+  }
+  .circles .content .body .adverts-list {
+    margin-left: 193px;
+  }
+  .circles .content .body .adverts-list ul li {
+    width: 173px;
+    height: 270px;
+  }
+  .circles .content .body .adverts-list ul li .ico {
+    width: 173px;
+    height: 149px;
+  }
+  .circles .content .body .adverts-list ul li .bottom-content {
+    width: 173px;
+  }
+  .circles .content .body .q-and-a-list {
+    margin-left: 195px;
+  }
+  .circles .content .body .q-and-a-list ul li .question {
+    width: 400px;
+  }
+  .circles .content .body .q-and-a-list ul li .advert-preview {
+    width: 370px;
+  }
+  .circles .content .body .q-and-a-list ul li .advert-preview .info {
+    width: 305px;
+  }
+  .circles .content .body .circle-members {
+    margin-left: 195px;
+  }
+  .circles .content .body .circle-members ul li {
+    width: 174px;
+  }
+  .circles .content .body .circle-members ul li .ico {
+    width: 174px;
+    height: 174px;
+  }
+  .circles.browse .header .bottom ul li.space {
+    width: 193px;
+  }
+  .circles.browse .header .bottom ul li.longspace {
+    width: 587px !important;
+  }
+  .circles.browse .circles-other {
+    margin-left: 193px;
+    width: 587px;
+  }
+  .circles.browse .circles-other .dropdowns {
+    width: 547px;
+    left: 383px;
+  }
+  .circles.browse .circles-other .dropdowns .pl-dropdown .cont {
+    width: 250px;
+  }
+  .circles.browse .circles-other .dropdowns .pl-dropdown .cont .value {
+    width: 200px;
+    font-size: 14px;
+  }
+  .circles.browse .circles-other .dropdowns .pl-dropdown .cont ul {
+    width: 240px;
+  }
+  .circles.browse .circles-other .dropdowns .pl-dropdown .cont ul li {
+    width: 215px;
+  }
+  .circles.browse .circles-other .circles-list li {
+    width: 262px;
+  }
+  .advert-single .content .body .column-left {
+    margin-left: 20px;
+  }
+  .advert-single .content .body .column-left .photo-main {
+    width: 340px;
+    height: 294px;
+  }
+  .advert-single .content .body .column-left .photos-list ul li {
+    width: 60px;
+    height: 51px;
+  }
+  .advert-single .content .body .column-right {
+    margin: 0 0 0 -10px;
+  }
+  .advert-single .content .body .column-right .about {
+    width: 390px;
+  }
+  .advert-single .content .body .column-right .about .user {
+    margin-right: 10px;
+    width: 180px;
+  }
+  .advert-single .content .body .column-right .about .user .avatar {
+    height: 40px;
+    width: 40px;
+  }
+  .advert-single .content .body .column-right .about .user .info p {
+    font-size: 12px;
+  }
+  .advert-single .content .body .column-right .about .user .info h4 {
+    font-size: 14px;
+  }
+  .advert-single .content .body .column-right .about .advert {
+    width: 189px;
+    padding-left: 10px;
+  }
+  .advert-single .content .body .column-right .about .advert ul li {
+    font-size: 13px;
+  }
+  .advert-single .content .body .column-right .about .advert ul li.circles div.circle-name {
+    width: 145px;
+    line-height: 1.4;
+    margin-bottom: 3px;
+  }
+  .advert-new .content .body #formAdvert .span5 {
+    width: 460px;
+  }
+  .advert-new .content .body #formAdvert .span5:last-child {
+    width: 300px;
+  }
+  .q-and-a .content .body ul li .question {
+    width: 600px;
+  }
+  .q-and-a .content .body .advert-preview {
+    width: 580px;
+  }
+  .q-and-a .content .body .advert-preview .info {
+    width: 510px;
+  }
+  .q-and-a-single .content .body ul li .question {
+    width: 480px;
+  }
+  .q-and-a-single .content .body ul li.answer-form .fields {
+    width: 360px;
+  }
+  .q-and-a-single .content .body ul li.answer-form .fields textarea {
+    width: 342px;
+  }
+  .q-and-a-single .content .body ul li.answer-form .buttons {
+    width: 120px;
+  }
+  .q-and-a-single .content .body ul li.answer-form .buttons .btn {
+    width: 118px;
+  }
+  .q-and-a-single .content .body .advert-preview {
+    width: 460px;
+  }
+  .q-and-a-single .content .body .advert-preview .info {
+    width: 400px;
+  }
+  .news-list .content .body ul li {
+    width: 239px;
+  }
+  .news-list .content .body ul li:nth-child(odd) {
+    padding-left: 10px;
+  }
+}

@@ -1,0 +1,22 @@
+ <!-- SEARCH-NEW-FORM: start -->
+<div class="search-new-form">
+	<div class="row">
+		<div class="span10">
+			<form action="#" method="post" id="formUsers" onsubmit="usersSearch(); return false;">
+				<div class="search-container">
+					<input type="text" name="search" class="required" autocomplete="off" id="searchQuery"/>
+					<div class="but-clear"></div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<!-- SEARCH-NEW-FORM: end -->
+<script>
+$(document).ready( function() {
+	observerSearch('#searchQuery');
+	$('#searchQuery').keyup( function() {
+		rbApp.user.search();
+	});
+});
+</script>

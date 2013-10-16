@@ -1,0 +1,17 @@
+<!-- SPAN10: start -->
+<div class="span10 q-and-a-list">
+	<ul id="qa-list">
+	{% if myProfile %}
+		<li class="new-action" onclick="setUrl('/qa/add/' );">
+			<div class="border">
+				<div class="ico-add"></div>
+				<h4>{% trans %}Post a new question{% endtrans %}</h4>
+			</div>
+		</li>
+		{% endif %}
+	{% for position in questions %}
+		{% include 'ProtonRigbagBundle:Qa:position-main.html.twig' with { 'position': position } %}
+	{% endfor %}
+	</ul>
+</div>
+<!-- SPAN10: end -->

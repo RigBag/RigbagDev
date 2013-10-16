@@ -1,0 +1,48 @@
+<!-- SEARCH-NEW-FORM: start -->
+<div class="search-new-form">
+	<div class="row">
+		<div class="span10">
+			<form action="#" method="post" id="formSearch" onsubmit="return false;">
+				<div class="search-container">
+					<input type="text" name="search" class="required" autocomplete="off" id="searchQuery"/>
+					<div class="but-clear"></div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<!-- SEARCH-NEW-FORM: end -->
+<!-- .QUESTION-NEW-FORM: start -->
+<div class="question-new-form">
+	<div class="row">
+		<div class="span10">
+			<div class="close" onclick="$('.question-new-form').slideUp(); $('.bottom .add-button').removeClass( 'active' );"></div>
+			<form action="#" onsubmit="return false;" method="post" id="formQA">
+				<input type="hidden" value="{{circle.interestId}}" name="questionDiscipline" id="questionDiscipline"/>
+				<input type="hidden" value="{#{circle.locationId}#}" name="questionWhere" id="questionWhere"/>
+				<input type="hidden" value="" id="extraType"/>
+				<input type="hidden" value="" id="extraData"/>
+				<div class="head">
+					<h4>{% trans %}Ask a question{% endtrans %} <span>{% trans %}in{% endtrans %} {{ circle.name }} ({{ circle.description }})</span></h4>
+				</div>
+				<div class="fields">
+					<textarea name="question" class="required" id="question"></textarea>
+				</div>
+				<div class="buttons">
+					<button type="submit" onclick="rbApp.qa.send( {{ circle.id }} ); return false;" class="btn">{% trans %}Ask{% endtrans %}</button>
+				</div>
+				<div class="clearfix"></div>
+			</form>
+		</div>
+	</div>
+</div>
+<!-- .QUESTION-NEW-FORM: end -->
+<script>
+$(document).ready( function() {
+	observerSearch('#searchQuery');
+	$('.question-new-form textarea').autosize();
+	$('#searchQuery').keyup( function() {
+		rbApp.qa.search();
+	});
+});
+</script>

@@ -1,0 +1,19 @@
+<div class="pl-dropdown" id="{{id}}">
+	<div class="cont">
+		<div class="value">{% trans %}In All Sports{% endtrans %}</div>
+		<div class="ico"><span></span></div>
+		<div class="clearfix"></div>
+		<ul>
+			<li data-id="0" class="current">{% trans %}In All Sports{% endtrans %}</li>
+			{% for sport in sports %}
+			<li data-id="{{ sport.id }}">{{ sport.name|stripslashes }}</li>
+			{% endfor %}
+		</ul>
+	</div>
+</div>
+
+<script>
+$(document).ready( function() {
+	initDropdown2( '#{{ id }}', '#{{fieldId}}' );
+});
+</script>

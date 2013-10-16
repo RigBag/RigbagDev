@@ -1,0 +1,23 @@
+<!-- SPAN10: start -->
+<div class="span10 adverts-list">
+	{% if adverts or myProfile %}
+	<ul id="adverts-list">
+		{% if myProfile %}
+		<li class="new-action" onclick="setUrl('/adverts/add/');">
+			<div class="border">
+				<div class="ico-add"></div>
+				<h4>{% trans %}Post a new advert{% endtrans %}</h4>
+			</div>
+		</li>
+		{% endif %}
+		{% for advert in adverts %}
+			{% include 'ProtonRigbagBundle:Advert:list-box.html.twig' with { 'advert': advert } %}
+		{% endfor %}
+	</ul>
+	{% else %}
+		<div class="no-items">
+			No adverts
+		</div>
+	{% endif %}
+</div>
+<!-- SPAN10: end -->

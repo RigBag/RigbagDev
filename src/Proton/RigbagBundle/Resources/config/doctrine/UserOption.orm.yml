@@ -1,0 +1,24 @@
+Proton\RigbagBundle\Entity\UserOption:
+    type: entity
+    table: user_option
+    repositoryClass: Proton\RigbagBundle\Repository\UserOptionRepository
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        user_id:
+            type: integer
+        option_key:
+            type: string
+            length: 30
+        option_value:
+            type: string
+            length: 100
+    manyToOne:
+        user:
+            targetEntity: User
+            inversedBy: options
+            joinColumn:
+                name: user_id
+                referencedColumnName: id

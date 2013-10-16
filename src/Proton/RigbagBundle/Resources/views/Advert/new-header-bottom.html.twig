@@ -1,0 +1,17 @@
+<ul class="size-3el">
+	{% if mode is not defined %}
+		{% set mode = 'sale' %}
+	{% endif %}
+	{% if lock is not defined %}
+		{% set lock = false %}
+	{% endif %}
+	<li class="first{% if lock == true %} locked{% endif %}{% if mode == 'sale' %} active{% endif %}">
+		<a href="#" onclick="{% if lock == true %}return false; {% endif %}$('#mode').val('sale'); rbApp.advert.renderForm(); $(this).parent().parent().children('li').removeClass('active'); $(this).parent().addClass( 'active'); return false;" title=""><span>{% trans %}Sale{% endtrans %}</span></a>
+	</li>
+	<li data-type="swap" class="{% if mode == 'swap' %}active{% endif %}{% if lock == true %} locked{% endif %}">
+		<a href="#" onclick="{% if lock == true %}return false; {% endif %}$('#mode').val('swap'); rbApp.advert.renderForm(); $(this).parent().parent().children('li').removeClass('active'); $(this).parent().addClass( 'active'); return false;" title=""><span>{% trans %}Swap{% endtrans %}</span></a>
+	</li>
+	<li data-type="freebie" class="{% if mode == 'freebie' %}active{% endif %}{% if lock == true %} locked{% endif %}">
+		<a href="#" onclick="{% if lock == true %}return false; {% endif %}$('#mode').val('freebie'); rbApp.advert.renderForm(); $(this).parent().parent().children('li').removeClass('active'); $(this).parent().addClass( 'active'); return false;" title=""><span>{% trans %}Freebie{% endtrans %}</span></a>
+	</li>
+</ul>

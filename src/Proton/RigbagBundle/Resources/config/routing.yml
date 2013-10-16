@@ -1,0 +1,574 @@
+test:
+    pattern:  /test/
+    defaults: { _controller: ProtonRigbagBundle:Test:blob }
+
+home_auto:
+    pattern:  /autologin/
+    defaults: { _controller: ProtonRigbagBundle:Default:autologin }
+
+login:
+    pattern:  /home/
+    defaults: { _controller: ProtonRigbagBundle:Default:index }
+
+home:
+    pattern:  /home/
+    defaults: { _controller: ProtonRigbagBundle:Default:index }
+
+start:
+    pattern:  /
+    defaults: { _controller: ProtonRigbagBundle:Main:index }
+
+login_facebook_mobile:
+    pattern:  /login/facebook/mobile/
+    defaults: { _controller: ProtonRigbagBundle:Default:loginMobile }
+
+facebook_login:
+    pattern:  /login/{type}
+    defaults: { _controller: ProtonRigbagBundle:Default:login, type: 'facebook' }
+
+login_facebook:
+    pattern:  /login/{type}/
+    defaults: { _controller: ProtonRigbagBundle:Default:login, type: 'facebook' }
+
+login_twitter:
+    pattern:  /login/{type}/
+    defaults: { _controller: ProtonRigbagBundle:Default:login, type: 'twitter' }
+
+login_google:
+    pattern:  /login/{type}/
+    defaults: { _controller: ProtonRigbagBundle:Default:login, type: 'google' }
+
+logout:
+    pattern:  /logout/
+    defaults: { _controller: ProtonRigbagBundle:Default:logout }
+
+mail_send:
+    pattern:  /mail/send/
+    defaults: { _controller: ProtonRigbagBundle:Mail:send }
+
+news_list:
+    pattern:  /news/list/
+    defaults: { _controller: ProtonRigbagBundle:News:list }
+
+news_update:
+    pattern:  /news/update/
+    defaults: { _controller: ProtonRigbagBundle:News:update }
+
+advert_social_publish:
+    pattern: /advert/social/publish/
+    defaults: { _controller: ProtonRigbagBundle:Advert:socialPublish }
+
+advert_suggest_to_friend:
+    pattern:  /advert/suggest-to-friend/
+    defaults: { _controller: ProtonRigbagBundle:Mail:suggestAdvertToFriend }
+
+adverts_home:
+    pattern:  /
+    defaults: { _controller: ProtonRigbagBundle:Main:index }
+
+adverts_search:
+    pattern:  /advert/search/
+    defaults: { _controller: ProtonRigbagBundle:Advert:search }
+
+advert_short_url:
+    pattern:  /a/{hash}/
+    defaults: { _controller: ProtonRigbagBundle:Advert:shortUrl }
+
+advert_delete:
+    pattern:  /advert/delete/
+    defaults: { _controller: ProtonRigbagBundle:Advert:delete }
+
+advert_close:
+    pattern:  /advert/close/
+    defaults: { _controller: ProtonRigbagBundle:Advert:close }
+
+advert_edit:
+    pattern:  /advert/edit/{advertId}/
+    defaults: { _controller: ProtonRigbagBundle:Advert:edit }
+
+advert_add:
+    pattern:  /advert/add/
+    defaults: { _controller: ProtonRigbagBundle:Advert:add }
+
+advert_save:
+    pattern:  /advert/save/
+    defaults: { _controller: ProtonRigbagBundle:Advert:save }
+
+adverts_more:
+    pattern:  /advert/more/
+    defaults: { _controller: ProtonRigbagBundle:Advert:loadMore }
+
+advert_view:
+    pattern:  /advert/view/{advertId}/{idType}/
+    defaults: { _controller: ProtonRigbagBundle:Advert:view, idType: 'i' }
+
+advert_buy:
+    pattern:  /advert/buy/{advertId}/
+    defaults: { _controller: ProtonRigbagBundle:Advert:buy}
+
+adverts_list:
+    pattern:  /advert/list/{mode}/
+    defaults: { _controller: ProtonRigbagBundle:Advert:list, mode: 'sale' }
+
+users_search:
+    pattern: /users/search/
+    defaults: { _controller: ProtonRigbagBundle:User:search }
+
+user_panel_message_read:
+    pattern: /user/panel/message/read/{messageId}/
+    defaults: { _controller: ProtonRigbagBundle:User:panelMessageRead }
+
+user_panel_refresh:
+    pattern: /user/panel/refresh/
+    defaults: { _controller: ProtonRigbagBundle:User:panelRefresh }
+
+user_panel_messages:
+    pattern: /user/panel/messages/
+    defaults: { _controller: ProtonRigbagBundle:User:panelRefreshMessages }
+
+user_short_url:
+    pattern: /u/{hash}/
+    defaults: { _controller: ProtonRigbagBundle:User:shortUrl }
+
+user_transactions:
+    pattern: /profile/transactions/
+    defaults: { _controller: ProtonRigbagBundle:User:transactions }
+
+user_subscription:
+    pattern: /profile/subscription/
+    defaults: { _controller: ProtonRigbagBundle:User:subscription }
+
+user_subscription_select:
+    pattern: /profile/subscription/select/{type}/
+    defaults: { _controller: ProtonRigbagBundle:User:subscriptionSelect }
+
+user_adverts:
+    pattern:  /profile/{userId}/
+    defaults: { _controller: ProtonRigbagBundle:User:profile, userId: '' }
+
+user_qa:
+    pattern:  /profile/qa/{userId}/{mode}/
+    defaults: { _controller: ProtonRigbagBundle:User:qa, userId: '', mode: 'simple' }
+
+user_circles:
+    pattern:  /profile/circles/{userId}/{mode}/
+    defaults: { _controller: ProtonRigbagBundle:User:circles, userId: '', mode: 'simple' }
+
+profile:
+    pattern:  /profile/{userId}/
+    defaults: { _controller: ProtonRigbagBundle:User:profile, userId: '' }
+
+swap_reject:
+    pattern:  /swap/reject/
+    defaults: { _controller: ProtonRigbagBundle:Qa:swapReject }
+
+swap_accept:
+    pattern:  /swap/accept/
+    defaults: { _controller: ProtonRigbagBundle:Qa:swapAccept }
+
+free_reject:
+    pattern:  /free/reject/
+    defaults: { _controller: ProtonRigbagBundle:Qa:freeReject }
+
+free_accept:
+    pattern:  /free/accept/
+    defaults: { _controller: ProtonRigbagBundle:Qa:freeAccept }
+
+qa_short_url:
+    pattern:  /q/{hash}/
+    defaults: { _controller: ProtonRigbagBundle:Qa:shortUrl }
+
+qa_morew:
+    pattern:  /q-and-a/view/{qaId}/
+    defaults: { _controller: ProtonRigbagBundle:Qa:view, qaId: 0 }
+
+qa_view:
+    pattern:  /q-and-a/more/
+    defaults: { _controller: ProtonRigbagBundle:Qa:loadMore }
+
+qa_search:
+    pattern:  /q-and-a/search/
+    defaults: { _controller: ProtonRigbagBundle:Qa:search }
+
+qa_answer:
+    pattern:  /q-and-a/answer/
+    defaults: { _controller: ProtonRigbagBundle:Qa:answer }
+
+qa_add:
+    pattern:  /q-and-a/add/
+    defaults: { _controller: ProtonRigbagBundle:Qa:add }
+
+qa_delete:
+    pattern:  /q-and-a/delete/
+    defaults: { _controller: ProtonRigbagBundle:Qa:delete }
+
+qa:
+    pattern:  /q-and-a/{subAction}/{subId}/
+    defaults: { _controller: ProtonRigbagBundle:Qa:index, subAction: 'none', subId: '0' }
+
+circles_browse:
+    pattern:  /circles/browse/
+    defaults: { _controller: ProtonRigbagBundle:Circles:browse }
+
+circles_join_search:
+    pattern:  /circles/join/search/
+    defaults: { _controller: ProtonRigbagBundle:Circles:joinSearch }
+
+circles_join:
+    pattern:  /circles/join/{mode}/
+    defaults: { _controller: ProtonRigbagBundle:Circles:join, mode: 'simple' }
+
+circle_add:
+    pattern:  /circles/add/{circleId}/
+    defaults: { _controller: ProtonRigbagBundle:Circles:add }
+
+circle_list:
+    pattern:  /circles/list/
+    defaults: { _controller: ProtonRigbagBundle:Circles:list }
+
+circle_delete:
+    pattern:  /circles/delete/{circleId}/
+    defaults: { _controller: ProtonRigbagBundle:Circles:delete }
+
+circles:
+    pattern:  /circles/{circleId}/
+    defaults: { _controller: ProtonRigbagBundle:Circles:adverts, circleId: 0, mode: 'full' }
+
+circle_adverts_more:
+    pattern:  /circles/more/adverts/
+    defaults: { _controller: ProtonRigbagBundle:Circles:moreAdverts }
+
+circle_adverts:
+    pattern:  /circles/adverts/{circleId}/{mode}/
+    defaults: { _controller: ProtonRigbagBundle:Circles:adverts, circleId: 0, mode: 'simple' }
+
+circle_qa:
+    pattern:  /circles/qa/{circleId}/{mode}/
+    defaults: { _controller: ProtonRigbagBundle:Circles:qa, circleId: 0, mode: 'simple' }
+
+circle_members:
+    pattern:  /circles/members/{circleId}/{mode}/
+    defaults: { _controller: ProtonRigbagBundle:Circles:members, circleId: 0, mode: 'simple' }
+
+profile_my:
+    pattern:  /profile/
+    defaults: { _controller: ProtonRigbagBundle:User:profile, userId: '' }
+
+settings:
+    pattern:  /settings/
+    defaults: { _controller: ProtonRigbagBundle:User:settings }
+
+settings_my_sports:
+    pattern:  /settings/my-sports/
+    defaults: { _controller: ProtonRigbagBundle:User:mySports }
+
+settings_update_my_sport:
+    pattern:  /settings/my-sport-update/
+    defaults: { _controller: ProtonRigbagBundle:User:mySportUpdate }
+
+settings_update_my_profile:
+    pattern:  /settings/my-profile-update/
+    defaults: { _controller: ProtonRigbagBundle:User:myProfileUpdate }
+
+settings_disconnect:
+    pattern:  /settings/disconnect/{type}/
+    defaults: { _controller: ProtonRigbagBundle:User:disconnect }
+
+settings_connect:
+    pattern:  /settings/connect/{type}/
+    defaults: { _controller: ProtonRigbagBundle:User:connect }
+
+upload_advert_photo:
+    pattern:  /image/upload/advert/{num}
+    defaults: { _controller: ProtonRigbagBundle:Image:upload }
+
+upload_advert_tmp_photo:
+    pattern:  /image/upload/{type}/{num}
+    defaults: { _controller: ProtonRigbagBundle:Image:upload, type: 'tmpadvert' }
+
+settings_upload_avatar:
+    pattern:  /image/upload/{type}
+    defaults: { _controller: ProtonRigbagBundle:Image:upload, num: '' }
+
+image_user_avatar:
+    pattern:  /image/avatar/{userId}/{width}/{height}
+    defaults: { _controller: ProtonRigbagBundle:Image:avatar }
+
+image_advert_main:
+    pattern:  /image/advert-thumb/{advertId}/
+    defaults: { _controller: ProtonRigbagBundle:Image:thumbAdvert }
+
+image_advert:
+    pattern:  /image/advert-thumb/{imageId}/{width}/{height}/{forceZoom}/
+    defaults: { _controller: ProtonRigbagBundle:Image:advert, forceZoom: 0 }
+
+image_sport:
+    pattern:  /image/sport-thumb/{sportId}/{width}/{height}/
+    defaults: { _controller: ProtonRigbagBundle:Image:sport }
+
+image_thumb:
+    pattern:  /image/thumb/
+    defaults: { _controller: ProtonRigbagBundle:Image:thumb }
+
+image_view_avatar:
+    pattern:  /image/avatar/{u}/{w}/{h}
+    defaults: { _controller: ProtonRigbagBundle:Image:avatar, w: 80, h: 80 }
+
+signup_profile:
+    pattern:  /signup/profile/
+    defaults: { _controller: ProtonRigbagBundle:User:settings }
+
+signup_mysports:
+    pattern:  /signup/mysports/
+    defaults: { _controller: ProtonRigbagBundle:User:mySports }
+
+signup_subscription:
+    pattern:  /signup/subscription/
+    defaults: { _controller: ProtonRigbagBundle:User:subscription }
+
+signup_done:
+    pattern:  /signup/done/
+    defaults: { _controller: ProtonRigbagBundle:User:done }
+
+user_mysports_filled:
+    pattern: /settings/mysportsfilled/
+    defaults: { _controller: ProtonRigbagBundle:User:mySportSetFilled }
+
+sandbox_payment_advert:
+    pattern: /sandbox/payment/advert/{advertId}
+    defaults: { _controller: ProtonRigbagBundle:Sandbox:selectPayment, return: 'advert' }
+
+sandbox_payment_annual:
+    pattern: /sandbox/payment/select/{return}/
+    defaults: { _controller: ProtonRigbagBundle:Sandbox:selectPayment, return: 'subscription' }
+
+sandbox_payment_select:
+    pattern: /sandbox/payment/select/
+    defaults: { _controller: ProtonRigbagBundle:Sandbox:selectPayment }
+
+sandbox_payment_process:
+    pattern: /sandbox/payment/process/
+    defaults: { _controller: ProtonRigbagBundle:Sandbox:processPayment }
+
+
+#########################
+##      PAYMENTS      ###
+#########################
+
+payments_subscription:
+    pattern: /payment/subscription/{type}/
+    defaults: { _controller: ProtonRigbagBundle:Payment:subscription }
+
+payments_advert:
+    pattern: /payment/advert/{method}/{advertId}/
+    defaults: { _controller: ProtonRigbagBundle:Payment:advert }
+
+payments_buy:
+    pattern: /payment/buy/{method}/{advertId}/
+    defaults: { _controller: ProtonRigbagBundle:Payment:buy }
+
+payments_return:
+    pattern: /payment/return/{method}/{type}/
+    defaults: { _controller: ProtonRigbagBundle:Payment:return }
+
+payments_cancel:
+    pattern: /payment/cancel/{method}/{type}/
+    defaults: { _controller: ProtonRigbagBundle:Payment:cancel }
+
+payments_ipn:
+    pattern: /payment/ipn/
+    defaults: { _controller: ProtonRigbagBundle:Payment:ipn }
+
+############################
+##   iPhone version 1.0   ##
+############################
+
+iphone_buy_advert:
+    pattern: /iphone/buy/advert/{userId}/{method}/{advertId}/
+    defaults: { _controller: ProtonRigbagBundle:Iphone:buyAdvert }
+    
+iphone_close:
+    pattern: /iphone/close/
+    defaults: { _controller: ProtonRigbagBundle:Iphone:close }
+    
+    
+
+#########################
+##   API version 1.0   ##
+#########################
+
+api_main:
+    pattern: /api/
+    defaults: { _controller: ProtonRigbagBundle:Api:index }
+
+api_log:
+    pattern: /api/log/
+    defaults: { _controller: ProtonRigbagBundle:Api:log }
+
+api_search:
+    pattern: /api/search/
+    defaults: { _controller: ProtonRigbagBundle:Api:search }
+
+api_transactions_list:
+    pattern: /api/transactions/list/
+    defaults: { _controller: ProtonRigbagBundle:Api:transactionsList }
+
+api_adverts_list:
+    pattern: /api/adverts/
+    defaults: { _controller: ProtonRigbagBundle:Api:advertsList, fromId: null }
+
+api_advert_message_accept:
+    pattern: /api/advert/message/accept/
+    defaults: { _controller: ProtonRigbagBundle:Api:advertMessageAccept }
+    
+api_advert_message_reject:
+    pattern: /api/advert/message/reject/
+    defaults: { _controller: ProtonRigbagBundle:Api:advertMessageReject }
+
+api_advert_swap_send:
+    pattern: /api/advert/swap/send/
+    defaults: { _controller: ProtonRigbagBundle:Api:advertSwapSend }
+    
+api_advert_take_send:
+    pattern: /api/advert/take/send/
+    defaults: { _controller: ProtonRigbagBundle:Api:advertTakeSend }
+
+api_advert_messages:
+    pattern: /api/advert/messages/
+    defaults: { _controller: ProtonRigbagBundle:Api:advertMessages }
+
+api_advert_message_delete:
+    pattern: /api/advert/message/delete/
+    defaults: { _controller: ProtonRigbagBundle:Api:advertMessageDelete }
+    
+api_advert_message:
+    pattern: /api/advert/message/
+    defaults: { _controller: ProtonRigbagBundle:Api:advertMessage }
+
+api_advert_delete:
+    pattern: /api/advert/delete/
+    defaults: { _controller: ProtonRigbagBundle:Api:advertDelete }
+
+api_advert_add:
+    pattern: /api/advert/save/
+    defaults: { _controller: ProtonRigbagBundle:Api:advertSave }
+
+api_message_reply:
+    pattern: /api/message/reply/
+    defaults: { _controller: ProtonRigbagBundle:Api:messageReply }
+
+api_profile_info:
+    pattern: /api/profile/info/
+    defaults: { _controller: ProtonRigbagBundle:Api:profileInfo }
+
+api_advert_view:
+    pattern: /api/advert/
+    defaults: { _controller: ProtonRigbagBundle:Api:advertView }
+
+api_suggest:
+    pattern: /api/suggest/
+    defaults: { _controller: ProtonRigbagBundle:Api:suggest }
+
+api_ask_seller:
+    pattern: /api/ask/seller/
+    defaults: { _controller: ProtonRigbagBundle:Api:askSeller }
+
+api_circles_list:
+    pattern: /api/circles/list/
+    defaults: { _controller: ProtonRigbagBundle:Api:circlesList }
+    
+api_circles_browse:
+    pattern: /api/circles/browse/
+    defaults: { _controller: ProtonRigbagBundle:Api:circlesBrowse }
+
+api_circle:
+    pattern: /api/circle/
+    defaults: { _controller: ProtonRigbagBundle:Api:circle }
+
+api_circle_leave:
+    pattern: /api/circle/leave/
+    defaults: { _controller: ProtonRigbagBundle:Api:circleLeave }
+    
+api_circle_join:
+    pattern: /api/circle/join/
+    defaults: { _controller: ProtonRigbagBundle:Api:circleJoin }
+
+api_members_list:
+    pattern: /api/members/list/
+    defaults: { _controller: ProtonRigbagBundle:Api:membersList }
+
+api_ask_circles:
+    pattern: /api/ask/circle/
+    defaults: { _controller: ProtonRigbagBundle:Api:askCircle }
+
+api_user_circles:
+    pattern: /api/user/circles/
+    defaults: { _controller: ProtonRigbagBundle:Api:userCircles }
+
+api_questions_list:
+    pattern: /api/questions/list/
+    defaults: { _controller: ProtonRigbagBundle:Api:questionsList }
+
+api_question_view:
+    pattern: /api/question/view/
+    defaults: { _controller: ProtonRigbagBundle:Api:questionView }
+
+api_question_delete:
+    pattern: /api/question/delete/
+    defaults: { _controller: ProtonRigbagBundle:Api:questionDelete }
+
+api_user_profile:
+    pattern: /api/user/profile/
+    defaults: { _controller: ProtonRigbagBundle:Api:updateProfile }
+
+api_user_social_user_update:
+    pattern: /api/user/social/update/
+    defaults: { _controller: ProtonRigbagBundle:Api:userSocialUpdate }
+
+api_user_social_user_add:
+    pattern: /api/user/social/add/
+    defaults: { _controller: ProtonRigbagBundle:Api:userSocialAdd }
+    
+api_user_social_user_remove:
+    pattern: /api/user/social/delete/
+    defaults: { _controller: ProtonRigbagBundle:Api:userSocialDelete }
+    
+api_user_get:
+    pattern: /api/user/get/
+    defaults: { _controller: ProtonRigbagBundle:Api:getProfile }
+
+api_user_subscription:
+    pattern: /api/user/subscription/
+    defaults: { _controller: ProtonRigbagBundle:Api:setSubscription }
+    
+api_user_notifications_info:
+    pattern: /api/user/notifications/info/
+    defaults: { _controller: ProtonRigbagBundle:Api:userNotificationsInfo }
+
+api_user_notifications_list:
+    pattern: /api/user/notifications/list/
+    defaults: { _controller: ProtonRigbagBundle:Api:userNotificationsList }
+
+api_news_list:
+    pattern: /api/news/list/
+    defaults: { _controller: ProtonRigbagBundle:Api:newsList }
+
+api_interest_list:
+    pattern: /api/interest/list/
+    defaults: { _controller: ProtonRigbagBundle:Api:interestsList }
+
+api_sport_state:
+    pattern: /api/sport/state/
+    defaults: { _controller: ProtonRigbagBundle:Api:sportState }
+
+api_load_app_settings:
+    pattern: /api/app/settings/
+    defaults: { _controller: ProtonRigbagBundle:Api:appSettings }
+
+api_upload_photo:
+    pattern: /api/upload/photo/
+    defaults: { _controller: ProtonRigbagBundle:Api:uploadPhoto }
+
+api_clear_tmp:
+    pattern: /api/clear/tmp/
+    defaults: { _controller: ProtonRigbagBundle:Api:clearTmp }

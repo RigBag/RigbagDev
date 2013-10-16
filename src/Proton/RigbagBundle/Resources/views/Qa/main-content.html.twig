@@ -1,0 +1,26 @@
+<div class="span10">
+	<!-- QA-LIST: start -->
+	<div id="qa-list">
+		{% include 'ProtonRigbagBundle:Qa:questions-list.html.twig' with { 'questions': positions } %}
+	</div>
+	<div class="load-more{% if showLoadMore %}{% else %} hide{% endif %}">
+		<div class="clearfix"></div>
+	</div>
+	<!-- QA-LIST: end -->
+</div>
+<script>
+$(document).ready( function() {
+	{% if user.id < 1 %}
+		rbApp.mustLoginInit();
+	{% endif %}
+});
+$(document).scroll( function() {
+
+	if( $(document).height() == ( $(document).scrollTop() + $(window).height() ) ) {
+		if( !$('.load-more').hasClass( 'hide' ) ) {
+			rbApp.loadMoreQa( 'std' );
+		}
+			
+	}		
+});
+</script>

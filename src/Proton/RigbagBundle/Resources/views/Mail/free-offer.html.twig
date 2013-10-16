@@ -1,0 +1,14 @@
+{% include 'ProtonRigbagBundle:Mail:top.html.twig' %}
+<p>Dear {{ toUser.name }}!.</p>
+<p style="margin: 5px 0 0 0;">{{ user.name }} wants to accept <a href="{{ advertUrl }}" style="color: #34b3d1; text-decoration: none;">{{ advertUrl }}</a></p>
+<p>
+Their shipping address is: {{ user.location }}<br/>
+Email: <a href="mailto:{{ user.email }}" style="color: #34b3d1; text-decoration: none;">{{ user.email }}</a>}<br/>
+Phone: {{ user.phone }}
+</p>
+<p>Accept the offer or reject it.</p>
+
+<p style="margin:15px 0 0 0;">Thank you for using RigBag.<br/>
+The RigBag Team<br/>
+<a href="http://rigbag.com" style="color: #34b3d1; text-decoration: none;">http://rigbag.com</a></p>
+{% include 'ProtonRigbagBundle:Mail:bottom.html.twig' %}

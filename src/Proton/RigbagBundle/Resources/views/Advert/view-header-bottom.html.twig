@@ -1,0 +1,50 @@
+<!-- COLUMN-LEFT: start -->
+<div class="column-left">
+	<ul>
+		<li class="first{% if mode == 'sale' %} active{% endif %}" data-type="sale">
+			<a href="#/adverts/list/sale/" title=""><span>{% trans %}Sale{% endtrans %}</span></a>
+		</li>
+		<li{% if mode == 'swap' %} class="active"{% endif %} data-type="swap">
+			<a href="#/adverts/list/swap/" title=""><span>{% trans %}Swap{% endtrans %}</span></a>
+		</li>
+		<li{% if mode == 'freebie' %} class="active"{% endif %} data-type="freebie">
+			<a href="#/adverts/list/freebie/" title=""><span>{% trans %}Freebie{% endtrans %}</span></a>
+		</li>
+	</ul>
+</div>
+<!-- COLUMN-LEFT: end -->
+<!-- COLUMN-RIGHT: start -->
+<div class="column-right">
+	<form action="#" onsubmit="return false;" method="post" id="searchAdvertForm" class="search">
+		<div class="search-container">
+			<input type="text" name="search" value="{% if query is defined %}{{query}}{% endif %}" autocomplete="off" id="searchQuery"/>
+			<div class="but-clear"></div>
+		</div>
+		<input type="hidden" name="category" id="searchCategory"/>
+		<div class="pl-dropdown" id="dropdown-search-top">
+			<div class="cont">
+				<div class="value">{% trans %}In All Sports{% endtrans %}</div>
+				<div class="ico"><span></span></div>
+				<div class="clearfix"></div>
+				<ul>
+					<li data-id="0" class="current">{% trans %}In All Sports{% endtrans %}</li>
+					{% for interest in interests %}
+					<li data-id="{{ interest.id }}">{{ interest.name|stripslashes }}</li>
+					{% endfor %}
+				</ul>
+			</div>
+		</div>
+	</form>
+</div>
+<!-- COLUMN-RIGHT: end -->
+<script>
+$(document).ready( function() {
+	observerSearch('#searchQuery');
+	initDropdown2( '#dropdown-search-top', '#searchCategory' );
+	
+	$('#searchQuery').keyup( function() {
+		rbApp.advert.search();
+	});
+	
+});
+</script>

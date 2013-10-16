@@ -1,0 +1,14 @@
+{% include 'ProtonRigbagBundle:Mail:top.html.twig' %}
+<p>Well done, {{ buyer.name }}!.</p>
+<p style="margin: 5px 0 0 0;">
+You have just bought {{ advert.name }} from {{ advert.user.name }}!
+The seller {{ advert.user.name }} has been notified and received your shipping address: {{ advert.user.location }}
+</p>
+<p>
+You may contact them by email {{ user.email }}{% if user.id %} or by phone {{user.phone }}{% endif %}<phone>.
+</p>
+
+<p style="margin:15px 0 0 0;">Thank you for using RigBag.<br/>
+The RigBag Team<br/>
+<a href="http://rigbag.com" style="color: #34b3d1; text-decoration: none;">http://rigbag.com</a></p>
+{% include 'ProtonRigbagBundle:Mail:bottom.html.twig' %}

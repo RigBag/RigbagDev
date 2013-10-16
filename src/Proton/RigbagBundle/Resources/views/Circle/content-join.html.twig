@@ -1,0 +1,16 @@
+<div class="span10 circles-join">
+	<form action="#" onsubmit="return false;" method="">
+	 	<input type="text" name="key" id="key" class="span9" autocomplete="off" data-provide="typeahead" placeholder="{% trans %}Enter location or interest{% endtrans %}..."/>
+	</form>
+	<div id="sub-content">
+	
+	</div>
+</div>
+<script>
+$(document).ready( function() {
+	observerSearch('#searchQuery2');
+	$('#key').keyup( function() {
+		rbApp.circle.searchJoin();
+	});
+});
+</script>

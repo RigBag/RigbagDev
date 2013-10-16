@@ -1,0 +1,207 @@
+<div class="span10">
+	<!-- CIRCLES-SIDEBAR: start -->
+	<div class="circles-sidebar">
+		<div class="sidebar-container">
+			<ul>
+				{% for circle in myCircles %}
+				<li data-id="{{ circle.id }}" data-name="{{ circle.name }}" data-description="{{ circle.description }}" data-image="{{ path('image_sport', { sportId: circle.interest.id, width: 50, height: 50 }) }}" onclick="setUrl('/circles/{{ circle.id }}/adverts/list/'); selectMenuElement2( $(this) );">
+					<div>
+						<h3><a href="#/circles/{{ circle.id }}/adverts/list/" onclick="selectMenuElement2( $(this).parent().parent() );" title="">{{ circle.name|stripslashes }}</a></h3>
+						<!-- <h4><a href="#/circles/{{ circle.id }}/adverts/list/" onclick="selectMenuElement2( $(this).parent().parent() );" title="">{{ circle.description|stripslashes }}</a></h4> -->
+						<a class="but-delete"></a>
+					</div>
+				</li>
+				{% endfor %}
+			</ul>
+		</div>
+	</div>
+	<!-- CIRCLES-SIDEBAR: end -->
+	<!--  OTHER CIRCLES: start -->
+	<div class="circles-other">
+		<div class="dropdowns">
+
+			<div class="pl-dropdown pl-dropdown-2 pl-dropdown-2-xsmall" id="dropdown-sport" style="float: left;">
+				<div class="cont">
+					<div class="value">{% trans %}select a sport{% endtrans %}</div>
+					<div class="ico"><span></span></div>
+					<div class="clearfix"></div>
+					<ul>
+						<li data-id="">{% trans %}select a sport{% endtrans %}</li>
+					{% for sport in sports %}
+						<li data-id="{{sport.id}}">{{sport.name}}</li>
+					{% endfor %}
+					</ul>
+				</div>
+			</div>
+
+			<!-- <div class="pl-dropdown pl-dropdown-2 pl-dropdown-2-xsmall" id="dropdown-location" style="float: left;">
+				<div class="cont">
+					<div class="value">{% trans %}select a location{% endtrans %}</div>
+					<div class="ico"><span></span></div>
+					<div class="clearfix"></div>
+					<ul>
+						<li data-id="">{% trans %}select a location{% endtrans %}</li>
+					{% for location in locations %}
+						<li data-id="{{location.id}}">{{location.name}}</li>
+					{% endfor %}
+					</ul>
+				</div>
+			</div> -->
+			<div class="clearfix"></div>
+
+		</div>
+		<ul class="circles-list">
+			{% include 'ProtonRigbagBundle:Circle:browse-sub-content.html.twig' with { 'circles': circles } %}
+		</ul>
+	</div>
+	<!-- OTHER CIRCLES: end -->
+	<input type="hidden" name="sport" id="sport"/>
+	<input type="hidden" name="location" id="location"/>
+</div>
+<script>
+$(document).ready( function() {
+	initDropdown2( '#dropdown-sport', '#sport', 'refreshCircles()' );
+	initDropdown2( '#dropdown-location', '#location', 'refreshCircles()' );
+	resizeCirclesSidebar();
+	setTimeout( 'resizeCirclesSidebar()', 500 );
+	bind();
+	bindDel();
+});
+$(window).resize( function() {
+	resizeCirclesSidebar();
+});
+
+function bindDel() {
+
+	$('.sidebar-container .but-delete').unbind('click');
+
+	$('.sidebar-container .but-delete').click( function( e ) {
+		e.stopPropagation();
+
+		if( confirm( 'Are you sure?' ) ) {
+
+			var id = $(this).parent().parent().data( 'id' );
+			var name = $(this).parent().parent().data( 'name' );
+			var description = $(this).parent().parent().data( 'description' );
+			var image = $(this).parent().parent().data( 'image' );
+
+			$(this).parent().parent().fadeOut( function() {
+				var html = '';
+				html = html + '<li class="new" style="display: none;" data-id="' + id + '" data-name="' + name + '" data-description="' + description + '" data-image="' + image + '">';
+				html = html + '<div class="ico" style="background-image: url(' + image + ');"></div>';
+				html = html + '<h4>' + name + '</h4>';
+				<!-- html = html + '<h5>' + description + '</h5>'; -->
+				html = html + '<a href="#/circles/' + id + '/adverts/list/" class="btn btn-view">{% trans %}view{% endtrans %} &raquo;</a>';
+				html = html + '</li>';
+
+				$('.circles-list').append( html );
+				$('.circles-list .new').fadeIn( function() {
+					$(this).removeClass( 'new' );
+					bind();
+				});
+			});
+
+			$.ajax({
+				type: 'GET',
+				url: APP_PATH + 'circles/delete/' + id + '/',
+				data: {},
+				cache: false,
+				dataType: 'json',
+				async: true,
+				success: function(data) {
+				},
+				error: function(data) {
+					rbApp.showFlash('', data.status + ' ' + data.statusText, 'error', 0);
+				}
+			});
+
+
+		}
+	});
+}
+
+function bind() {
+
+	$('.circles-list li').unbind('click');
+	$('.btn-view').unbind('click');
+
+	$('.btn-view').click( function( e ) {
+		e.stopPropagation();
+	});
+
+	$('.circles-list li').click( function() {
+
+		var id = $(this).data('id');
+		var name = $(this).data('name');
+		var description = $(this).data('description');
+		var image = $(this).data('image');
+		var data = { id: id }
+
+
+		$(this).fadeOut( function() {
+			var html = '<li class="new" data-id="' + id + '" data-name="' + name + '" data-description="' + description + '" data-image="' + image + '" onclick="setUrl(\'/circles/' + id + '/adverts/list/\'); selectMenuElement2( $(this) );" style="display: none;">';
+			html = html + '<div>';
+			html = html + '<h3><a href="#/circles/' + id + '/adverts/list/" onclick="selectMenuElement2( $(this).parent().parent() );" title="">' + {% trans %}name{% endtrans %} + '</a></h3>';
+			<!-- html = html + '<h4><a href="#/circles/' + id + '/adverts/list/" onclick="selectMenuElement2( $(this).parent().parent() );" title="">' + {% trans %}description{% endtrans %} + '</a></h4>'; -->
+			html = html + '<a class="but-delete"></a>';
+			html = html + '</div></li>';
+			$('.sidebar-container ul').append( html );
+			$('.sidebar-container .new').fadeIn( function() { $(this).removeClass( 'new' ); bindDel(); });
+
+		});
+
+		$.ajax({
+			type: 'GET',
+			url: APP_PATH + 'circles/add/' + id + '/',
+			data: data,
+			cache: false,
+			async: true,
+			dataType: 'json',
+			success: function(data) {
+				resizeCirclesSidebar();
+			},
+			error: function(data) {
+				rbApp.showFlash('', data.status + ' ' + data.statusText, 'error', 0);
+			}
+		});
+
+	});
+}
+
+function refreshCircles() {
+	var sportId = $('#sport').val();
+	var locationId = $('#location').val();
+
+
+	var data = {
+		sportId: sportId,
+		locationId: locationId
+	}
+
+	$.ajax({
+		type: 'GET',
+		url: APP_PATH + 'circles/list/',
+		data: data,
+		cache: false,
+		dataType: 'json',
+		success: function(data) {
+			$('.circles-list').html( data.content );
+			bind();
+		},
+		error: function(data) {
+			console.log('uuuuuu');
+			rbApp.showFlash('', data.status + ' ' + data.statusText, 'error', 0);
+		}
+	});
+}
+function resizeCirclesSidebar() {
+	if( $( '.sidebar-container ul' ).height() + 180 >= $('.circles-sidebar').height() ) {
+		$('.header .bottom .arUp').fadeIn('fast');
+		$('.header .bottom .arDown').fadeIn('fast');
+	} else {
+		$('.header .bottom .arUp').fadeOut('fast');
+		$('.header .bottom .arDown').fadeOut('fast');
+	}
+	$('.circles-sidebar .sidebar-container').css( 'height', ( $('.circles-sidebar').height() - 165 ) +'px' );
+}
+</script>

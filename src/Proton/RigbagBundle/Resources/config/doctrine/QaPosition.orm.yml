@@ -1,0 +1,83 @@
+Proton\RigbagBundle\Entity\QaPosition:
+    type: entity
+    table: qa_position
+    repositoryClass: Proton\RigbagBundle\Repository\QaPositionRepository
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        user_id:
+            type: integer
+            nullable: true
+        to_user_id:
+            type: integer
+            nullable: true
+        advert_id:
+            type: integer
+            nullable: true
+        circle_id:
+            type: integer
+            nullable: true
+        parent_id:
+            type: integer
+            nullable: true
+        body:
+            type: text
+        answers_num:
+            type: integer
+        state:
+            type: string
+            length: 10
+        readed:
+            type: integer
+            nullable: true
+        created_at:
+            type: datetime
+        updated_at:
+            type: datetime
+    lifecycleCallbacks:
+        prePersist: [ setCreatedAtValue, setUpdatedAtValue ]
+        preUpdate: [ setUpdatedAtValue ]
+    oneToMany:
+        answers:
+            targetEntity: QaPosition
+            mappedBy: question
+            cascade: [persist]
+        facebookActions:
+            targetEntity: FacebookAction
+            mappedBy: qaPosition
+            cascade: [persist]
+    manyToOne:
+        question:
+            targetEntity: QaPosition
+            inversedBy: answers
+            joinColumn:
+                name: parent_id
+                referencedColumnName: id
+        advert:
+            targetEntity: Advert
+            inversedBy: questions
+            joinColumn:
+                name: advert_id
+                referencedColumnName: id
+        user:
+            targetEntity: User
+            inversedBy: questions
+            joinColumn:
+                name: user_id
+                referencedColumnName: id
+        toUser:
+            targetEntity: User
+            inversedBy: answers
+            joinColumn:
+                name: to_user_id
+                referencedColumnName: id
+        circle:
+            targetEntity: Circle
+            inversedBy: questions
+            joinColumn:
+                name: circle_id
+                referencedColumnName: id
+          
+    

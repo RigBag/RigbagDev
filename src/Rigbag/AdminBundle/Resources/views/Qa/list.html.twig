@@ -1,0 +1,63 @@
+{% extends '::admin.html.twig' %}
+
+{% block body %}
+<div class="row">
+	<div class="span12">
+		<h2>Q&amp;A list</h2>
+		{% if qas or query %}
+		<form class="form-search form-filter text-right"">
+		  	<input name="q" value="{{ query }}" type="text" class="input-large search-query"/>
+			<button type="submit" class="btn">Search</button>
+		</form>
+		{% endif %}
+		{% if qas %}
+			<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>&nbsp</th>
+					<th>added</th>
+					<th>user</th>
+					<th style="width: 60px;">&nbsp;</th>
+				<tr>
+			</thead>
+			<tbody>
+				{% for qa in qas %}
+				<tr>
+					<td>{{ qa.id }}</td>
+					<td>
+						<a href="{{ path('rb_admin_qa_view', { qaId: qa.id }) }}">
+						{{ qa.body }}
+						</a>
+					</td>
+					<td>{{ qa.createdAt|date( 'd.m.Y H:i:s' ) }}</td>
+					<td>
+						{{ qa.user.name }}
+					</td>
+					<td>
+						<a href="{{ path('rb_admin_qa_view', { qaId: qa.id }) }}"><i class="icon-info-sign"></i></a>
+						<!--<a href="{{ path('rb_admin_qa_edit', { qaId: qa.id }) }}"><i class="icon-edit"></i></a>-->
+						<a onclick="return confirm('Are you sure?');" href="{{ path('rb_admin_qa_delete', { qaId: qa.id, q:query, page:pagination.actual }) }}"><i class="icon-remove"></i></a>
+					</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+			</table>	
+			<div class="pagination pagination-right">
+			  	<ul>
+				    <li><a href="#">&laquo;</a></li>
+				    {% for page in 1..pagination.lastPage %}
+				    	<li{% if page == pagination.actual %} class="active"{% endif %}><a href="{{ path('rb_admin_qa_list', { page: page, q: query }) }}">{{ page }}</a></li>
+				    {% endfor %}
+				    <li><a href="#">&raquo;</a></li>
+			  	</ul>
+			</div>
+		{% else %}
+			<div class="alert">
+				No questions &amp; answers
+			</div>
+		{% endif %}
+		
+	</div>
+</div>
+{% endblock %}

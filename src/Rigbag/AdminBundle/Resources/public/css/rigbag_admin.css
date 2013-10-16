@@ -1,0 +1,51 @@
+.profile-view h2,
+.advert-view h2 {
+  margin-bottom: 40px;
+}
+.profile-view h2 {
+  margin-bottom: 25px;
+}
+.profile-view h3 {
+  margin-bottom: 15px;
+}
+.view-list {
+  margin-left: 70px;
+}
+.form-filter {
+  margin: 20px 0 10px 0;
+}
+.photos-view {
+  list-style: none;
+  margin: 30px 0 0 0;
+}
+.photos-view li {
+  float: left;
+  height: 90px;
+  margin-right: 10px;
+  position: relative;
+}
+.photos-view li a {
+  display: none;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}
+.photos-view li:hover a {
+  display: block;
+}
+.photos-view li:hover img {
+  opacity: 0.5;
+}
+.circles-list li a {
+  display: none;
+}
+.circles-list li:hover a {
+  display: inline;
+}
+.advert-view p {
+  margin-bottom: 0;
+}
+.action-buttons {
+  margin-top: 40px;
+  margin-bottom: 40px;
+}

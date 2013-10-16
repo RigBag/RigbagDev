@@ -1,0 +1,33 @@
+<div class="question-new-form to-friend-form">
+	<div class="row">
+		<div class="span10">
+			<div class="close" onclick="$('.to-friend-form').slideUp();"></div>
+				<form action="#" submit="return false;" method="post" id="formToFriend">
+					<input type="hidden" name="tf-advert-id" id="tf-advert-id" value="{{ advert.id }}"/>
+					<div class="head">
+						<h4>{% trans %}Suggest this advert to the friends{% endtrans %}</h4>
+						<div class="clearfix"></div>
+					</div>
+					<div class="fields">
+						<textarea name="msg" class="required" id="tf-message" placeholder="Short message"></textarea>
+						<textarea name="emails" class="required" id="tf-emails" placeholder="Friends emails - separate emails by ," style="min-height: 36px; margin-top: 3px;"></textarea>
+					</div>
+					<div class="buttons">
+							<button type="submit" class="btn btn-send">{% trans %}Send{% endtrans %}</button>
+					</div>
+					<div class="clearfix"></div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+<script>
+$(document).ready( function() {
+	$('.question-new-form textarea').autosize();
+	
+	$('.btn-send').click( function() {
+		rbApp.advert.sendToFriend();
+		return false;
+	});
+});
+</script>

@@ -1,0 +1,35 @@
+Proton\RigbagBundle\Entity\Location:
+    type: entity
+    table: location
+    repositoryClass: Proton\RigbagBundle\Repository\LocationRepository
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        name:
+            type: string
+            length: 250
+        code:
+            type: string
+            length: 20
+        lat:
+            type: string
+            length: 26
+            nullable: true
+        lng:
+            type: string
+            length: 26
+            nullable: true
+        created_at:
+            type: datetime
+        updated_at:
+            type: datetime
+    lifecycleCallbacks:
+        prePersist: [ setCreatedAtValue, setUpdatedAtValue ]
+        preUpdate: [ setUpdatedAtValue ]
+    oneToMany:
+        circles:
+            targetEntity: Circle
+            mappedBy: location
+            cascade: [persist]

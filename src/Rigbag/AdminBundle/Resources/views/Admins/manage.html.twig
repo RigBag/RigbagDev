@@ -1,0 +1,37 @@
+{% extends '::admin.html.twig' %}
+
+{% block body %}
+<div class="row advert-view">
+	<div class="span12">
+		<h2>
+			{% if admin.id %}Edit{%else%}New{%endif%} admin 
+		</h2>
+	</div>
+	<form method="post">
+	<div class="span12">
+	  	<div class="control-group">
+	    	<label class="control-label" for="name">name</label>
+	    	<div class="controls">
+	    		<input type="text" name="name" id="name" class="span6" value="{{ admin.name }}"/>
+	    	</div>
+	  	</div>
+	  	<div class="control-group">
+	    	<label class="control-label" for="password">password</label>
+	    	<div class="controls">
+	    		<input type="password" name="password" id="password" class="span6" value=""/>
+	    	</div>
+	  	</div>
+	  	<div class="control-group">
+	    	<label class="control-label" for="email">email</label>
+	    	<div class="controls">
+	    		<input type="text" name="email" id="email" class="span6" value="{{ admin.email }}"/>
+	    	</div>
+	  	</div>
+	</div>
+	<div class="span12 action-buttons">
+		<button class="btn btn-block btn-large btn-info">Save</button>
+	</div>
+	</form>
+</div>
+<script>
+{% endblock %}

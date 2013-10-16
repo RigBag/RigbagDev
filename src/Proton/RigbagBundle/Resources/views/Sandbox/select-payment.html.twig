@@ -1,0 +1,39 @@
+<div style="padding: 50px;">
+	<form onsubmit="return false;">
+		<label>Amount</label>
+		<input name="amount" class="f-amount" type="text" placeholder="">
+		
+		<label>Currency</label>
+		<select name="currency" class="f-currency">
+		{% for currency in currencies %}
+			<option value="{{ currency.value}}">{{ currency.label }}</option>
+		{% endfor %}
+		</select>
+		
+		<label>Method</label>
+		<select name="method" class="f-method">
+		{% for method in methods %}
+			<option value="{{ method.value}}">{{ method.label }}</option>
+		{% endfor %}
+		</select>
+		
+		<label>Type</label>
+		<select name="type" class="f-type">
+		{% for type in types %}
+			<option value="{{ type.value}}">{{ type.label }}</option>
+		{% endfor %}
+		</select>
+		
+		<label>Result</label>
+		<select name="result" class="f-result">
+			<option value="200">Success</option>
+			<option value="100">Fail</option>
+		</select>
+		
+		<input type="hidden" name="return" class="f-return" value="{{ return }}"/>
+		<input type="hidden" name="returnData" class="f-return-data" value="{{ returnData }}"/>
+		<p>
+		<button class="btn" onclick="sandboxSendPayment(); return false;">Make</button>
+		</p>
+	</form>
+</div>

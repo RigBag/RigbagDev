@@ -1,0 +1,28 @@
+Proton\RigbagBundle\Entity\AdvertImage:
+    type: entity
+    table: advert_image
+    repositoryClass: Proton\RigbagBundle\Repository\AdvertImageRepository
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        advert_id:
+            type: integer
+        path:
+            type: string
+            length: 250
+        is_main:
+            type: string
+            length: 1
+        created_at:
+            type: datetime
+    lifecycleCallbacks:
+        prePersist: [ setCreatedAtValue ]
+    manyToOne:
+        advert:
+            targetEntity: Advert
+            inversedBy: images
+            joinColumn:
+                name: advert_id
+                referencedColumnName: id

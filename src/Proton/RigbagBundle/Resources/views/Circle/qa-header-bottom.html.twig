@@ -1,0 +1,70 @@
+<ul class="size-23">
+	<li class="space">
+		<div class="arUp" style="display: none;"></div>
+		<div class="arDown" style="display: none;"></div>
+		<span><span></span></span>
+		<script>
+		$(document).ready( function() {
+			var sOffset = 100;
+
+			$('.arUp').click( function() {
+				scrollUp();
+			});
+			$('.arDown').click( function() {
+				scrollDown();
+			});
+
+			function scrollUp() {
+				console.log( 'Scroll up');
+
+				var ah = $('.sidebar-container').height();
+				var ch = $('.sidebar-container ul').height();
+				sOffset = ah - 80;
+
+				if( ah < ch ) {
+					var ro = ch - ah;
+					var nt = $('.sidebar-container ul').position().top;
+					nt = nt - sOffset;
+
+					if( Math.abs( nt ) > Math.abs( ro ) ) {
+						nt = ro * -1;
+					}
+
+					$('.sidebar-container ul').animate({ top: nt +'px' }, 500);
+				}
+
+			}
+			function scrollDown() {
+				console.log( 'Scroll down');
+
+				var ah = $('.sidebar-container').height();
+				var ch = $('.sidebar-container ul').height();
+				sOffset = ah - 80;
+
+				if( ah < ch ) {
+					var ro = ch - ah;
+					var nt = $('.sidebar-container ul').position().top;
+					nt = nt + sOffset;
+
+					if( nt > 0 ) {
+						nt = 0;
+					}
+
+					$('.sidebar-container ul').animate({ top: nt +'px' }, 500);
+				}
+			}
+		});
+		</script>
+	</li>
+	<li class="short">
+		<a href="#/circles/{{ circle.id }}/adverts/list/" title=""><span>{% trans %}Adverts{% endtrans %}</span></a>
+	</li>
+	<li class="active">
+		<a href="#/circles/{{ circle.id }}/qa/list/" title=""><span>{% trans %}Q&amp;A{% endtrans %}</span></a>
+		<div class="add-button" onclick="if( $(this).hasClass( 'active' ) ) { $('.question-new-form').slideUp(); $(this).removeClass( 'active' ); } else { $('.search-new-form').slideUp(); $('.bottom .search-button').removeClass( 'active' ); $('.question-new-form').slideDown(); $(this).addClass( 'active' ); } return false;"><span></span></div>
+		<div class="search-button" onclick="if( $(this).hasClass( 'active' ) ) { $('.search-new-form').slideUp(); $(this).removeClass( 'active' ); } else { $('.bottom .add-button').removeClass( 'active' ); $('.question-new-form').slideUp(); $('.search-new-form').slideDown(); $(this).addClass( 'active' ); } return false;"><span></span></div>
+	</li>
+	<li class="short">
+		<a href="#/circles/{{ circle.id }}/members/list/" title=""><span>{% trans %}Members{% endtrans %}</span></a>
+	</li>
+</ul>

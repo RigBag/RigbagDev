@@ -1,0 +1,53 @@
+{% extends '::admin.html.twig' %}
+
+{% block body %}
+<div class="row advert-view">
+	<div class="span12">
+		<h2>
+			Create circles
+		</h2>
+	</div>
+	<form method="post">
+	<!--<div class="span6">
+	  	<div class="control-group">
+	    	<label class="control-label" for="location">locations</label>
+	    	<div class="controls">
+	    		<input type="text" name="location" id="location" class="span6" value=""/>
+	    	</div>
+	</div>	  	</div>-->
+
+	<div class="span6">
+	  	<div class="control-group">
+	    	<label class="control-label" for="interest">interests</label>
+	    	<div class="controls">
+	    		<input type="text" name="interest" id="interest" class="span6" value=""/>
+	    	</div>
+	  	</div>
+	</div>
+	<div class="span12 action-buttons">
+		<button class="btn btn-block btn-large btn-info">Create</button>
+	</div>
+	</form>
+</div>
+<script>
+$(document).ready( function() {
+		
+	// Interests suggest
+	$('#interest').magicSuggest({
+		allowFreeEntriesboolean : false,
+		name: 'interest',
+		selectionPositionstring: 'bottom',
+		data: '{{ path('rb_admin_interests_suggest') }}'
+	});
+	
+	// Locations suggest
+	$('#location').magicSuggest({
+		allowFreeEntriesboolean : false,
+		name: 'location',
+		selectionPositionstring: 'bottom',
+		data: '{{ path('rb_admin_locations_suggest') }}'
+	});
+		
+});
+</script>
+{% endblock %}

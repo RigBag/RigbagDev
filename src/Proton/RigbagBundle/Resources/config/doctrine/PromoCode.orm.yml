@@ -1,0 +1,14 @@
+Proton\RigbagBundle\Entity\PromoCode:
+    type: entity
+    table: promo_code
+    repositoryClass: Proton\RigbagBundle\Repository\PromoCodeRepository
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        code:
+            type: string
+            length: 20
+        to_remove:
+            type: integer

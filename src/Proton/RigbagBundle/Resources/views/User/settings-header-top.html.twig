@@ -1,0 +1,12 @@
+<div class="nav-left">
+	{% if signup == false %}
+	<a href="#" onclick="history.back(); return false;" title="" class="back"><span></span></a>
+	{% endif %}
+</div>
+<h1>
+{% if signup == true %}
+	{% trans %}Sign up{% endtrans %} - {{ step }}/4 
+{% else %}
+	{% trans %}Settings{% endtrans %}
+{% endif %}
+</h1>

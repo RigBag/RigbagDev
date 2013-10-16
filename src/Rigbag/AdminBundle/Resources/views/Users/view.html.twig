@@ -1,0 +1,193 @@
+{% extends '::admin.html.twig' %}
+
+{% block body %}
+<div class="row profile-view">
+	<div class="span12">
+		<h2>
+			Profile view
+			&nbsp;&nbsp;&nbsp;
+			<a href="{{ path('rb_admin_profile_edit', { userId: user.id }) }}"><i class="icon-edit"></i></a>
+			<a onclick="return confirm('Are you sure?');" href="{{ path('rb_admin_profile_delete', { userId: user.id }) }}"><i class="icon-remove"></i></a>
+		</h2>
+		<h3>{{ user.name }}</h3>
+	</div>
+	<div class="span12">
+		
+		<ul class="nav nav-tabs" id="profileTab">
+		  	<li class="active"><a href="#info">Info</a></li>
+		  	<li><a href="#adverts">Adverts</a></li>
+		  	<li><a href="#qa">Q&A</a></li>
+		</ul>
+		<div class="tab-content">
+	  		<div class="tab-pane active" id="info">
+	  			<div class="row">
+					<div class="span6">
+						<p>
+							<strong>state:</strong>
+							{{ user.state }}
+						</p>
+						<p>
+							<strong>acount type:</strong>
+							{{ user.accountType }}
+						</p>
+						<p>
+							<strong>email:</strong>
+							{{ user.email }}
+						</p>
+						<p>
+							<strong>phone:</strong>
+							{{ user.phone }}
+						</p>
+						<p>
+							<strong>location:</strong>
+							{{ user.location }}
+						</p>
+						<p>
+							<strong>paypal account:</strong>
+							{{ user.paypalId }}
+						</p>
+						<p>
+							<strong>connected to:</strong>
+							<ul class="view-list">
+							{% if user.facebookId %}
+								<li> Facebook</li>
+							{% endif %}
+							{% if user.twitterId %}
+								<li> Twitter</li>
+							{% endif %}
+							</ul>
+						</p>
+						<p>
+							<strong>bio:</strong>
+							{{ user.bio }}
+						</p>
+						
+						
+						
+					</div>
+					<div class="span5 offset1">
+						<p>
+							<strong>interests:</strong>
+							<ul>
+							{% for interest in user.interests %}
+								<li> {{ interest.name }}</li>
+							{% endfor %}
+							</ul>
+						</p>
+						<p>
+							<strong>circles:</strong>
+							<ul>
+							{% for circle in user.circles %}
+								<li> {{ circle.name }} ({{ circle.description }})</li>
+							{% endfor %}
+							</ul>
+						</p>
+					</div>
+				</div>
+			</div>
+			<div class="tab-pane" id="adverts">
+				<div class="row">
+					<div class="span12">
+						{% if user.adverts|length > 0 %}
+							<table class="table table-striped">
+							<thead>
+								<tr>
+									<th>#</th>
+									<th>&nbsp</th>
+									<th>added</th>
+									<th>location</th>
+									<th style="width: 60px;">&nbsp;</th>
+								<tr>
+							</thead>
+							<tbody>
+								{% for advert in user.adverts %}
+								<tr>
+									<td>{{ advert.id }}</td>
+									<td>
+										<a href="{{ path('rb_admin_adverts_view', { advertId: advert.id }) }}">
+										<strong>
+										{% if advert.mode == 'sale' %}
+											For sale:
+										{% elseif advert.mode == 'swap' %}	
+											For swap:
+										{% elseif advert.mode == 'freebie' %}
+											Freebie:
+										{% endif %}
+										</strong>
+										{{ advert.title }}
+										</a>
+									</td>
+									<td>{{ advert.createdAt|date( 'd.m.Y H:i:s' ) }}</td>
+									<td>
+										{{ advert.locationDisplay }}
+									</td>
+									<td>
+										<a href="{{ path('rb_admin_adverts_view', { advertId: advert.id }) }}"><i class="icon-info-sign"></i></a>
+										<a href="{{ path('rb_admin_adverts_edit', { advertId: advert.id }) }}"><i class="icon-edit"></i></a>
+										<a onclick="return confirm('Are you sure?');" href="{{ path('rb_admin_adverts_delete', { advertId: advert.id, userId: user.id }) }}"><i class="icon-remove"></i></a>
+									</td>
+								</tr>
+								{% endfor %}
+							</tbody>
+							</table>
+						{% else %}
+							<div class="alert">
+								No adverts
+							</div>
+						{% endif %}
+					</div>
+				</div>
+			</div>
+			<div class="tab-pane" id="qa">
+				<div class="row">
+					<div class="span12">
+					{% if questions %}
+						<table class="table table-striped">
+						<thead>
+							<tr>
+								<th>#</th>
+								<th>&nbsp</th>
+								<th>added</th>
+								<th style="width: 60px;">&nbsp;</th>
+							<tr>
+						</thead>
+						<tbody>
+							{% for qa in questions %}
+							<tr>
+								<td>{{ qa.id }}</td>
+								<td>
+									<a href="{{ path('rb_admin_qa_view', { qaId: qa.id }) }}">
+									{{ qa.body }}
+									</a>
+								</td>
+								<td>{{ qa.createdAt|date( 'd.m.Y H:i:s' ) }}</td>
+								<td>
+									<a href="{{ path('rb_admin_qa_view', { qaId: qa.id }) }}"><i class="icon-info-sign"></i></a>
+									<!--<a href="{{ path('rb_admin_qa_edit', { qaId: qa.id }) }}"><i class="icon-edit"></i></a>-->
+									<a onclick="return confirm('Are you sure?');" href="{{ path('rb_admin_qa_delete', { qaId: qa.id, userId: user.id }) }}"><i class="icon-remove"></i></a>
+								</td>
+							</tr>
+							{% endfor %}
+						</tbody>
+						</table>
+					{% else %}
+						<div class="alert">
+							No questions &amp; answers
+						</div>
+					{% endif %}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+  $(function () {
+  	$('#profileTab').tab();
+  	$('#profileTab a').click(function (e) {
+	  e.preventDefault();
+	  $(this).tab('show');
+	});
+  });
+</script>
+{% endblock %}

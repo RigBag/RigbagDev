@@ -1,0 +1,7 @@
+<ul class="list">
+{% for circle in circles %}
+<li onclick="rbApp.circle.join( $(this) ); return false;" data-id="{{ circle.id }}">
+	{{ circle.name|stripslashes }} ({{ circle.description|stripslashes }})
+</li>
+{% endfor %}
+</ul>

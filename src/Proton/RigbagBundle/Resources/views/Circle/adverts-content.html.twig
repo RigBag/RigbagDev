@@ -1,0 +1,39 @@
+{% if adverts %}
+<ul id="adverts-list">
+	{% for advert in adverts %}
+		{% include 'ProtonRigbagBundle:Advert:list-box.html.twig' with { 'advert': advert } %}
+	{% endfor %}
+</ul>
+<div class="load-more{% if showLoadMore %}{% else %} hide{% endif %}">
+	<div class="clearfix"></div>
+</div>
+{% else %}
+<div class="no-items">
+	{% trans %}No adverts{% endtrans %}
+</div>
+{% endif %}
+<script>
+$(document).ready( function() {
+	resizeCirclesSidebar();
+	setTimeout( 'resizeCirclesSidebar()', 500 );
+});
+$(document).scroll( function() {
+
+	if( $(document).height() == ( $(document).scrollTop() + $(window).height() ) ) {
+		if( !$('.load-more').hasClass( 'hide' ) ) {
+			rbApp.loadMoreAdverts( 'circle' );
+		}
+
+	}
+});
+function resizeCirclesSidebar() {
+	if( $( '.sidebar-container ul' ).height() + 180 >= $('.circles-sidebar').height() ) {
+		$('.header .bottom .arUp').fadeIn('fast');
+		$('.header .bottom .arDown').fadeIn('fast');
+	} else {
+		$('.header .bottom .arUp').fadeOut('fast');
+		$('.header .bottom .arDown').fadeOut('fast');
+	}
+	$('.circles-sidebar .sidebar-container').css( 'height', ( $('.circles-sidebar').height() - 175 ) +'px' );
+}
+</script>

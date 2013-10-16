@@ -1,0 +1,349 @@
+			<form action="#" id="formItem" onsubmit="return false;">
+					<input type="hidden" class="usr-name" name="usr-name" value="{% if user %}{{ user.displayName|stripslashes }}{% endif %}" />
+					<input type="hidden" class="adv-id" name="adv-id" value="{{ advert.id }}" />
+                                        <input type="hidden" id="payment_mode" name="payment_mode" value="{{ payment_mode }}" />
+					<!-- COLUMN LEFT: start -->
+                        <div class="span5">
+                        	<div class="column-left">
+                            	<div class="photo-main" id="photo-main">
+                            		<div class="ico-suggest"></div>
+                            	</div>
+                                <div class="photos-list">
+                                	<ul>
+                                	{% for image in advert.images %}
+                                    	<li data-photo-big="{{ mediaUrl }}{{ image.path|replace({'%size%': '440x380' }) }}" data-photo-id="{{ image.id }}">
+                                        	<img src="{{ mediaUrl }}{{ image.path|replace({'%size%': '80x69' }) }}" alt=""/>
+                                        </li>
+                                    {% endfor %}
+                                    </ul>
+                                </div>
+                        	</div>
+                        </div>
+                        <!-- COLUMN LEFT: end -->
+                        <!-- COLUMN RIGHT: start -->
+                        <div class="span5">
+                        	<div class="column-right">
+                            	<h5>For {{ advert.mode }}:</h5>
+                                <p>{{ advert.description|stripslashes }}</p>
+                                {% if advert.mode == 'sale' %}
+                                <div class="price">{% if advert.currency == 'eur' %}&euro;{% else %}{{advert.currency|upper}}{% endif %}{{advert.price}}</div>
+                                {% endif %}
+                                <!-- .ABOUT: start -->
+                                <div class="about">
+                                	<div class="user">
+                                    	<div class="avatar" style="background-image: url({{ mediaUrl }}{{ advert.user.profilePicture|replace({'%size%': '60x60' }) }});"></div>
+                                        <div class="info">
+                                        	<p>{% trans %}Seller{% endtrans %}:</p>
+                                            <h4><a href="{{ path('start') }}#/profile/{{ advert.user.id }}/adverts/list/" class=" must-login" title="">{{ advert.user.displayName|stripslashes }}</a></h4>
+                                        </div>
+                                    </div>
+                                    <div class="advert">
+                                    	<ul>
+                                        	<li class="circles">
+                                        		{% set first = true %}
+                                        		{% for circle in advert.circles %}
+                                            	<span class="ico{% if first == false %} empty{% endif %}"></span><div class="must-login circle-name" data-id="{{ circle.id }}"><span class="click-suggest">{{ circle.name }}{% set first = false %}</span></div><br/>
+                                            	{% endfor %}
+                                            	<div class="clearfix"></div>
+                                            </li>
+                                            <li class="when">
+                                            	<span class="ico"></span>
+                                            	{% include 'ProtonRigbagBundle:Extras:ago.html.twig' with { 'addedAgo': advert.addedAgo } %}
+                                            </li>
+                                            <li class="where">
+                                            	<span class="ico mh" id="where-ico"></span> <span class="click-suggest mh">{{ advert.locationDisplay|stripslashes }}</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <script>
+									$(document).ready( function() {
+										$('.circle-name').click( function() {
+											if( $('body').data( 'logged' ) == '1' ) {
+												setUrl('/circles/' + $(this).data( 'id' ) + '/adverts/list/');
+											}
+										});
+									});
+                                    </script>
+                                </div>
+                                <!-- .ABOUT: end -->
+                                <!-- ADVERT MESSAGES: start -->
+                                <div  id="messages-list">
+	                                {% include 'ProtonRigbagBundle:Qa:questions-advert-list.html.twig' with { 'questions': questions } %}
+	                            </div>
+                                <!-- ADVERT MESSAGES: end -->
+                                <!-- .ACTIONS: start -->
+                                <div class="actions">
+                                	{% if advert.state == 'enabled' %}
+	                                	{% if user.id != advert.userId %}
+	                                		{% if advert.mode == 'sale' %}
+                                                            {% if payment_mode == '0' %}
+	                                			<a href="{{ path('payments_buy', { method: 'paypal', advertId: advert.id }) }}" onclick="" title="" class="btn must-login">{% trans %}Buy now{% endtrans %}</a>
+                                                            {% else %}
+                                                                <a href="#" title="" class="btn btn-swap must-login">{% trans %}Buy{% endtrans %}</a>
+                                                            {% endif %}
+	                                		{% elseif advert.mode == 'swap' and hasAccepted == false %}
+	                                			<a href="#" title="" class="btn btn-swap must-login">{% trans %}Swap{% endtrans %}</a>
+	                                		{% elseif advert.mode == 'freebie' and hasAccepted == false %}
+	                                			<a href="#" title="" class="btn btn-takeit must-login">{% trans %}Take it{% endtrans %}</a>
+	                                		{% endif %}
+	                                	{% endif %}
+                                	{% endif %}
+                                	{% if advert.state == 'enabled' %}
+                                    	<a href="#" title="" onclick="return false;" class="must-login btn-2 btn-share"><span></span> {% trans %}Share{% endtrans %}</a>
+                                    {% endif %}
+                                	<div class="clearfix"></div>
+                                </div>
+                                <!-- .ACTIONS: end -->
+                                <!-- .LINKS: start -->
+                                <div class="links">
+                                	{% if advert.state == 'enabled' %}
+                                	<ul>
+                                		{% if user.id != advert.userId %}
+                                    	<!-- <li><a href="#" class="must-login btn-ask-seller" title="">{% trans %}ask seller a question about this item{% endtrans %}</a></li> -->
+                                    	{% endif %}
+                                    	<!-- <li><a href="#" class="must-login" onclick="rbApp.callAction( 'q-and-a/advertQuestion/{{ advert.id }}/' ); return false;" title="">{% trans %}ask your circles a question about this item{% endtrans %}</a></li> -->
+                                    	<li><a href="#" class="must-login" onclick="$('.question-new-form2').slideUp(); $('.to-friend-form').slideDown(); return false;" title="">{% trans %}suggest this advert to the friends{% endtrans %}</a></li>
+                                    </ul>
+                                    {% endif %}
+                                    {% if user.id == advert.userId %}
+                                    <ul class="owner">
+                                    	{% if advert.state == 'enabled' %}
+                                    	<li><a href="{{ path('start') }}#/adverts/edit/{{advert.id}}/" title="" class="btn btn-small btn-info btn-edit">{% trans %}edit{% endtrans %}</a></li>
+                                    	<li><a href="#" title="" class="btn btn-small btn-warning btn-close">{% trans %}close{% endtrans %}</a></li>
+                                    	{% elseif advert.state == 'waiting_for_payment' %}
+                                    	<li><a href="{{ path('payments_advert', { method: 'paypal', advertId: advert.id }) }}" title="" class="btn btn-small btn-warning">{% trans %}pay&amp;publish{% endtrans %}</a></li>
+                                    	{% endif %}
+                                    	<li><a href="#" title="" class="btn btn-small btn-danger btn-remove">{% trans %}remove{% endtrans %}</a></li>
+                                    </ul>
+                                    {% endif %}
+                                </div>
+                                <!-- .LINKS: end -->
+                            </div>
+                        </div>
+                        <!-- COLUMN RIGHT: end -->
+                  </form>
+
+                  	<!-- MODALS: start -->
+
+                  	<div id="modalZoom" class="modal hide fade modal-photo-zoom" tabindex="-1" role="dialog" aria-labelledby="modalZoom" aria-hidden="true">
+						<div class="modal-body">
+							<div id="zoomCarousel" class="carousel slide">
+							    <!-- Carousel items -->
+							    <div class="carousel-inner">
+							    	{% set isFirst = true %}
+							    	{% set addNav = false %}
+							    	{% for image in advert.images %}
+                                    	<div class="item{% if isFirst == true %} active{% endif %}" style="text-align: center;">
+                                        	<img style="display: inline-block;" src="{{ mediaUrl }}{{ image.path|replace({'%size%': 'org' }) }}" alt=""/>
+                                        </div>
+                                        {% if isFirst == false %}
+                                        	{% set addNav = true %}
+                                        {% endif %}
+                                        {% set isFirst = false %}
+                                    {% endfor %}
+							    </div>
+							    {% if addNav == true %}
+							    <a class="carousel-control left" href="#zoomCarousel" data-slide="prev">&lsaquo;</a>
+							    <a class="carousel-control right" href="#zoomCarousel" data-slide="next">&rsaquo;</a>
+							    {% endif %}
+							</div>
+						</div>
+				  	</div>
+                  	<!-- MODALS: end -->
+
+
+{% if advert.state == 'closed' %}
+	<div class="label-closed"></div>
+{% elseif advert.state == 'waiting_for_payment' %}
+	<div class="label-unpaid"></div>
+{% endif %}
+<script>
+function selectAdvPhoto( obj ) {
+	$(obj).parent().children( 'li' ).removeClass( 'current' );
+	$(obj).addClass( 'current' );
+
+	$('#photo-main').css( 'background-image', 'url(' + $(obj).attr( 'data-photo-big' ) + ')' );
+}
+
+$(document).ready( function() {
+	hideLoader();
+	{% if user.id < 1 %}
+		rbApp.mustLoginInit();
+	{% endif %}
+
+// PHOTOS ZOOM: start
+
+	$('#zoomCarousel').carousel({interval:0});
+
+	$('.photo-main').click( function() {
+		$('#modalZoom').modal('show');
+	});
+
+
+// PHOTOS ZOOM: end
+
+// WHERE: start
+
+	$('#where-ico').popover({ trigger: 'manual', html: true, content: '<div id="locationCanvas" style="width:100%; height:300px"></div><div class="close" onclick="$(\'#where-ico\').popover(\'hide\');">&times;</div>', placement: 'left' });
+
+	var map;
+	var geocoder 		= new google.maps.Geocoder();
+	var initLatLng 	= new google.maps.LatLng(-34.397, 150.644);
+	var marker;
+	var mapOptions = {
+          center: initLatLng,
+          zoom: 7,
+          mapTypeId: google.maps.MapTypeId.ROADMAP,
+          mapTypeControl: false,
+          zoomControl: false,
+          streetViewControl: false
+        };
+
+	$('.where .mh').click( function() {
+
+		if( !$('.where .popover').hasClass('in') ) {
+
+			$('#where-ico').popover('show');
+
+			if( $('.where .popover').hasClass('in') ) {
+				map = new google.maps.Map(document.getElementById("locationCanvas"), mapOptions);
+
+				geocoder.geocode( { 'address': '{{ advert.locationFormated}}'}, function(results, status) {
+			      if (status == google.maps.GeocoderStatus.OK) {
+			        //In this case it creates a marker, but you can get the lat and lng from the location.LatLng
+			        map.setCenter(results[0].geometry.location);
+			        var marker = new google.maps.Marker({
+			            map: map,
+			            position: results[0].geometry.location,
+			            title: '{{ advert.title }}'
+			        });
+			      } else {
+
+			      }
+			    });
+
+			}
+		} else {
+			$('#where-ico').popover('hide');
+		}
+	});
+
+// WHERE: end
+
+
+	$('.autosize').autosize();
+
+	$('.photos-list li').click( function() {
+		selectAdvPhoto( $(this) )
+	});
+
+	$('.btn-ask-seller').click( function() {
+		if( $('body').data( 'logged' ) == 1 ) {
+			$('.to-friend-form').slideUp();
+			$('.question-new-form2 .head h4').html( '{% trans %}Ask a question{% endtrans %}' );
+			$('#extraType').val( 'advertPrivate' );
+			$('.question-new-form2').slideDown();
+			$('.question-new-form2 .buttons .btn').html( '{% trans %}Ask{% endtrans %}' );
+		}
+		return false;
+	});
+
+	//$('.btn-buy').click( function() {
+	//	var handler = this;
+	//	if( $('body').data( 'logged' ) == 1 ) {
+	//		var cbAction = 'window.location.href = \'' + $(handler).attr('href') + '\';';
+	//		rbApp.callAction( 'advert/buy/{{ advert.id}}/', cbAction);
+	//	 }
+	//	 return false;
+	//});
+
+	$('.btn-takeit').click( function() {
+		if( $('body').data( 'logged' ) == 1 ) {
+			$('.to-friend-form').slideUp();
+			$('.question-new-form2 .head h4').html( '{% trans %}Why would you like to take it?{% endtrans %}' );
+			$('#extraType').val( 'advertFree' );
+			$('.question-new-form2 .buttons .btn').html( '{% trans %}Send{% endtrans %}' );
+			$('.question-new-form2').slideDown();
+		}
+		return false;
+	});
+
+	$('.btn-swap').click( function() {
+       
+        {% if advert.link != NULL %}
+                window.location = '{{ advert.link }}';
+        {% else %}
+		if( $('body').data( 'logged' ) == 1 ) {
+			$('.to-friend-form').slideUp();
+                        {% if advert.mode == 'sale' %}
+                         $('.question-new-form2 .head h4').html( '{% trans %}Message the seller about this item{% endtrans %}' );
+                        	{% else %}
+			$('.question-new-form2 .head h4').html( '{% trans %}Suggest an item that you want to swap for{% endtrans %}' );
+                        	{% endif %}
+
+			$('#extraType').val( 'advertSwap' );
+			$('.question-new-form2 .buttons .btn').html( '{% trans %}Send{% endtrans %}' );
+			$('.question-new-form2').slideDown();
+		}
+                {% endif %}
+		return false;
+	});
+
+	$('.btn-remove').click( function() {
+		if( confirm('{% trans %}Are you sure?{% endtrans %}') ) {
+			rbApp.advert.remove();
+		}
+		return false;
+	});
+
+	$('.btn-close').click( function() {
+		if( confirm('{% trans %}Are you sure?{% endtrans %}') ) {
+			rbApp.advert.close();
+		}
+		return false;
+	});
+
+	var shareHtml = '<div class="social-connect">';
+	shareHtml = shareHtml + '<ul>';
+	shareHtml = shareHtml + '<li data-type="facebook" class="inline facebook{% if user.facebookId %} connected{% else %} disabled{% endif %}" onclick="if( !$(this).hasClass( \'disabled\' ) ) { if( $(this).hasClass(\'connected\')) { $(this).removeClass(\'connected\');} else { $(this).addClass(\'connected\'); } } checkPublishButton(); return false;"><a href="#" title="" class="ico"></a></li>';
+	shareHtml = shareHtml + '<li data-type="twitter" class="inline twitter{% if user.twitterId %} connected{% else %} disabled{% endif %}" onclick="if( !$(this).hasClass( \'disabled\' ) ) { if( $(this).hasClass(\'connected\')) { $(this).removeClass(\'connected\');} else { $(this).addClass(\'connected\'); } } checkPublishButton(); return false;"><a href="#" title="" class="ico"></a></li>';
+	shareHtml = shareHtml + '</ul>';
+	shareHtml = shareHtml + '<div class="clearfix"></div>';
+	shareHtml = shareHtml + '<a href="#" onclick="if( !$(this).hasClass(\'disabled\') ) { publishAdvert(); } return false;"  class="btn btn-block">{% trans %}Publish{% endtrans %}</a>';
+	shareHtml = shareHtml + '<button type="button" onclick="$(\'.btn-share\').popover(\'hide\'); return false;" class="close">&times;</button>';
+	shareHtml = shareHtml + '</div>';
+
+
+	{% if user.id %}
+	$('.btn-share').popover({
+								placement: 	'left',
+								html:		true,
+								title:		'{% trans %}Share this advert{% endtrans %}',
+								content:	shareHtml
+							});
+	{% endif %}
+	selectAdvPhoto( $('.photos-list li:first') );
+
+});
+
+function publishAdvert() {
+	var social = new Array();
+
+	$('.social-connect li.connected').each( function() {
+		social.push( $(this).data('type') );
+	});
+
+	rbApp.advert.socialPublish( {{ advert.id }}, social );
+	$('.btn-share').popover('hide');
+}
+
+function checkPublishButton() {
+	if( $('.social-connect li.connected').length ) {
+		$('.social-connect .btn-block').removeClass('disabled');
+	} else {
+		$('.social-connect .btn-block').addClass('disabled');
+	}
+}
+</script>
+

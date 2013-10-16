@@ -1,0 +1,21 @@
+{% extends '::base.html.twig' %}
+
+{% block menu %}
+	<div  id="main-loader" class="hide">
+		<img src="{{ asset('/bundles/protonlabs/rigbag/img/ajax-loader.gif') }}" alt=""/>
+		{% trans %}Please wait{% endtrans %}...
+	</div>
+	{% include 'ProtonRigbagBundle:Extras:menu.html.twig' with { 'cElement': 1 } %}
+{% endblock %}
+
+{% block headerTop %}
+	
+{% endblock %}
+
+{% block headerBottom %}
+
+{% endblock %}
+
+{% block body %}
+
+{% endblock %}

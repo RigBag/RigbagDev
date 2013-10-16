@@ -1,0 +1,38 @@
+{% extends '::admin.html.twig' %}
+
+{% block body %}
+<div class="row advert-view">
+	<div class="span12">
+		<h2>
+			{% if interest.id %}Edit{%else%}New{%endif%} interest 
+		</h2>
+	</div>
+	<form method="post" enctype="multipart/form-data">
+	<div class="span12">
+	  	<div class="control-group">
+	    	<label class="control-label" for="name">name</label>
+	    	<div class="controls">
+	    		<input type="text" name="name" id="name" class="span6" value="{{ interest.name }}"/>
+	    	</div>
+	  	</div>
+	  	<div class="control-group">
+	    	<label class="control-label" for="name">icon</label>
+	    	<div class="controls">
+	    		{% if interest.picture %}
+	    			<img src="{{ path('image_sport', { sportId: interest.id, width: 80, height: 80 }) }}"/><br/>
+	    		{% endif %}
+	    		<input type="file" name="picture" class="span6" value=""/>
+	    	</div>
+	  	</div>
+	</div>
+	<div class="span12 action-buttons">
+		<button class="btn btn-block btn-large btn-info">Save</button>
+	</div>
+	</form>
+</div>
+<script>
+$(document).ready( function() {
+
+});
+</script>
+{% endblock %}

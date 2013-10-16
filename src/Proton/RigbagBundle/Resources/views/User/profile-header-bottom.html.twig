@@ -1,0 +1,23 @@
+<!-- COLUMN-LEFT: start -->
+<div class="column-left">
+	<div class="ico" style="background-image: url({{ mediaUrl }}{{ user.profilePicture|replace({'%size%': '160x160' }) }});"></div>
+	<h3>{{ user.name|stripslashes }}</h3>
+	<p>{{ user.bio|stripslashes }}</p>
+	<h4>{{ user.location|stripslashes }}</h4>
+</div>
+<!-- COLUMN-LEFT: end -->
+<!-- COLUMN-RIGHT: start -->
+<div class="column-right">
+	<ul>
+		<li class="first{% if type == 'adverts' %} active{% endif %}">
+			<a href="{{ path('start') }}#/profile/{{user.id}}/adverts/list/" onclick="$(this).parent().parent().children('li').removeClass('active'); $(this).parent().addClass( 'active');" title=""><span>{% if myProfile %}{% trans %}My{% endtrans %} {% endif %}{% trans %}adverts{% endtrans %}</span></a>
+		</li>
+		<li{% if type == 'qa' %} class="active"{% endif %}>
+			<a href="{{ path('start') }}#/profile/{{user.id}}/qa/list/" onclick="$(this).parent().parent().children('li').removeClass('active'); $(this).parent().addClass( 'active');" title=""><span>{% if myProfile %}{% trans %}My{% endtrans %} {% endif %}{% trans %}Q&amp;A{% endtrans %}</span></a>
+		</li>
+		<li{% if type == 'circles' %} class="active"{% endif %}>
+			<a href="{{ path('start') }}#/profile/{{user.id}}/circles/list/" onclick="$(this).parent().parent().children('li').removeClass('active'); $(this).parent().addClass( 'active');;" title=""><span>{% if myProfile %}{% trans %}My{% endtrans %} {% endif %}{% trans %}Circles{% endtrans %}</span></a>
+		</li>
+	</ul>
+</div>
+<!-- COLUMN-RIGHT: end -->

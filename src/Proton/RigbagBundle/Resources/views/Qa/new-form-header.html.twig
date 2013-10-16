@@ -1,0 +1,74 @@
+<div class="question-new-form question-new-form2">
+	<div class="row">
+		<div class="span10">
+			<div class="close" onclick="$('.question-new-form').slideUp(); $('.top .nav-right .add').removeClass( 'active' );"></div>
+				<form action="#" submit="return false;" method="post" id="formQA">
+					{% if circles %}
+					<input type="hidden" value="{{fCircle.id}}" name="circle" id="questionCircle"/>
+					{% endif %}
+					<input type="hidden" value="{{extraData.type}}" id="extraType"/>
+					<input type="hidden" value="{% if extraData.type %}{{extraData.data.id}}{% endif %}" id="extraData"/>
+					<div class="head">
+						<h4>{% trans %}Ask a question{% endtrans %}</h4>
+						{% if circles %}
+						<div class="pl-dropdown" id="dropdown-circle-top">
+							<div class="cont">
+								<div class="value" style="width: 150px;">in {{fCircle.name|stripslashes}}</div>
+								<div class="ico"><span></span></div>
+								<div class="clearfix"></div>
+								<ul style="width: 173px;">
+									{% for circle in circles %}
+									<li data-id="{{circle.id}}"{% if fCircle.id == circle.id %} selected="selected"{% endif %}>in {{circle.name|stripslashes}}</li>
+									{% endfor %}
+								</ul>
+							</div>
+						</div>
+						{% endif %}
+						<div class="clearfix"></div>
+					</div>
+					<div class="fields">
+						<textarea name="msg" class="required" id="question"></textarea>
+						{% if extraData.type == 'advertQuestion' %}
+						<h5>Question about an item</h5>
+						<div class="advert-preview">
+							<div class="close" onclick="if( confirm( 'Are you sure?' ) ) { var p = $(this); $(p).parent().parent().children( 'h5' ).fadeOut(); $(p).parent().fadeOut(); $('#extraType').val('');  }"></div>
+							<div class="ico" style="background: url('{{ mediaUrl }}{{ extraData.data.mainImage.path|replace({'%size%': '50x50' }) }}');"></div>
+							<div class="info">
+								<p>
+									<span class="label-head">{% trans %}FOR{% endtrans %} {{ extraData.data.mode|upper }}:</span> {{ extraData.data.description|stripslashes }}
+								</p>
+								<p class="underinfo">
+									{{ extraData.data.condition.name|stripslashes }},
+									{{ extraData.data.locationDisplay|stripslashes }}{% if extraData.data.mode == 'sale' %},{% endif %}
+									{% if extraData.data.mode == 'sale' %}
+										{{ extraData.data.price }}{{ extraData.data.currency|upper }}
+									{% endif %}
+								</p>
+							</div>
+							<div class="clearfix"></div>
+						</div>
+						{% endif %}
+					</div>
+					<div class="buttons">
+							<button type="submit" class="btn btn-send">{% trans %}Ask{% endtrans %}</button>
+					</div>
+					<div class="clearfix"></div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+<script>
+$(document).ready( function() {
+	initDropdown2( '#dropdown-circle-top', '#questionCircle' );
+	$('.question-new-form textarea').autosize();
+	{% if extraData.type == 'advertQuestion' %}
+		$('.question-new-form').slideDown();
+		$('#headerTop .add').addClass('active');
+	{% endif %}
+	$('.btn-send').click( function() {
+		rbApp.qa.send();
+		return false;
+	});
+});
+</script>

@@ -1,0 +1,147 @@
+rb_admin_dashboard:
+    pattern: /admin/dashboard/
+    defaults: { _controller: RigbagAdminBundle:Default:index }
+
+rb_admin_logout:
+    pattern: /admin/logout/
+    defaults: { _controller: RigbagAdminBundle:Auth:logout }
+
+rb_admin_login:
+    pattern: /admin/login/
+    defaults: { _controller: RigbagAdminBundle:Auth:login }
+
+rb_admin_admins_list:
+    pattern: /admin/admins/list/
+    defaults: { _controller: RigbagAdminBundle:Admins:list }
+
+rb_admin_admin_add:
+    pattern: /admin/admins/add/
+    defaults: { _controller: RigbagAdminBundle:Admins:add }
+
+rb_admin_admins_view:
+    pattern: /admin/admins/view/
+    defaults: { _controller: RigbagAdminBundle:Admins:view }
+
+rb_admin_admin_edit:
+    pattern: /admin/admins/edit/{adminId}/
+    defaults: { _controller: RigbagAdminBundle:Admins:edit }
+
+rb_admin_admin_delete:
+    pattern: /admin/admins/delete/{adminId}/
+    defaults: { _controller: RigbagAdminBundle:Admins:delete }
+
+rb_admin_adverts_list:
+    pattern: /admin/adverts/list/
+    defaults: { _controller: RigbagAdminBundle:Adverts:list }
+
+rb_admin_adverts_view:
+    pattern: /admin/adverts/view/{advertId}/
+    defaults: { _controller: RigbagAdminBundle:Adverts:view }
+
+rb_admin_adverts_edit:
+    pattern: /admin/adverts/edit/{advertId}/
+    defaults: { _controller: RigbagAdminBundle:Adverts:edit }
+
+rb_admin_adverts_delete:
+    pattern: /admin/adverts/delete/{advertId}/
+    defaults: { _controller: RigbagAdminBundle:Adverts:delete }
+
+rb_admin_locations_suggest:
+    pattern: /admin/locations/suggest/
+    defaults: { _controller: RigbagAdminBundle:Locations:suggest }
+
+rb_admin_locations_list:
+    pattern: /admin/locations/list/
+    defaults: { _controller: RigbagAdminBundle:Locations:list }
+
+rb_admin_location_add:
+    pattern: /admin/locations/add/
+    defaults: { _controller: RigbagAdminBundle:Locations:add }
+
+rb_admin_locations_view:
+    pattern: /admin/locations/view/{locationId}/
+    defaults: { _controller: RigbagAdminBundle:Locations:view }
+
+rb_admin_location_edit:
+    pattern: /admin/locations/edit/{locationId}/
+    defaults: { _controller: RigbagAdminBundle:Locations:edit }
+
+rb_admin_location_delete:
+    pattern: /admin/locations/delete/{locationId}/
+    defaults: { _controller: RigbagAdminBundle:Locations:delete }
+
+rb_admin_circles_list:
+    pattern: /admin/circles/list/
+    defaults: { _controller: RigbagAdminBundle:Circles:list }
+
+rb_admin_circles_view:
+    pattern: /admin/circles/view/{circleId}/
+    defaults: { _controller: RigbagAdminBundle:Circles:view }
+
+rb_admin_circles_create:
+    pattern: /admin/circles/create/
+    defaults: { _controller: RigbagAdminBundle:Circles:create }
+
+rb_admin_circles_edit:
+    pattern: /admin/circles/edit/{circleId}/
+    defaults: { _controller: RigbagAdminBundle:Circles:edit }
+
+rb_admin_circle_delete:
+    pattern: /admin/circles/delete/{circleId}/
+    defaults: { _controller: RigbagAdminBundle:Circles:delete }
+
+rb_admin_interests_list:
+    pattern: /admin/interests/list/
+    defaults: { _controller: RigbagAdminBundle:Interests:list }
+
+rb_admin_interest_add:
+    pattern: /admin/interests/add/
+    defaults: { _controller: RigbagAdminBundle:Interests:add }
+
+rb_admin_interests_view:
+    pattern: /admin/interests/view/{interestId}/
+    defaults: { _controller: RigbagAdminBundle:Interests:view }
+
+rb_admin_interest_edit:
+    pattern: /admin/interests/edit/{interestId}/
+    defaults: { _controller: RigbagAdminBundle:Interests:edit }
+
+rb_admin_interest_delete:
+    pattern: /admin/interests/delete/{interestId}/
+    defaults: { _controller: RigbagAdminBundle:Interests:delete }
+
+rb_admin_profiles_list:
+    pattern: /admin/profiles/list/
+    defaults: { _controller: RigbagAdminBundle:Users:list }
+
+rb_admin_profile_view:
+    pattern: /admin/profile/view/{userId}/
+    defaults: { _controller: RigbagAdminBundle:Users:view }
+
+rb_admin_profile_edit:
+    pattern: /admin/profile/edit/{userId}/
+    defaults: { _controller: RigbagAdminBundle:Users:edit }
+
+rb_admin_profile_delete:
+    pattern: /admin/profile/delete/{userId}/
+    defaults: { _controller: RigbagAdminBundle:Users:delete }
+
+rb_admin_qa_list:
+    pattern: /admin/qa/list/
+    defaults: { _controller: RigbagAdminBundle:Qa:list }
+
+rb_admin_qa_view:
+    pattern: /admin/qa/view/{qaId}/
+    defaults: { _controller: RigbagAdminBundle:Qa:view }
+
+rb_admin_qa_edit:
+    pattern: /admin/qa/edit/{qaId}/
+    defaults: { _controller: RigbagAdminBundle:Qa:edit }
+
+rb_admin_qa_delete:
+    pattern: /admin/qa/delete/{qaId}/
+    defaults: { _controller: RigbagAdminBundle:Qa:delete }
+
+admin:
+    pattern: /admin/
+    defaults: { _controller: RigbagAdminBundle:Default:index }

@@ -1,0 +1,57 @@
+{% extends '::admin.html.twig' %}
+
+{% block body %}
+<div class="row">
+	<div class="span12">
+		<h2>
+			Locations list
+			<a href="{{ path('rb_admin_location_add') }}" class="btn btn-info" style="float: right; font-weight: 200;">Add</a>
+		</h2>
+		{% if locations or query %}
+		<form class="form-search form-filter text-right"">
+		  	<input name="q" value="{{ query }}" type="text" class="input-large search-query"/>
+			<button type="submit" class="btn">Search</button>
+		</form>
+		{% endif %}
+		{% if locations %}
+			<table class="table table-striped">
+			<thead>
+				<tr>
+					<th style="width: 40px;">#</th>
+					<th>name</th>
+					<th style="width: 60px;">&nbsp;</th>
+				<tr>
+			</thead>
+			<tbody>
+				{% for location in locations %}
+				<tr>
+					<td>{{ location.id }}</td>
+					<td>
+						{{ location.name }}
+					</td>
+					<td>
+						<a href="{{ path('rb_admin_location_edit', { locationId: location.id }) }}"><i class="icon-edit"></i></a>
+						<a onclick="return confirm('Are you sure?');" href="{{ path('rb_admin_location_delete', { locationId: location.id, q:query, page:pagination.actual }) }}"><i class="icon-remove"></i></a>
+					</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+			</table>	
+			<div class="pagination pagination-right">
+			  	<ul>
+				    <li><a href="#">&laquo;</a></li>
+				    {% for page in 1..pagination.lastPage %}
+				    	<li{% if page == pagination.actual %} class="active"{% endif %}><a href="{{ path('rb_admin_locations_list', { page: page, q: query }) }}">{{ page }}</a></li>
+				    {% endfor %}
+				    <li><a href="#">&raquo;</a></li>
+			  	</ul>
+			</div>
+		{% else %}
+			<div class="alert">
+				No locations
+			</div>
+		{% endif %}
+		
+	</div>
+</div>
+{% endblock %}

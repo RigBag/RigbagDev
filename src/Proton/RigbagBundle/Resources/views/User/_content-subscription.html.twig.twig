@@ -1,0 +1,82 @@
+{% if user.accountState == 0 or user.accountState == 1 or user.accountState == 10 or user.accountState == 11 %}
+<div class="span10">
+	<p class="al-center">{% trans %}Please select subscription type:{% endtrans %}</p>
+	<div class="or">or</div>
+</div>
+<div class="clearfix"></div>
+<!-- COLUMN LEFT: start -->
+<div class="span5">
+	<div class="column-left border-space">
+		<h2>Annual subscription</h2>
+		<p><span class="price-intro"><span class="price-old">&euro;60</span> {% trans %}FREE{% trans %}</span> {% trans %}while in beta{% endtrans %} <br><span class="inlinehint">{% trans %}(you won't be paying for the whole year){% endtrans %}</span></p>
+		<div class="subscription-select subscription-annual">
+			<a href="{{ path('payments_subscription', { type: 'annual' }) }}" title="" class="btn">Select</a>
+			<!-- <p>{% trans %}You will be redirected{% endtrans %}</p>
+			<p>{% trans %}to PayPal to pay{% endtrans %} &euro;30</p> -->
+		</div>
+		<div class="clearfix"></div>
+		<p><strong>{% trans %}Benefits of the annual subscription:{% endtrans %}</strong></p>
+		<ul>
+			<li>{% trans %}Sell as much gear as you like for a full year{% endtrans %}</li>
+			<li>{% trans %}Buy or swap new or secondhand gear{% endtrans %}</li>
+			<li>{% trans %}Read all the latest news{% endtrans %}</li>
+			<li>{% trans %}Connect with athletes and companies in your sport{% endtrans %}</li>
+			<li>{% trans %}The most cost effective way of getting all the benefits of RigBag{% endtrans %}</li>
+		</ul>
+	</div>
+</div>
+<!-- COLUMN LEFT: end -->
+<!-- COLUMN RIGHT: start -->
+<div class="span5">
+	<div class="column-right border-space">
+		<h2>{% trans %}Pay as you go{% endtrans %}</h2>
+		<p>{% trans %}You will be charged{% endtrans %} <span class="price-intro-small">&euro;5</span> {% trans %}for each advert you post on RigBag{% endtrans %}</p>
+        <div class="subscription-select subscription-free">
+			<a href="#" title="" class="btn">Select</a>
+		</div>
+		<div class="clearfix"></div>
+		<p><strong>{% trans %}Pay as you go subscription:{% endtrans %}</strong></p>
+		<ul>
+			<li>{% trans %}Try out RigBag for a low cost{% endtrans %}</li>
+			<li>{% trans %}Post an advert{% endtrans %}</li>
+			<li>{% trans %}Ideal if you just want to see if RigBag is for you{% endtrans %}</li>
+		</ul>
+	</div>
+</div>
+<!-- COLUMN RIGHT: end -->
+<script>
+$(document).ready( function() {
+
+	
+	$('.subscription-free .btn').click( function() {
+		
+		{% if signup %}
+			rbApp.callAction( 'profile/subscription/select/free/', 'setUrl(\'/signup/done/\')' );
+		{% else %}
+			rbApp.callAction( 'profile/subscription/select/free/' );
+		{% endif %}
+		return false;
+	});
+
+});
+</script>
+{% else %}
+<div class="span9 offset1">
+	{% trans %}Account type: Annual{% endtrans %}<br/>
+	{% trans %}Expire date:{% endtrans %} {{ user.expiredAt|date('d.m.Y') }}
+</div>
+{% if signup %}
+<div class="clearfix"></div>
+<div class="actions">
+		<a href="#" title="" class="btn">{% trans %}Next{% endtrans %} &raquo;</a>
+</div>
+{% endif %}
+<script>
+$(document).ready( function() {
+	$('.actions .btn').click( function() {
+		setUrl( '/signup/done/' );
+		return false;
+	});
+});
+</script>
+{% endif %}

@@ -1,0 +1,46 @@
+{% extends '::admin.html.twig' %}
+
+{% block body %}
+<div class="row advert-view">
+	<div class="span12">
+		<h2>
+			{% if location.id %}Edit{%else%}New{%endif%} location 
+		</h2>
+	</div>
+	<form method="post">
+	<div class="span12">
+	  	<div class="control-group">
+	    	<label class="control-label" for="name">name</label>
+	    	<div class="controls">
+	    		<input type="text" name="name" id="name" class="span6" value="{{ location.name }}"/>
+	    	</div>
+	    	<input type="hidden" name="lat" id="lat" value="{{ location.lat }}"/>
+	    	<input type="hidden" name="lng" id="lng" value="{{ location.lng }}"/>
+	    	<input type="hidden" name="code" id="code" value="{{ location.code }}"/>
+	  	</div>
+	</div>
+	<div class="span12 action-buttons">
+		<button class="btn btn-block btn-large btn-info">Save</button>
+	</div>
+	</form>
+</div>
+<script>
+$(document).ready( function() {
+
+	// Google autocomplete
+	var options = {
+  				types: ['geocode']
+			};
+
+	var autocomplete = new google.maps.places.Autocomplete( document.getElementById( 'name' ), options);
+			
+	google.maps.event.addListener(autocomplete, 'place_changed', function() {
+  		var place = parseGMapPlace( autocomplete.getPlace() );
+  		
+		$('#lat').val(place.lat);
+		$('#lng').val(place.lng);
+		$('#code').val(place.countryCode);
+	});
+});
+</script>
+{% endblock %}

@@ -1,0 +1,32 @@
+Proton\RigbagBundle\Entity\News:
+    type: entity
+    table: news
+    repositoryClass: Proton\RigbagBundle\Repository\NewsRepository
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        add_date:
+            type: datetime
+        tw_id:
+            type: string
+            length: 20
+        content:
+            type: string
+            length: 250
+        tw_user_id:
+            type: integer
+        tw_user_name:
+            type: string
+            length: 100
+        tw_user_screen_name:
+            type: string
+            length: 100
+        tw_user_url:
+            type: string
+            length: 250
+        tw_user_picture:
+            type: string
+            length: 250
+   

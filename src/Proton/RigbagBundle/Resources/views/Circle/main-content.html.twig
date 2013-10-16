@@ -1,0 +1,60 @@
+<div class="span10">
+	<!-- CIRCLES-SIDEBAR: start -->
+	<div class="circles-sidebar">
+		<div class="sidebar-container">
+			<ul>
+				{% for circle in circles %}
+				<li data-id="{{ circle.id }}"{% if circle.id == currentCircle.id %} class="active"{% endif %} onclick="setUrl('/circles/{{ circle.id }}/adverts/list/'); selectMenuElement2( $(this) );">
+					<div>
+						<h3><a href="#/circles/{{ circle.id }}/adverts/list/" onclick="selectMenuElement2( $(this).parent().parent() );" title="">{{ circle.name|stripslashes }}</a></h3>
+						<!--<h4><a href="#/circles/{{ circle.id }}/adverts/list/" onclick="selectMenuElement2( $(this).parent().parent() );" title="">{{ circle.description|stripslashes }}</a></h4>-->
+					</div>
+				</li>
+				{% endfor %}
+			</ul>
+		</div>
+		<div class="other-circles">
+			<span class="mn">{% trans %}Browse other circles{% endtrans %}</span>
+		</div>
+	</div>
+	<!-- CIRCLES-SIDEBAR: end -->
+	{% if type == 'adverts' %}
+		<!-- CIRCLE-ADVERTS: start -->
+		<div class="adverts-list" id="circle-content">
+			{% include 'ProtonRigbagBundle:Circle:adverts-content.html.twig' with { 'adverts': adverts } %}
+		</div>
+		<!-- CIRCLE-ADVERTS: end -->
+	{% elseif type == 'members' %}
+		<!-- CIRCLE-MEMBERS: start -->
+		<div class="circle-members" id="circle-content">
+			{% include 'ProtonRigbagBundle:Circle:members-content.html.twig' with { 'members': members } %}
+		</div>
+		<!-- CIRCLE-MEMBERS: end -->
+	{% elseif type == 'qa' %}
+		<!-- CIRCLE-QA: start -->
+		<div class="q-and-a-list" id="circle-content">
+			{% include 'ProtonRigbagBundle:Circle:qa-content.html.twig' with { 'questions': questions } %}
+		</div>
+		<!-- CIRCLE-QA: end -->
+	{% endif %}
+</div>
+<script>
+$(document).ready( function() {
+	resizeCirclesSidebar();
+	setTimeout( 'resizeCirclesSidebar()', 500 );
+
+	$('.other-circles span').click( function() {
+		setUrl('/circles/browse/');
+	});
+});
+function resizeCirclesSidebar() {
+	if( $( '.sidebar-container ul' ).height() + 180 >= $('.circles-sidebar').height() ) {
+		$('.header .bottom .arUp').fadeIn('fast');
+		$('.header .bottom .arDown').fadeIn('fast');
+	} else {
+		$('.header .bottom .arUp').fadeOut('fast');
+		$('.header .bottom .arDown').fadeOut('fast');
+	}
+	$('.circles-sidebar .sidebar-container').css( 'height', ( $('.circles-sidebar').height() - 175 ) +'px' );
+}
+</script>

@@ -1,0 +1,30 @@
+Proton\RigbagBundle\Entity\LateAction:
+    type: entity
+    table: late_action
+    repositoryClass: Proton\RigbagBundle\Repository\LateActionRepository
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        user_id:
+            type: integer
+            length: 20
+        action_type:
+            type: string
+            length: 50
+        action_params:
+            type: text
+        expired_at:
+            type: datetime
+        created_at:
+            type: datetime
+    lifecycleCallbacks:
+        prePersist: [ setCreatedAtValue ]
+    manyToOne:
+        user:
+            targetEntity: User
+            inversedBy: lateActions
+            joinColumn:
+                name: user_id
+                referencedColumnName: id

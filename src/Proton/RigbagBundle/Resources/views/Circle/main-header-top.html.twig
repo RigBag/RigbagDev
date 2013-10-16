@@ -1,0 +1,43 @@
+<div class="nav-left">
+	<a href="#" onclick="history.back(); return false;" title="" class="back"><span></span></a>
+</div>
+<h1>Circles{% if circle %} <span>{{ circle.name|stripslashes }}</span>{% endif %}</h1>
+{% if has is not defined %}{% set has = true %}{% endif %}
+{% if has == false %}
+<a class="btn join" id="btnCircleJoin" data-id="{{ circle.id }}" data-name="{{ circle.name }}" data-description="{{  circle.description }}">{% trans %}Join the Circle{% endtrans %}</a>
+{% endif %}
+<script>
+$(document).ready( function() {
+	$('#btnCircleJoin').click( function() {
+
+		var self = this;
+		var id = $(this).data('id');
+		var name = $(this).data('name');
+		var description = $(this).data('description');
+
+		$.ajax({
+			type: 'GET',
+			url: APP_PATH + 'circles/add/' + id + '/',
+			data: data,
+			cache: false,
+			dataType: 'json',
+			success: function(data) {
+			},
+			error: function(data) {
+				rbApp.showFlash('', data.status + ' ' + data.statusText, 'error', 0);
+			}
+		});
+
+		$(this).fadeOut( function() {
+			var html = '<li class="new" data-id="' + id + '" onclick="setUrl(\'/circles/' + id + '/adverts/list/\'); selectMenuElement2( $(this) );" style="display: none;">';
+			html = html + '<div>';
+			html = html + '<h3><a href="#/circles/' + id + '/adverts/list/" onclick="selectMenuElement2( $(this).parent().parent() );" title="">' + name + '</a></h3>';
+			html = html + '<h4><a href="#/circles/' + id + '/adverts/list/" onclick="selectMenuElement2( $(this).parent().parent() );" title="">' + description + '</a></h4>';
+			html = html + '</div></li>';
+			$('.sidebar-container ul').append( html );
+			$('.sidebar-container .new').fadeIn( function() { $(this).removeClass( 'new' ); });
+
+		});
+	});
+});
+</script>

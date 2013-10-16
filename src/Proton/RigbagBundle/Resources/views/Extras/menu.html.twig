@@ -1,0 +1,33 @@
+<!-- MENU: start -->
+{% if isLoged is not defined %}
+	{% set isLoged = true %}
+{% endif %}
+<div class="menu">
+	<ul>
+		<li class="adverts{% if cElement == 1 %} active{% endif %}">
+			<a href="{{ path('start') }}#/adverts/list/sale/" onclick="selectMenuElement( $(this) );"  title=""><span class="ico"></span><span class="info">{% trans %}Adverts{% endtrans %}</span></a>
+		</li>
+		{% if isLoged == true %}
+		<li class="circles{% if cElement == 2 %} active{% endif %}">
+			<a href="{{ path('start') }}#/circles/list/" onclick="selectMenuElement( $(this) );" title=""><span class="ico"></span><span class="info">{% trans %}Circles{% endtrans %}</span></a>
+		</li>
+		{% endif %}
+		<li class="qa{% if cElement == 3 %} active{% endif %}">
+			<a href="{{ path('start') }}#/qa/list/" onclick="selectMenuElement( $(this) );" title=""><span class="ico"></span><span class="info">{% trans %}Q&amp;A{% endtrans %}</span></a>
+		</li>
+		{% if isLoged == true %}
+		<li class="my-profile{% if cElement == 4 %} active{% endif %}">
+			<a href="{{ path('start') }}#/profile/" onclick="selectMenuElement( $(this) );" title=""><span class="ico"></span><span class="info">{% trans %}My profile{% endtrans %}</span></a>
+		</li>
+		{% endif %}
+		<li class="news{% if cElement == 5 %} active{% endif %}">
+			<a href="{{ path('start') }}#/news/list/" title=""><span class="ico"></span><span class="info">{% trans %}News{% endtrans %}</span></a>
+		</li>
+		{% if isLoged == true or userId > 0 %}
+		<li class="settings{% if cElement == 6 %} active{% endif %}">
+			<a href="{{ path('start') }}#/settings/profile/" onclick="selectMenuElement( $(this) );" title=""><span class="ico"></span><span class="info">{% trans %}Settings{% endtrans %}</span></a>
+		</li>
+		{% endif %}
+	</ul>
+</div>
+<!-- MENU: end -->

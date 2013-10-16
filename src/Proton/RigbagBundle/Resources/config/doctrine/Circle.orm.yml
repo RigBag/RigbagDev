@@ -1,0 +1,57 @@
+Proton\RigbagBundle\Entity\Circle:
+    type: entity
+    table: circle
+    repositoryClass: Proton\RigbagBundle\Repository\CircleRepository
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        interest_id:
+            type: integer
+        name:
+            type: string
+            length: 250
+        description:
+            type: text
+            nullable: true
+        created_at:
+            type: datetime
+        updated_at:
+            type: datetime
+    lifecycleCallbacks:
+        prePersist: [ setCreatedAtValue, setUpdatedAtValue ]
+        preUpdate: [ setUpdatedAtValue ]
+    manyToOne:
+        interest:
+            targetEntity: Interest
+            inversedBy: circles
+            joinColumn:
+                name: interest_id
+                referencedColumnName: id
+    manyToMany:
+        adverts:
+            targetEntity: Advert
+            joinTable:
+                name: circle_has_advert
+                joinColumns:
+                    circle_id:
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    advert_id:
+                        referencedColumnName: id
+        users:
+            targetEntity: User
+            joinTable:
+                name: user_has_circle
+                joinColumns:
+                    circle_id:
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    user_id:
+                        referencedColumnName: id
+    oneToMany:
+        questions:
+            targetEntity: QaPosition
+            mappedBy: circle
+            cascade: [persist]

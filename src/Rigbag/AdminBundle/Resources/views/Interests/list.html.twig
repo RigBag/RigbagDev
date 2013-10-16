@@ -1,0 +1,57 @@
+{% extends '::admin.html.twig' %}
+
+{% block body %}
+<div class="row">
+	<div class="span12">
+		<h2>
+			Interests list
+			<a href="{{ path('rb_admin_interest_add') }}" class="btn btn-info" style="float: right; font-weight: 200;">Add</a>
+		</h2>
+		{% if interests or query %}
+		<form class="form-search form-filter text-right"">
+		  	<input name="q" value="{{ query }}" type="text" class="input-large search-query"/>
+			<button type="submit" class="btn">Search</button>
+		</form>
+		{% endif %}
+		{% if interests %}
+			<table class="table table-striped">
+			<thead>
+				<tr>
+					<th style="width: 40px;">#</th>
+					<th>name</th>
+					<th style="width: 60px;">&nbsp;</th>
+				<tr>
+			</thead>
+			<tbody>
+				{% for interest in interests %}
+				<tr>
+					<td>{{ interest.id }}</td>
+					<td>
+						{{ interest.name }}
+					</td>
+					<td>
+						<a href="{{ path('rb_admin_interest_edit', { interestId: interest.id }) }}"><i class="icon-edit"></i></a>
+						<a onclick="return confirm('Are you sure?');" href="{{ path('rb_admin_interest_delete', { interestId: interest.id, q:query, page:pagination.actual }) }}"><i class="icon-remove"></i></a>
+					</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+			</table>	
+			<div class="pagination pagination-right">
+			  	<ul>
+				    <li><a href="#">&laquo;</a></li>
+				    {% for page in 1..pagination.lastPage %}
+				    	<li{% if page == pagination.actual %} class="active"{% endif %}><a href="{{ path('rb_admin_interests_list', { page: page, q: query }) }}">{{ page }}</a></li>
+				    {% endfor %}
+				    <li><a href="#">&raquo;</a></li>
+			  	</ul>
+			</div>
+		{% else %}
+			<div class="alert">
+				No interests
+			</div>
+		{% endif %}
+		
+	</div>
+</div>
+{% endblock %}

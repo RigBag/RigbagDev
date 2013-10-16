@@ -1,0 +1,10 @@
+<div class="nav-left">
+	<a href="#" onclick="history.back(); return false;" title="" class="back"><span></span></a>
+</div>
+<h1>
+{% if isEdit %}
+	{% trans %}Edit advert{% endtrans %}
+{% else %}
+	{% trans %}Post a new advert{% endtrans %}
+{% endif %}
+</h1>

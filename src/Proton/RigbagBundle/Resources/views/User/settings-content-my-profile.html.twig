@@ -1,0 +1,198 @@
+<form action="#" onsubmit="return false;" id="formProfile" method="post">
+	<!-- COLUMN LEFT: start -->
+	<div class="span5">
+		<div class="column-left">
+			<label>{% trans %}Your name{% endtrans %}</label>
+			<input type="text" name="u-name" class="f-name required input-xlarge" value="{{ user.name|stripslashes }}" placeholder="{% trans %}Your name{% endtrans %}">
+
+			<label>{% trans %}Email{% endtrans %}</label>
+			<input type="text" name="u-email" class="f-email required email input-xlarge" value="{{ user.email|stripslashes }}" placeholder="{% trans %}Email{% endtrans %}">
+
+			<label>{% trans %}Location{% endtrans %}</label>
+			<input type="text" id="location" name="u-location" class="f-location required input-xlarge location" value="{{ user.location|stripslashes }}" placeholder="{% trans %}Location{% endtrans %}">
+			<input type="hidden" id="location-cc" name="country_short" class="f-location-cc input-medium" value="{{ user.locationCountryCode|stripslashes }}">
+			<input type="hidden" id="location-formated" name="formatted_address" class="f-location-formated input-medium" value="{{ user.locationFormated|stripslashes }}">
+			<input type="hidden" id="location-lat" name="lat" class="f-location-lat input-medium" value="{{ user.locationLat|stripslashes }}">
+			<input type="hidden" id="location-lng" name="lng" class="f-location-lng input-medium" value="{{ user.locationLng|stripslashes }}">
+
+			<label>{% trans %}Phone number{% endtrans %}</label>
+			<input type="text" name="u-phone" class="f-phone phoneNumber input-medium" value="{{ user.phone }}" placeholder="{% trans %}Phone number{% endtrans %}">
+
+			<!-- <label>{% trans %}PayPal account{% endtrans %}</label> -->
+			<!-- <input type="text" name="u-paypal" class="f-paypal input-medium email" value="{{ user.paypalId }}" placeholder="{% trans %}Paypal account{% endtrans %}"> -->
+
+			<!-- <p class="shipping-address-info">{% trans %}Is your shipping address the same?{% endtrans %}	<a href="" title="">{% trans %}add a shipping address{% endtrans %}</a></p> -->
+		</div>
+	</div>
+	<!-- COLUMN LEFT: end -->
+	<!-- COLUMN RIGHT: start -->
+	<div class="span5">
+		<div class="column-right">
+			<label>{% trans %}Short bio{% endtrans %}</label>
+			<textarea name="u-bio" class="f-bio input-xlarge">{{ user.bio|stripslashes }}</textarea>
+
+
+			<script type="text/javascript">
+				$(document).ready( function() {
+
+					var uploader = new qq.FileUploader({
+													element: document.getElementById('photo-uploader'),
+													action: '{{ path('settings_upload_avatar', { type: 'avatar' } ) }}',
+									    			uploadButtonText: 'Choose file',
+													multiple: false,
+									    			allowedExtensions: ['jpg','jpeg','png','gif'],
+									    			button: document.getElementById('avatar'),
+									    			onUpload: function( id, fileName ) {
+									    				$('.avatar-cont .file-drop-zone').addClass( 'load' );
+									    				$('.avatar-cont .ico').addClass( 'hide' );
+									    			},
+									    			onComplete: function( id, fileName, response ) {
+									    				var o = $('.avatar-cont .ico');
+									    				$('.avatar-cont').addClass( 'has-avatar' );
+									    				$('.avatar-cont .file-drop-zone').removeClass( 'load' );
+									    				$(o).attr( 'style', 'background-image: url(' + response.cssPath + ');"' );
+									    				$(o).removeClass( 'hide' );
+													}
+											});
+
+				});
+			</script>
+
+			<label>{% trans %}Add a profile picture{% endtrans %}</label>
+			<div class="avatar-cont{% if user.profilePicture %} has-photo{% endif %}">
+				<div class="ico"{% if user.profilePicture %} style="background-image: url({{ mediaUrl }}{{ user.profilePicture|replace({'%size%': '80x80' }) }});"{% endif %}></div>
+				<div class="file-drop-zone" id="avatar"></div>
+			</div>
+
+            <div id="photo-uploader">
+				<noscript>
+					<p>{% trans %}Please enable JavaScript to use file uploader.{% endtrans %}</p>
+				</noscript>
+			</div>
+
+
+			<div class="social-connect">
+				<p>{% trans %}Connect your RigBag profile with social media for easy sharing{% endtrans %}</p>
+				<ul>
+					<li class="facebook{% if user.facebookId %} connected{% endif %}">
+						<a href="#" title="" class="ico"></a>
+						<span class="info{% if user.facebookId %}{% else %} hidden{% endif %}">{% trans %}connected{% endtrans %}</span>
+						<a href="#" title="" class="action action-2{% if user.facebookId %}{% else %} hidden{% endif %}">{% trans %}disconnect{% endtrans %}</a>
+						<a href="#" title="" class="action{% if user.facebookId %} hidden{% endif %}">{% trans %}connect{% endtrans %}</a>
+					</li>
+					<!--<li class="google{% if user.googleId %} {% trans %}connected{% endtrans %}{% endif %}">
+						<a href="#" title="" class="ico"></a>
+						<span class="info{% if user.googleId %}{% else %} hidden{% endif %}">{% trans %}connected{% endtrans %}</span>
+						<a href="#" title="" class="action action-2{% if user.googleId %}{% else %} hidden{% endif %}">{% trans %}disconnect{% endtrans %}</a>
+						<a href="#" title="" class="action{% if user.googleId %} hidden{% endif %}">{% trans %}connect{% endtrans %}</a>
+					</li>-->
+					<li class="twitter{% if user.twitterId %} {% trans %}connected{% endtrans %}{% endif %}">
+						<a href="#" title="" class="ico"></a>
+						<span class="info{% if user.twitterId %}{% else %} hidden{% endif %}">{% trans %}connected{% endtrans %}</span>
+						<a href="#" title="" class="action action-2{% if user.twitterId %}{% else %} hidden{% endif %}">{% trans %}disconnect{% endtrans %}</a>
+						<a href="#" title="" class="action{% if user.twitterId %} hidden{% endif %}">{% trans %}connect{% endtrans %}</a>
+					</li>
+				</ul>
+			</div>
+			<div class="actions">
+				<a href="#" title="" class="btn">
+					{% if signup == true %}
+						{% trans %}Next{% endtrans %} &raquo;
+					{% else %}
+						{% trans %}Update profile{% endtrans %}
+					{% endif %}
+					</a>
+			</div>
+		</div>
+	</div>
+	<!-- COLUMN RIGHT: end -->
+</form>
+<script>
+function disconnectCheck() {
+	if( $('.social-connect .connected').length < 2 ) {
+		alert('You can\'t do it.');
+		return false;
+	}
+	return true;
+}
+
+$(document).ready( function() {
+
+	var options = {
+			types: ['geocode']
+	};
+
+	var autocomplete = new google.maps.places.Autocomplete( document.getElementById( 'location' ), options);
+
+	google.maps.event.addListener(autocomplete, 'place_changed', function() {
+			var place = parseGMapPlace( autocomplete.getPlace() );
+			$('#location-lat').val(place.lat);
+			$('#location-lng').val(place.lng);
+			$('#location-formated').val(place.formated);
+			$('#location-cc').val(place.countryCode);
+	});
+
+
+	$('.actions .btn').click( function() {
+		rbApp.user.profileUpdate( {% if signup %}true{% else %}false{% endif %} );
+		return false;
+	});
+
+	$('.social-connect .facebook a').click( function() {
+		if( $(this).parent().hasClass( 'connected' ) ) {
+			if( disconnectCheck() ) {
+				if( confirm( 'Are you sure?' ) ) {
+
+					rbApp.user.facebookDisconnect();
+
+					$('.social-connect .facebook').removeClass( 'connected' );
+					$('.social-connect .facebook .info').addClass( 'hidden' );
+					$('.social-connect .facebook .action').removeClass( 'hidden' );
+					$('.social-connect .facebook .action-2').addClass( 'hidden' );
+				}
+			}
+		} else {
+			rbApp.user.facebookConnect();
+		}
+		return false;
+	});
+
+	$('.social-connect .twitter a').click( function() {
+		if( $(this).parent().hasClass( 'connected' ) ) {
+			if( disconnectCheck() ) {
+				if( confirm( '{% trans %}Are you sure?{% endtrans %}' ) ) {
+
+					rbApp.user.twitterDisconnect();
+
+					$('.social-connect .twitter').removeClass( 'connected' );
+					$('.social-connect .twitter .info').addClass( 'hidden' );
+					$('.social-connect .twitter .action').removeClass( 'hidden' );
+					$('.social-connect .twitter .action-2').addClass( 'hidden' );
+				}
+			}
+		} else {
+			rbApp.user.twitterConnect();
+		}
+		return false;
+	});
+
+	$('.social-connect .google a').click( function() {
+		if( $(this).parent().hasClass( 'connected' ) ) {
+			if( disconnectCheck() ) {
+				if( confirm( '{% trans %}Are you sure?{% endtrans %}' ) ) {
+
+					rbApp.user.googleDisconnect();
+
+					$('.social-connect .google').removeClass( 'connected' );
+					$('.social-connect .google .info').addClass( 'hidden' );
+					$('.social-connect .google .action').removeClass( 'hidden' );
+					$('.social-connect .google .action-2').addClass( 'hidden' );
+				}
+			}
+		} else {
+			rbApp.user.googleConnect();
+		}
+		return false;
+	});
+});
+</script>

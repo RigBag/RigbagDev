@@ -1,0 +1,43 @@
+Proton\RigbagBundle\Entity\DictionaryValue:
+    type: entity
+    table: dictionary_value
+    repositoryClass: Proton\RigbagBundle\Repository\DictionaryValueRepository
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        dictionary_id:
+            type: integer
+        name:
+            type: string
+            length: 250
+        description:
+            type: string
+            length: 250
+            nullable: true
+        ord:
+            type: integer
+            nullable: true
+        state:
+            type: string
+            length: 10
+        created_at:
+            type: datetime
+        updated_at:
+            type: datetime
+    lifecycleCallbacks:
+        prePersist: [ setCreatedAtValue, setUpdatedAtValue ]
+        preUpdate: [ setUpdatedAtValue ]
+    manyToOne:
+        dictionary:
+            targetEntity: Dictionary
+            inversedBy: values
+            joinColumn:
+                name: dictionary_id
+                referencedColumnName: id
+    oneToMany:
+        conditionOfAdverts:
+            targetEntity: Advert
+            mappedBy: condition
+            cascade: [persist]

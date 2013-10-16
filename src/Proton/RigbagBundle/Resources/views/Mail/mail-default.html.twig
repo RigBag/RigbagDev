@@ -1,0 +1,11 @@
+{% include 'ProtonRigbagBundle:Mail:top.html.twig' %}
+<p>Hello! {{ user.name }} wants you to have a look at item on RigBag.</p>
+<p style="margin: 5px 0 0 0;">View the advert: <a href="{{ advertUrl }}" style="color: #34b3d1; text-decoration: none;">{{ advertUrl }}</a></p>
+{%  if message %}
+<p style="margin: 10px 0 0 0;">PS.<br/>
+{{  message  }}</p>
+{% endif %}
+<p style="margin:15px 0 0 0;">Thank you for using RigBag.<br/>
+The RigBag Team<br/>
+<a href="http://rigbag.com" style="color: #34b3d1; text-decoration: none;">http://rigbag.com</a></p>
+{% include 'ProtonRigbagBundle:Mail:bottom.html.twig' %}

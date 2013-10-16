@@ -1,0 +1,160 @@
+{% extends '::admin.html.twig' %}
+
+{% block body %}
+<div class="row advert-view">
+	<div class="span12">
+		<h2>
+			{% if advert.id %}Edit{%else%}New{%endif%} advert 
+		</h2>
+	</div>
+	<form method="post">
+	<div class="span6">
+	  	<div class="control-group">
+	    	<label class="control-label" for="title">item</label>
+	    	<div class="controls">
+	    		<input type="text" name="title" class="span6" value="{{ advert.title }}"/>
+	    	</div>
+	  	</div>
+	  	<div class="control-group">
+	    	<label class="control-label" for="mode">mode</label>
+	    	<div class="controls">
+	    		<select name="mode" class="span6"{% if advert.id %} disabled{% endif %}>
+	    			<option value="sale"{% if advert.mode == 'sale' %} selected{% endif %}>for sale</option>
+	    			<option value="swap"{% if advert.mode == 'swap' %} selected{% endif %}>for swap</option>
+	    			<option value="freebie"{% if advert.mode == 'freebie' %} selected{% endif %}>freebie</option>
+	    		</select>
+	    		{% if advert.id %}
+	    			<input type="hidden" name="mode" value="{{ advert.mode }}"/>
+	    		{% endif %}
+	    	</div>
+	  	</div>
+	  	<div class="control-group">
+	    	<label class="control-label" for="condition">condition</label>
+	    	<div class="controls">
+	    		<select name="condition" class="span6">
+	    		{% for condition in conditions %}
+	    			<option value="{{ condition.id }}"{% if advert.condition.id == condition.id %} selected{% endif %}>{{condition.name}}</option>
+	    		{% endfor %}
+	    		</select>
+	    	</div>
+	  	</div>
+	  	<div class="control-group">
+	    	<label class="control-label" for="state">state</label>
+	    	<div class="controls">
+	    		<select name="state" class="span6">
+	    			<option value="enabled"{% if advert.state == 'sale' %} selected{% endif %}>enabled</option>
+	    			<option value="disabled"{% if advert.state == 'disabled' %} selected{% endif %}>disabled</option>
+	    			<option value="closed"{% if advert.state == 'closed' %} selected{% endif %}>closed</option>
+	    			<option value="waiting_for_payment"{% if advert.state == 'waiting_for_payment' %} selected{% endif %}>waiting for payment</option>
+	    			<option value="during_deal"{% if advert.state == 'during_deal' %} selected{% endif %}>during deal</option>
+	    			<option value="sold"{% if advert.state == 'sold' %} selected{% endif %}>sold</option>
+	    		</select>
+	    	</div>
+	  	</div>
+	  	{% if advert.mode == 'sale' %}
+	  	<div class="control-group">
+	    	<label class="control-label" for="price">price</label>
+	    	<div class="controls">
+	    		<input type="text" name="price" value="{{ advert.price }}" class="span2"/>
+	    		<select name="currency" class="span2">
+	    		{% for currency in currencies %}
+	    			<option value="{{ currency.value }}"{% if advert.currency == currency.value %} selected{% endif %}>{{currency.label}}</option>
+	    		{% endfor %}
+	    		</select>
+	    	</div>
+	  	</div>
+	  	<div class="control-group">
+	    	<label class="control-label" for="paypalId">paypal account</label>
+	    	<div class="controls">
+	    		<input type="text" name="paypalId" value="{{ advert.paypalId }}" class="span6"/>
+	    	</div>
+	  	</div>
+	  	{% endif %}
+		{% if advert.mode == 'swap' %}
+	  	<div class="control-group">
+	    	<label class="control-label" for="swapFor">swap for</label>
+	    	<div class="controls">
+	    		<input type="text" name="swapFor" value="{{ advert.swapFor }}" class="span6"/>
+	    	</div>
+	  	</div>
+	  	{% endif %}
+		<div class="control-group">
+	    	<label class="control-label" for="price">location</label>
+	    	<div class="controls">
+	    		<input type="text" id="location" name="location" value="{{ advert.location }}" class="span6"/>
+	    		<input type="hidden" id="locationFormatted" name="locationFormatted" value="{{ advert.locationFormated }}"/>
+	    		<input type="hidden" id="locationLat" name="locationLat" value="{{ advert.locationLat }}"/>
+	    		<input type="hidden" id="locationLng" name="locationLng" value="{{ advert.locationLng }}"/>
+	    	</div>
+	  	</div>
+		<ul class="photos-view">
+		{% for image in advert.images %}
+			<li data-photo-big="{{ mediaUrl }}{{ image.path|replace({'%size%': '440x380' }) }}" data-photo-id="{{ image.id }}">
+				<input type="hidden" name="photo[]" value="{{ image.id }}"/>
+				<img class="img-polaroid" src="{{ mediaUrl }}{{ image.path|replace({'%size%': '80x69' }) }}" alt=""/>
+				<a href="#" data-id="{{ image.id }}" onclick="advertImageRemove($(this)); return false;"><i class="icon-remove-sign"></i></a>
+			</li>
+		{% endfor %}
+		</ul>
+	</div>
+	<div class="span5 offset1">
+		<h5>Circles</h5>
+		<ul class="circles-list">
+		{% for circle in advert.circles %}
+			<li data-id="{{ circle.id }}">
+				{{ circle.name }} <!--({{circle.description|stripslashes}})-->{% set first = false %}
+				<input type="hidden" name="circle[]" value="{{ circle.id }}"/>
+				<a href="#" onclick="advertCircleRemove($(this)); return false;"><i class="icon-remove-sign"></i></a>
+			</li>
+		{% endfor %}
+		</ul>
+		<input type="text" id="circleSuggest" name="circle" class="span4"/>
+	</div>
+	<div class="span12 action-buttons">
+		<button class="btn btn-block btn-large btn-info">Save</button>
+	</div>
+	</form>
+</div>
+<script>
+function advertImageRemove( obj ) {
+	if( confirm( 'Are you sure?' ) ) {
+		$(obj).parent().fadeOut( function() {
+			$(this).remove();
+		});
+	}
+}
+function advertCircleRemove( obj ) {
+	if( confirm( 'Are you sure?' ) ) {
+		$(obj).parent().fadeOut( function() {
+			$(this).remove();
+		});
+	}
+}
+
+$(document).ready( function() {
+
+	// Circles suggest
+	$('#circleSuggest').magicSuggest({
+		allowFreeEntriesboolean : false,
+		name: 'circleNew',
+		selectionPositionstring: 'bottom',
+		data: '{{ path('rb_admin_circles_suggest') }}'
+	});
+
+	// Google autocomplete
+	var options = {
+  				types: ['geocode']
+			};
+
+	var autocomplete = new google.maps.places.Autocomplete( document.getElementById( 'location' ), options);
+			
+	google.maps.event.addListener(autocomplete, 'place_changed', function() {
+  		var place = parseGMapPlace( autocomplete.getPlace() );
+  		
+		$('#locationLat').val(place.lat);
+		$('#locationLng').val(place.lng);
+		$('#locationFormatted').val(place.formated);
+	});
+});
+</script>
+{% endblock %}

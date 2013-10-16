@@ -1,0 +1,29 @@
+Proton\RigbagBundle\Entity\MobileLog:
+    type: entity
+    table: log_mobile
+    repositoryClass: Proton\RigbagBundle\Repository\MobileLogRepository
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+       user_id:
+            type: integer
+       model:
+            type: string
+            length: 250
+       version:
+            type: string
+            length: 250
+       platform:
+            type: string
+            length: 250
+       action:
+            type: string
+            length: 250
+       data_dump:
+            type: text
+       created_at:
+            type: datetime
+    lifecycleCallbacks:
+        prePersist: [ setCreatedAtValue ]

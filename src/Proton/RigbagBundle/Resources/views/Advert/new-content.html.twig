@@ -1,0 +1,254 @@
+{% if advert.id %}
+	{% set isEdition = true %}
+{% else %}
+	{% set isEdition = false %}
+{% endif %}
+<form action="#" onsubmit="return false;" method="post" id="formAdvert">
+	<input name="id" class="f-id" value="{{advert.id}}" type="hidden"/>
+	<input name="condition" class="f-condition render-preview" value="{{actualCondition.id}}" type="hidden" id="itemCondition"/>
+	<input name="currency" class="f-currency render-preview" value="{{actualCurrency.value}}" type="hidden" id="itemCurrency"/>
+	<input name="mode" class="f-mode" onchange="rbApp.advert.renderForm();" value="{{advert.mode}}" type="hidden" id="mode"/>
+	<input name="maxLength" type="hidden" id="maxLength" value="140"/>
+	<inptu name="tooLong" type="hidden" id="tooLong" value="0"/>
+	<!-- COLUMN LEFT: start -->
+	<div class="span5">
+		<div class="column-left">
+			<label>{% trans %}Item{% endtrans %}</label>
+			<textarea name="item-name" style="height: 26px;" class="f-name input-xlarge render-preview required">{{advert.title|stripslashes}}</textarea>
+
+			<label>{% trans %}Condition<{% endtrans %}/label>
+			<div class="pl-dropdown pl-dropdown-2" id="dropdown-condition">
+				<div class="cont">
+					<div class="value">{{actualCondition.name|stripslashes}}</div>
+					<div class="ico"><span></span></div>
+					<div class="clearfix"></div>
+					<ul>
+						{% for condition in conditions %}
+						<li data-id="{{condition.id}}"{% if actualCondition.id == condition.id %} class="current"{% endif %}>{{condition.name|stripslashes}}</li>
+						{% endfor %}
+					</ul>
+				</div>
+			</div>
+
+			<label>{% trans %}Item location{% endtrans %}</label>
+			<input type="text" id="location" name="location" value="{{ advert.location|stripslashes }}" class="input-xlarge f-location location render-preview required" placeholder="">
+			<input type="hidden" id="location-formated" value="{{ advert.locationFormated|stripslashes }}" class="f-location-formated render-preview" name="formatted_address">
+			<input name="lat" id="location-lat" class="f-location-lat" type="hidden" value="{{ advert.locationLat }}">
+  			<input name="lng" id="location-lng" class="f-location-lng" type="hidden" value="{{ advert.locationLng }}">
+
+
+			<label>{% trans %}Photos{% endtrans %}</label>
+
+			{% for photo in exPhotos %}
+			<div class="avatar-cont has-photo" id="avatar-cont-ex-{{ photo.id }}">
+				<div class="ico" style="background-image: url({{ mediaUrl }}{{ photo.path|replace({'%size%': '80x80' }) }})"></div>
+				<div class="file-drop-zone" id="photo-ex-{{ photo.id }}"></div>
+			</div>
+			<script>
+				$(document).ready( function() {
+
+					var uploader = new qq.FileUploader({
+													element: document.getElementById('photo-uploader'),
+													action: '{{ path('upload_advert_tmp_photo', { num: photo.lp, type: 'tmpadvert' } ) }}',
+									    			uploadButtonText: 'Choose file',
+													multiple: false,
+									    			disableDefaultDropzone: true,
+									    			allowedExtensions: ['jpg','jpeg','png','gif'],
+									    			button: document.getElementById('photo-ex-{{ photo.id }}'),
+									    			onUpload: function( id, fileName ) {
+									    				$('#avatar-cont-ex-{{ photo.id }} .file-drop-zone').addClass( 'load' );
+									    				$('#avatar-cont-ex-{{ photo.id }} .ico').addClass( 'hide' );
+									    			},
+									    			onComplete: function( id, fileName, response ) {
+									    				var o = $('#avatar-cont-ex-{{ photo.id }} .ico');
+									    				$('#avatar-cont-ex-{{ photo.id }}').addClass( 'has-photo' );
+									    				$('#avatar-cont-ex-{{ photo.id }} .file-drop-zone').removeClass( 'load' );
+									    				$(o).attr( 'style', 'background-image: url(' + response.cssPath + ');"' );
+									    				$(o).removeClass( 'hide' );
+													}
+											});
+				});
+			</script>
+			{% endfor %}
+
+			{% for photo in emPhotos %}
+			<div class="avatar-cont" id="avatar-cont-em-{{ photo }}">
+				<div class="ico"></div>
+				<div class="file-drop-zone" id="photo-em-{{ photo }}"></div>
+			</div>
+			<script>
+				$(document).ready( function() {
+
+					var uploader = new qq.FileUploader({
+													element: document.getElementById('photo-uploader'),
+													action: '{{ path('upload_advert_tmp_photo', { num: photo, type: 'tmpadvert' } ) }}',
+									    			uploadButtonText: 'Choose file',
+													multiple: false,
+									    			disableDefaultDropzone: true,
+									    			allowedExtensions: ['jpg','jpeg','png','gif'],
+									    			button: document.getElementById('photo-em-{{ photo }}'),
+									    			onUpload: function( id, fileName ) {
+									    				$('#avatar-cont-em-{{ photo }} .file-drop-zone').addClass( 'load' );
+									    				$('#avatar-cont-em-{{ photo }} .ico').addClass( 'hide' );
+									    			},
+									    			onComplete: function( id, fileName, response ) {
+									    				var o = $('#avatar-cont-em-{{ photo }} .ico');
+									    				$('#avatar-cont-em-{{ photo }} .file-drop-zone').removeClass( 'load' );
+									    				$('#avatar-cont-em-{{ photo }}').addClass( 'has-photo' );
+									    				$(o).attr( 'style', 'background-image: url(' + response.cssPath + ');"' );
+									    				$(o).removeClass( 'hide' );
+													}
+											});
+				});
+			</script>
+			{% endfor %}
+
+
+			<script type="text/javascript">
+				$(document).ready( function() {
+
+					uploader = new qq.FileUploader({
+													element: document.getElementById('photo-uploader'),
+													action: '{{ path('settings_upload_avatar', { type: 'avatar' } ) }}',
+									    			uploadButtonText: 'Choose file',
+													multiple: false,
+													disableDefaultDropzone: true,
+									    			allowedExtensions: ['jpg','jpeg','png','gif'],
+									    			button: document.getElementById('photo-6'),
+									    			onComplete: function( id, fileName, response ) {
+
+													}
+											});
+
+				});
+			</script>
+
+			<div id="photo-uploader">
+				<noscript>
+					<p>{% trans %}Please enable JavaScript to use file uploader.{% endtrans %}</p>
+				</noscript>
+			</div>
+
+			<div class="clearfix"></div>
+
+			<div class="only-sale">
+                            
+			<div style="float: left;">
+					<label>{% trans %}Price{% endtrans %}</label>
+					<div>
+						<input name="price" type="text" value="{{ advert.price }}" class="f-price input-small render-preview required number" placeholder="" style="float: left; margin-right: 10px;">
+						<div class="pl-dropdown pl-dropdown-2 pl-dropdown-2-xsmall" id="dropdown-currency" style="float: left;">
+							<div class="cont">
+								<div class="value">{{actualCurrency.label}}</div>
+								<div class="ico"><span></span></div>
+								<div class="clearfix"></div>
+								<ul>
+									{% for currency in currencies %}
+									<li data-id="{{currency.value}}"{% if actualCurrency.value == currency.value %} class="current"{% endif %}>{{currency.label}}</li>
+									{% endfor %}
+								</ul>
+							</div>
+						</div>
+						<div class="clearfix"></div>
+                              {% if user.accountType == 'annual' %}                 
+                                                <label>{% trans %}Link(please include http:// at the start of the url){% endtrans %}</label>
+			<input type="text"name="link" style="height: 26px;"  value="{{advert.link|stripslashes}}" class="f-link"><div class="clearfix"></div>
+				{% endif %}
+                                        </div>
+				</div>
+
+ {% if user.paymentMode == 0 %}					<div style="float: right;">
+					<label>{% trans %}PayPal account{% endtrans %}</label>
+					<input name="paypal" type="text" value="{{ advert.paypalId }}" class="f-paypal input-large required email" placeholder="">
+				</div>
+{% endif %}
+			</div>
+
+			<div class="only-swap">
+				<label>{% trans %}I'd swap this item for{% endtrans %}</label>
+				<input type="text" value="{{ advert.swapFor|stripslashes }}" class="input-xlarge f-swap-for render-preview required" placeholder="">
+			</div>
+
+	</div>
+</div>
+<!-- COLUMN LEFT: end -->
+<!-- COLUMN RIGHT: start -->
+<div class="span5">
+	<div class="column-right">
+		<label class="f-left">{% trans %}Preview{% endtrans %}</label>
+		<div class="chars-left"><span id="chars-left-value"></span> {% trans %}characters left{% endtrans %}</div>
+		<div class="clearfix"></div>
+		<div class="preview"></div>
+
+		<div class="user-circles">
+			<label>{% trans %}Post to circles{% endtrans %}</label>
+			<ul>
+				{% for circle in circles %}
+				<li data-id="{{ circle.id }}"{% if circle.id in selCircles %} class="selected"{% endif %} onclick="if( $(this).hasClass( 'selected' ) ) { $(this).removeClass('selected'); } else { $(this).addClass( 'selected' ); }">
+					<span>{{ circle.name }} </span>
+				</li>
+				{% endfor %}
+			</ul>
+		</div>
+
+		<div class="social-connect">
+			<p>{% trans %}Share this advert{% endtrans %}</p>
+			<ul>
+				<li class="inline facebook{% if user.facebookId %} connected{% else %} disabled{% endif %}" data-type="facebook">
+					<a href="#" title="" onclick="var e = $(this).parent(); if( !$(e).hasClass( 'disabled' ) ) { if( $(e).hasClass( 'connected' ) ) { $(e).removeClass( 'connected' ); } else { $(e).addClass( 'connected' ); } } return false;" class="ico"></a>
+				</li>
+				<li class="inline twitter{% if user.twitterId %} connected{% else %} disabled{% endif %}" data-type="twitter">
+					<a href="#" title="" onclick="var e = $(this).parent(); if( !$(e).hasClass( 'disabled' ) ) { if( $(e).hasClass( 'connected' ) ) { $(e).removeClass( 'connected' ); } else { $(e).addClass( 'connected' ); } } return false;" class="ico" ></a>
+				</li>
+			</ul>
+			<div class="clearfix"></div>
+		</div>
+
+		<div class="msg-view hide" id="msg-view"></div>
+
+		<div class="actions-10">
+			<p><a href="#" title="" class="btn btn-save">{% if isEdition %}Update advert{% else %}Publish now{% endif %}</a></p>
+			{% if user.accountType == 'free' and isEdition == false and false %}
+				<p class="only-sale"><span>{% trans %}You will be redirected to PayPal to pay{% endtrans %} &euro;5</span></p>
+			{% endif %}
+		</div>
+	</div>
+</div>
+<!-- COLUMN RIGHT: end -->
+</form>
+
+<script>
+	$(document).ready( function() {
+		rbApp.advert.renderForm();
+		initDropdown2( '#dropdown-condition', '#itemCondition', 'rbApp.advert.renderPreview()' );
+		initDropdown2( '#dropdown-currency', '#itemCurrency', 'rbApp.advert.renderPreview()' );
+
+
+
+		var options = {
+				types: ['geocode']
+		};
+
+		var autocomplete = new google.maps.places.Autocomplete( document.getElementById( 'location' ), options);
+
+		google.maps.event.addListener(autocomplete, 'place_changed', function() {
+				var place = parseGMapPlace( autocomplete.getPlace() );
+				$('#location-lat').val(place.lat);
+				$('#location-lng').val(place.lng);
+				$('#location-formated').val(place.formated);
+				rbApp.advert.renderPreview();
+		});
+
+		$('.f-name').autosize();
+		$('.render-preview').change( function() {
+			rbApp.advert.renderPreview();
+		});
+		$('.render-preview').keyup( function() {
+			rbApp.advert.renderPreview();
+		});
+		$('.actions-10 .btn-save').click( function() {
+			rbApp.advert.post();
+			return false;
+		});
+	});
+</script>

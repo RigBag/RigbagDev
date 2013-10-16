@@ -1,0 +1,96 @@
+Proton\RigbagBundle\Entity\Advert:
+    type: entity
+    table: advert
+    repositoryClass: Proton\RigbagBundle\Repository\AdvertRepository
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+       user_id:
+            type: integer
+       condition_id:
+            type: integer
+       title:
+            type: string
+            length: 250
+       hash:
+            type: string
+            length: 10
+       location:
+            type: string
+            length: 250
+            nullable: true
+       location_formated:
+            type: string
+            length: 250
+       location_lat:
+            type: float
+       location_lng:
+            type: float
+       swap_for:
+            type: string
+            length: 50
+            nullable: true
+       mode:
+            type: string
+            length: 20
+       price:
+            type: string
+            length: 30
+       state:
+            type: string
+            length: 10
+       currency:
+            type: string
+            length: 3
+       link:
+            type: string
+            length: 300
+       paypal_id:
+            type: string
+            length: 200
+            nullable: true
+       expired_at:
+            type: datetime
+            nullable: true
+       created_at:
+            type: datetime
+       updated_at:
+            type: datetime
+    lifecycleCallbacks:
+        prePersist: [ setCreatedAtValue, setUpdatedAtValue ]
+        preUpdate: [ setUpdatedAtValue ]
+    manyToOne:
+        user:
+            targetEntity: User
+            inversedBy: adverts
+            joinColumn:
+                name: user_id
+                referencedColumnName: id
+        condition:
+            targetEntity: DictionaryValue
+            inversedBy: conditionOfAdverts
+            joinColumn:
+                name: condition_id
+                referencedColumnName: id
+    oneToMany:
+        images:
+            targetEntity: AdvertImage
+            mappedBy: advert
+            cascade: [persist]
+        questions:
+            targetEntity: QaPosition
+            mappedBy: advert
+            cascade: [persist]
+    manyToMany:
+        circles:
+            targetEntity: Circle
+            joinTable:
+                name: circle_has_advert
+                joinColumns:
+                    advert_id:
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    circle_id:
+                        referencedColumnName: id

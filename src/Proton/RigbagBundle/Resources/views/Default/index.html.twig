@@ -1,0 +1,35 @@
+{% extends '::base.html.twig' %}
+
+{% block headerTop %}
+	<h1>Sign up</h1>
+{% endblock %}
+
+{% block headerBottom %}
+
+{% endblock %}
+
+{% block body %}
+
+	<!-- COLUMN LEFT: start -->
+	<div class="span5">
+		<div class="column-left border-space">
+			<h2>{% trans %}I have account{% endtrans %}</h2>	
+			<div class="subscription-select">
+				<a href="#" title="" class="btn">Sign in</a>
+			</div>
+		</div>
+	</div>
+	<!-- COLUMN LEFT: end -->
+	<!-- COLUMN RIGHT: start -->
+	<div class="span5">
+		<div class="column-right border-space">
+			<h2>{% trans %}I haven't account{% endtrans %}</h2>
+                                
+			<div class="subscription-select">
+				<a href="#" title="" class="btn">{% trans %}Sign up{% endtrans %}</a>
+			</div>                                
+		</div>
+	</div>
+	<!-- COLUMN RIGHT: end -->
+
+{% endblock %}

@@ -1,0 +1,37 @@
+<!-- SPAN10: start -->
+<div class="span10">
+	<ul id="sports-list">
+		{% for interest in interests %}
+		<li data-id="{{ interest.id }}"{% if attribute( selected, interest.id ) == true %} class="selected"{% endif %}>
+			<div class="ico" style="background-image: url({{ path('image_sport', { sportId: interest.id, width: 80, height: 80 }) }});"></div>
+			<div class="name">{{interest.name|stripslashes}}</div>
+			<div class="action">
+				<span class="ico"></span>
+			</div>
+		</li>
+		{% endfor %}
+	</ul>
+	{% if signup %}
+	<div class="clearfix"></div>
+	<div class="actions" style="margin-top: 20px; margin-bottom: 20px;">
+		<a href="#" title="" class="btn">{% trans %}Next{% endtrans %} &raquo;</a>
+	</div>
+	{% endif %}
+</div>
+<!-- SPAN10: end -->
+
+<script>
+$(document).ready( function() {
+	$('#sports-list li').click( function() {
+		rbApp.mySport.click( $(this) );
+	});
+	$('.actions .btn').click( function() {
+		if( $('#sports-list .selected').length < 1 ) {
+			alert( 'You have to select something.');
+		} else {
+			rbApp.mySport.setFilled();
+		}
+		return false;
+	});
+});
+</script>

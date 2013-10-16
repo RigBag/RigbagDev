@@ -1,0 +1,24 @@
+<ul>
+	<li{% if type == 'settings' %} class="active"{% endif %}>
+		{% if signup == false %}<a href="#/settings/profile/" title="">{% else %}<div>{% endif %}
+		<span>{% trans %}My profile{% endtrans %}</span>
+		{% if signup == false %}</a>{% else %}</div>{% endif %}
+	</li>
+	<li{% if type == 'mysports' %} class="active"{% endif %}>
+		{% if signup == false %}<a href="#/settings/mysports/" title="">{% else %}<div>{% endif %}
+		<span>{% trans %}My sports{% endtrans %}</span>
+		{% if signup == false %}</a>{% else %}</div>{% endif %}
+	</li>
+	<li{% if type == 'subscription' %} class="active"{% endif %}>
+		{% if signup == false %}<a href="#/settings/subscription/" title="">{% else %}<div>{% endif %}
+		<span>{% trans %}Subscription{% endtrans %}</span>
+		{% if signup == false %}</a>{% else %}</div>{% endif %}
+	</li>
+	<li{% if type == 'transactions' %} class="active"{% endif %}>
+		{% if signup == true %}
+			<div><span>{% trans %}DONE{% endtrans %}</span></div>
+		{% else %}
+			<a href="#/settings/transactions/" title=""><span>{% trans %}Transactions{% endtrans %}</span></a>
+		{% endif %}
+	</li>
+</ul>

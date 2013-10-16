@@ -1,0 +1,69 @@
+{% extends '::admin.html.twig' %}
+
+{% block body %}
+<div class="row advert-view">
+	<div class="span12">
+		<h2>
+			Advert view
+			&nbsp;&nbsp;&nbsp;
+			<a href="{{ path('rb_admin_adverts_edit', { advertId: advert.id }) }}"><i class="icon-edit"></i></a>
+			<a onclick="return confirm('Are you sure?');" href="{{ path('rb_admin_adverts_delete', { advertId: advert.id }) }}"><i class="icon-remove"></i></a>
+		</h2>
+	</div>
+	<div class="span6">
+		<p>
+			<strong>
+			{% if advert.mode == 'sale' %}
+				for sale:
+			{% elseif advert.mode == 'swap' %}	
+				for swap:
+			{% elseif advert.mode == 'freebie' %}
+				freebie:
+			{% endif %}
+			</strong>
+			{{ advert.title }}
+		</p>
+		{% if advert.mode == 'sale' or advert.mode == 'swap' %}
+		<p>
+			{% if advert.mode == 'sale' %}
+				<strong>price:</strong> {% if advert.currency == 'eur' %}&euro;{% else %}{{advert.currency|upper}}{% endif %}{{advert.price}}
+			{% else %}
+				<strong>swap for:</strong> {{ advert.swapFor }}
+			{% endif %}	
+		</p>
+		{% endif %}
+		<p>
+			<strong>condition:</strong> {{ advert.condition.name }}
+		</p>
+		<p>
+			<strong>owner:</strong> {{ advert.user.name }}
+		</p>
+		<p>
+			<strong>location:</strong> {{ advert.location }}
+		</p>
+		{% if advert.mode == 'sale' %}
+		<p>
+			<strong>paypal account:</strong> {{ advert.paypalId }}
+		</p>
+		{% endif %}
+		<p>
+			<strong>added:</strong> {% include 'ProtonRigbagBundle:Extras:ago.html.twig' with { 'addedAgo': advert.addedAgo } %}
+		</p>
+		<ul class="photos-view">
+		{% for image in advert.images %}
+			<li data-photo-big="{{ mediaUrl }}{{ image.path|replace({'%size%': '440x380' }) }}" data-photo-id="{{ image.id }}">
+				<img class="img-polaroid" src="{{ mediaUrl }}{{ image.path|replace({'%size%': '80x69' }) }}" alt=""/>
+			</li>
+		{% endfor %}
+		</ul>
+	</div>
+	<div class="span5 offset1">
+		<h5>Circles</h5>
+		<ul>
+		{% for circle in advert.circles %}
+			<li>{{ circle.name }} ({{circle.description|stripslashes}}){% set first = false %}</li>
+		{% endfor %}
+		</ul>
+	</div>
+</div>
+{% endblock %}

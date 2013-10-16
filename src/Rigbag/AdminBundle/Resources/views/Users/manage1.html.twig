@@ -1,0 +1,149 @@
+{% extends '::admin.html.twig' %}
+
+{% block body %}
+<div class="row profile-view">
+	<div class="span12">
+		<h2>
+			{% if user.id %}Edit{%else%}New{%endif%} profile 
+		</h2>
+	</div>
+		<form method="post">
+		<div class="span6">
+			<div class="control-group">
+		    	<label class="control-label" for="name">name</label>
+		    	<div class="controls">
+		    		<input type="text" name="name" class="span6" value="{{ user.name }}"/>
+		    	</div>
+		  	</div>
+			<div class="control-group">
+		    	<label class="control-label" for="state">state</label>
+		    	<div class="controls">
+		    		<select name="state" class="span6">
+		    			<option value="enabled"{% if user.state == 'enabled' %} selected{% endif %}>enabled</option>
+		    			<option value="disabled"{% if user.state == 'disabled' %} selected{% endif %}>disabled</option>
+		    		</select>
+		    	</div>
+		  	</div>
+		  	<div class="control-group">
+		    	<label class="control-label" for="email">email</label>
+		    	<div class="controls">
+		    		<input type="text" name="email" class="span6" value="{{ user.email }}"/>
+		    	</div>
+		  	</div>
+		  	<div class="control-group">
+		    	<label class="control-label" for="phone">phone</label>
+		    	<div class="controls">
+		    		<input type="text" name="phone" class="span6" value="{{ user.phone }}"/>
+		    	</div>
+		  	</div>
+		  	<div class="control-group">
+		    	<label class="control-label" for="location">location</label>
+		    	<div class="controls">
+		    		<input type="text" id="location" name="location" class="span6" value="{{ user.location }}"/>
+		    		<input type="hidden" id="locationFormatted" name="locationFormatted" value="{{ user.locationFormated }}"/>
+		    		<input type="hidden" id="locationLat" name="locationLat" value="{{ user.locationLat }}"/>
+		    		<input type="hidden" id="locationLng" name="locationLng" value="{{ user.locationLng }}"/>
+		    		<input type="hidden" id="locationCountryCode" name="locationCountryCode" value="{{ user.locationCountryCode }}"/>
+		    	</div>
+		  	</div>
+		  	<div class="control-group">
+		    	<label class="control-label" for="paypalId">paypal account</label>
+		    	<div class="controls">
+		    		<input type="text" name="paypalId" class="span6" value="{{ user.paypalId }}"/>
+		    	</div>
+		  	</div>
+		  	<div class="control-group">
+		    	<label class="control-label" for="bio">bio</label>
+		    	<div class="controls">
+		    		<textarea name="bio" class="span6">{{ user.bio }}</textarea>
+		    	</div>
+		  	</div>
+						
+					</div>
+					<div class="span5 offset1">
+						<p>
+							<strong>interests:</strong>
+							<ul class="circles-list">
+							{% for interest in user.interests %}
+								<li> 
+									{{ interest.name }}
+									<a href="#" onclick="profileCircleRemove($(this)); return false;"><i class="icon-remove-sign"></i></a>
+									<input type="hidden" name="interest[]" value="{{ interest.id }}"/>
+								</li>
+							{% endfor %}
+							</ul>
+							<input type="text" id="interestSuggest" name="interest" class="span4"/>
+						</p>
+						<p>
+							<strong>circles:</strong>
+							<ul class="circles-list">
+							{% for circle in user.circles %}
+								<li> 
+									{{ circle.name }} ({{ circle.description }})
+									<a href="#" onclick="profileCircleRemove($(this)); return false;"><i class="icon-remove-sign"></i></a>
+									<input type="hidden" name="circle[]" value="{{ circle.id }}"/>
+								</li>
+							{% endfor %}
+							</ul>
+							<input type="text" id="circleSuggest" name="circle" class="span4"/>
+						</p>
+					</div>
+			<div class="span12 action-buttons">
+				<button class="btn btn-block btn-large btn-info">Save</button>
+			</div>
+	
+</div>
+<script>
+
+function profileCircleRemove( obj ) {
+	if( confirm( 'Are you sure?' ) ) {
+		$(obj).parent().fadeOut( function() {
+			$(this).remove();
+		});
+	}
+}
+
+$(document).ready( function() {
+
+	// Circles suggest
+	$('#circleSuggest').magicSuggest({
+		allowFreeEntriesboolean : false,
+		name: 'circleNew',
+		selectionPositionstring: 'bottom',
+		data: '{{ path('rb_admin_circles_suggest') }}'
+	});
+	
+	// Circles suggest
+	$('#interestSuggest').magicSuggest({
+		allowFreeEntriesboolean : false,
+		name: 'interestNew',
+		selectionPositionstring: 'bottom',
+		data: '{{ path('rb_admin_interests_suggest') }}'
+	});
+
+	// Google autocomplete
+	var options = {
+  				types: ['geocode']
+			};
+
+	var autocomplete = new google.maps.places.Autocomplete( document.getElementById( 'location' ), options);
+			
+	google.maps.event.addListener(autocomplete, 'place_changed', function() {
+  		var place = parseGMapPlace( autocomplete.getPlace() );
+  		
+		$('#locationLat').val(place.lat);
+		$('#locationLng').val(place.lng);
+		$('#locationFormatted').val(place.formated);
+		$('#locationCountryCode').val(place.countryCode);
+	});
+});
+
+  $(function () {
+  	$('#profileTab').tab();
+  	$('#profileTab a').click(function (e) {
+	  e.preventDefault();
+	  $(this).tab('show');
+	});
+  });
+</script>
+{% endblock %}

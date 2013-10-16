@@ -1,0 +1,91 @@
+Proton\RigbagBundle\Entity\Transaction:
+    type: entity
+    table: transaction
+    repositoryClass: Proton\RigbagBundle\Repository\TransactionRepository
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+       txn_id:
+           type: string
+           length: 30
+           nullable: true
+       from_user_id:
+            type: integer
+            nullable: true
+       to_user_id:
+            type: integer
+            nullabe: true
+       advert_id:
+            type: integer
+            nullable: true
+       from_user_email:
+           type: string
+           length: 200
+           nullable: true
+       from_user_name:
+           type: string
+           length: 200
+           nullable: true
+       to_user_email:
+           type: string
+           length: 200
+           nullable: true
+       to_user_name:
+           type: string
+           length: 200
+           nullable: true
+       amount:
+            type: float
+            nullable: true
+       currency:
+            type: string
+            length: 3
+            nullable: true
+       description:
+            type: string
+            length: 250
+            nullable: true
+       # TYPE: subscription, advert, buy
+       type:
+            type: string
+            length: 15
+       # METHOD: paypal
+       method:
+            type: string
+            length: 15
+       # STATE: processing, completed, failed
+       state:
+            type: string
+            length: 15
+       token:
+           type: string
+           length: 50
+           nullable: true
+       created_at:
+            type: datetime
+       updated_at:
+            type: datetime
+    lifecycleCallbacks:
+        prePersist: [ setCreatedAtValue, setUpdatedAtValue ]
+        preUpdate: [ setUpdatedAtValue ]
+    manyToOne:
+        fromUser:
+            targetEntity: User
+            inversedBy: transactionsOut
+            joinColumn:
+                name: from_user_id
+                referencedColumnName: id
+        toUser:
+            targetEntity: User
+            inversedBy: transactionsIn
+            joinColumn:
+                name: to_user_id
+                referencedColumnName: id
+        advert:
+            targetEntity: Advert
+            inversedBy: transactions
+            joinColumn:
+                name: advert_id
+                referencedColumnName: id

@@ -1,0 +1,72 @@
+{% extends '::base.html.twig' %}
+
+{% block menu %}
+	{% if cElement is not defined %}
+		{% set cElement = 0 %}
+	{% endif %}
+	{% if advertView is defined %}
+		{% set cElement = 1 %}
+	{% endif %}
+	
+	{% include 'ProtonRigbagBundle:Extras:menu.html.twig' with { 'cElement': cElement } %}
+	
+	{% if isLoged == false and userId < 1 %}
+	<ul class="social">
+		<li class="join">{% trans %}Join RigBag{% endtrans %}</li>
+		<li onclick="window.location='{{ path('login_facebook') }}';" class="facebook"></li>
+		<li onclick="window.location='{{ path('login_twitter') }}';" class="twitter"></li>
+              <li><a href="http://corporate.rigbag.com/">Visit our Corporate site</a></li>
+	</ul>
+
+	<a class="language-select anon" href="#" onclick="togleLangPopup();return false;">{% if locale == 'fr' %}Français{% else %}English{% endif %}<img style="float: right; margin-right: 10px;" src="{{ asset('/bundles/protonrigbag/images/arrow-right-off.png') }}" alt="" /></a>
+	<div class="language-popup anon" id="langsel">
+	
+	{% else %}
+	<!-- USER SHORT INFO -->
+	<div class="user-short-info">
+		<div class="ico" style="background-image: url({{ mediaUrl }}{{ user.profilePicture|replace({'%size%': '36x36' }) }});"></div>
+		<p>{% trans %}using RigBag as{% endtrans %}</p>
+		<p class="user">{{ user.name|stripslashes }}</p>
+		<p class="logout"><a href="{{ path('logout') }}">{% trans %}Log out{% endtrans %}</a></p>
+              <br>
+              <a href="http://corporate.rigbag.com/">Visit our Corporate site</a>
+	</div>
+	<!-- /USER SHORT INFO -->
+	<a class="language-select logged" href="#" onclick="togleLangPopup();return false;">{% if locale == 'fr' %}Français{% else %}English{% endif %}<img style="float: right; margin-right: 10px;" src="{{ asset('/bundles/protonrigbag/images/arrow-right-off.png') }}" alt="" /></a>
+	<div class="language-popup logged" id="langsel">
+	{% endif %} 
+	<ul class="selector">
+			<li><a href="?setlocale=en" style="background-image:url({{ asset('/bundles/protonrigbag/images/lang/en.gif') }})">English</a></li>
+			<li><a href="?setlocale=fr" style="background-image:url({{ asset('/bundles/protonrigbag/images/lang/fr.gif') }})">Français</a></li>
+		</ul>
+	</div>
+	<script type="text/javascript">
+	function togleLangPopup() {
+		$('#langsel').toggleClass('open');
+	}
+	</script>
+{% endblock %}
+
+{% block headerTop %}
+	{% if userView is defined %}
+		{% include 'ProtonRigbagBundle:User:profile-header-top.html.twig' with { 'myProfile': false, 'user': userView } %}
+	{% endif %}
+	{% if advertView is defined %}
+		{% include 'ProtonRigbagBundle:Advert:view-header-top.html.twig' with { 'advert': advertView } %}
+	{% endif %}
+{% endblock %}
+
+{% block headerBottom %}
+	{% if userView is defined %}
+		{% include 'ProtonRigbagBundle:User:profile-header-bottom.html.twig' with { 'myProfile': false, 'user': userView, 'type': 'adverts' } %}
+	{% endif %}
+{% endblock %}
+
+{% block body %}
+	{% if userView is defined %}
+		{% include 'ProtonRigbagBundle:User:profile-content-adverts.html.twig' with { 'myProfile': false, 'user': userView, 'adverts': adverts } %}
+	{% endif %}
+	{% if advertView is defined %}
+		{% include 'ProtonRigbagBundle:Advert:view-content.html.twig' with { 'advert': advertView } %}
+	{% endif %}
+{% endblock %}

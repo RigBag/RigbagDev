@@ -1,0 +1,63 @@
+<ul class="size-23">
+	<li class="space">
+		<div class="arUp"></div>
+		<div class="arDown"></div>
+		<span><span></span></span>
+		<script>
+		$(document).ready( function() {
+			var sOffset = 100;
+
+			$('.arUp').click( function() {
+				scrollUp();
+			});
+			$('.arDown').click( function() {
+				scrollDown();
+			});
+
+			function scrollUp() {
+				console.log( 'Scroll up');
+
+				var ah = $('.sidebar-container').height();
+				var ch = $('.sidebar-container ul').height();
+				sOffset = ah - 80;
+
+				if( ah < ch ) {
+					var ro = ch - ah;
+					var nt = $('.sidebar-container ul').position().top;
+					nt = nt - sOffset;
+
+					if( Math.abs( nt ) > Math.abs( ro ) ) {
+						nt = ro * -1;
+					}
+
+					$('.sidebar-container ul').animate({ top: nt +'px' }, 500);
+				}
+
+			}
+			function scrollDown() {
+				console.log( 'Scroll down');
+
+				var ah = $('.sidebar-container').height();
+				var ch = $('.sidebar-container ul').height();
+				sOffset = ah - 80;
+
+				if( ah < ch ) {
+					var ro = ch - ah;
+					var nt = $('.sidebar-container ul').position().top;
+					nt = nt + sOffset;
+
+					if( nt > 0 ) {
+						nt = 0;
+					}
+
+					$('.sidebar-container ul').animate({ top: nt +'px' }, 500);
+				}
+			}
+		});
+		</script>
+	</li>
+	<li class="longspace">
+		<h3>{% trans %}Other Circles{% endtrans %}</h3>
+		<span><span></span></span>
+	</li>
+</ul>

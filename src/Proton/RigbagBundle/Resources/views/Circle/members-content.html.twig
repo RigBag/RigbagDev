@@ -1,0 +1,31 @@
+{% if members %}
+<ul>
+{% for member in members %}
+	<li onclick="setUrl('/profile/{{member.id}}/adverts/');">
+		<div class="ico" style="background-image: url({{ mediaUrl }}{{ member.profilePicture|replace({'%size%': '160x160' }) }});"></div>
+		<h2><a href="#/profile/{{member.id}}/adverts/" title="">{{ member.name|stripslashes }}</a></h2>
+		<h3>{{ member.location|stripslashes }}</h3>
+	</li>
+{% endfor %}
+</ul>
+{% else %}
+	<div class="no-items">
+			{% trans %}No members{% endtrans %}
+		</div>
+{% endif %}
+<script>
+$(document).ready( function() {
+	resizeCirclesSidebar();
+	setTimeout( 'resizeCirclesSidebar()', 500 );
+});
+function resizeCirclesSidebar() {
+	if( $( '.sidebar-container ul' ).height() + 180 >= $('.circles-sidebar').height() ) {
+		$('.header .bottom .arUp').fadeIn('fast');
+		$('.header .bottom .arDown').fadeIn('fast');
+	} else {
+		$('.header .bottom .arUp').fadeOut('fast');
+		$('.header .bottom .arDown').fadeOut('fast');
+	}
+	$('.circles-sidebar .sidebar-container').css( 'height', ( $('.circles-sidebar').height() - 175 ) +'px' );
+}
+</script>

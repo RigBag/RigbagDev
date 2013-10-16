@@ -1,0 +1,76 @@
+<div class="span10">
+                    	<!-- QA-LIST: start -->
+                        <ul id="qa-list">
+                        	<!-- QUESTION: start -->
+                        	<li class="question-cont">
+                            	<div class="user">
+                            		<div class="ico" style="background-image: url({{ mediaUrl }}{{ question.user.profilePicture|replace({'%size%': '160x160' }) }});"></div>
+                                    <div class="info">
+                                    	<h4><a href="#/profile/{{ question.user.id }}/adverts/" class="must-login" title="">{{ question.user.name|stripslashes }}</a></h4>
+                                        <p>{{ question.user.bio }}</p>
+                                        {% if user.id == question.userId %}
+	                                    <div class="actions">
+	                                    	<a href="#" onclick="if( confirm( 'Are you sure?' ) ) { rbApp.qa.remove( {{ question.id }}, 'call-action', 'q-and-a/none/0/' ); } return false;" class="remove">{% trans %}remove{% endtrans %}</a>
+	                                    </div>
+	                                    {% endif %}
+                                    </div>
+
+                                </div>
+                                <div class="question">
+                                	{{ question.body|nl2br }}
+                                	{% if question.advertId %}
+									<div class="advert-preview">
+										<div class="ico" style="background: url('{{ mediaUrl }}{{ question.advert.mainImage.path|replace({'%size%': '60x60' }) }}');"></div>
+										<div class="info">
+											<p>
+												<span class="label-head">FOR {{ question.advert.mode|upper }}:</span> {{ question.advert.description|stripslashes }}
+											</p>
+											<p class="underinfo">
+												{{ question.advert.condition.name|stripslashes }},
+												{{ question.advert.locationDisplay|stripslashes }}{% if question.advert.mode == 'sale' %},{% endif %}
+												{% if question.advert.mode == 'sale' %}
+													{{ question.advert.price }}{{question.advert.currency|upper }}
+												{% endif %}
+											</p>
+										</div>
+										<div class="clearfix"></div>
+									</div>
+									{% endif %}
+                                    <div class="info">
+                                    	<span>{% include 'ProtonRigbagBundle:Extras:ago.html.twig' with { 'addedAgo': question.addedAgo } %} in</span> <a href="#/circles/{{question.circle.id}}/qa/list/" class="must-login" title="">{{ question.circle.name|stripslashes }} </a>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                            </li>
+                            <!-- QUESTION: end -->
+                            {% if user.id > 0 %}
+                            <li class="answer-form">
+                            	<div class="user">&nbsp;</div>
+                                <div class="question">
+                                	<form action="" method="post">
+                                		<input type="hidden" name="qid" id="qid" value="{{question.id}}"/>
+                                    	<div class="fields">
+                                    		<textarea name="" id="answer" class="required"></textarea>
+                                        </div>
+                                        <div class="buttons">
+                                        	<button class="btn" onclick="rbApp.qa.answerSend(); return false;" type="submit">{% trans %}Reply{% endtrans %}</button>
+                                    	</div>
+                                    </form>
+                                </div>
+                                <div class="clearfix"></div>
+                            </li>
+                            {% endif %}
+                       </ul>
+                       <ul id="qa-answers">
+                       		{% include 'ProtonRigbagBundle:Qa:answers-list.html.twig' with { 'answers': question.answers } %}
+                       </ul>
+                       <!-- QA-LIST: end -->
+
+<script>
+$(document).ready( function() {
+{% if user.id < 1 %}
+	rbApp.mustLoginInit();
+{% endif %}
+	$('.answer-form textarea').autosize();
+});
+</script>

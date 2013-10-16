@@ -1,0 +1,9 @@
+parameters:
+#    proton_rigbag.example.class: Proton\RigbagBundle\Example
+
+services:
+    protonlabs.twig.protonlabs_extension:
+        class: Proton\RigbagBundle\Twig\ProtonlabsExtension
+        tags:
+            - { name: twig.extension }
+

@@ -1,0 +1,54 @@
+<ul class="messages-list">
+{% set isFirst = true %}
+{% if messages %}
+{% for message in messages %}
+
+<li onclick="userPanelMessageClick( {{ message.id }} ); window.location ='{% if message.advert and message.state != 'public' %}{{ path('start') }}#/adverts/view/{{ message.advert.hash }}/{% else %}{{ path('start') }}#/qa/view/{{ message.parentId }}/{% endif %}'; return false;" class="{% if isFirst ==  true %}first{% endif %}{% if message.readed != 1 %} {% trans %}unreaded{% endtrans %}{% endif %}">
+	{% if message.state == 'system' %}
+		<div class="ico" style="{% if message.advert and message.advert.mainImage != null %}background-image: url({{ mediaUrl }}{{ message.advert.mainImage.path|replace({'%size%': '50x50' }) }}){% endif %}"></div>
+	{% else %}
+		<div class="ico" style="background-image: url({{ mediaUrl }}{{ message.user.profilePicture|replace({'%size%': '40x40' }) }});"></div>
+	{% endif %}
+	<div class="info">
+		<h5>
+			{% if message.state == 'system' %}
+				{% if message.advert %}
+					{{ message.advert.title|slice(0, 30)|stripslashes }}
+				{% else %}
+					#{{ message.id }}
+				{% endif %}
+			{% else %}
+				{{ message.user.displayName|stripslashes }}
+			{% endif %}
+		</h5>
+		<div class="date">{{ message.createdAt|date('d.m.Y H:i') }}</div>
+		<p>
+			{% if message.state == 'system' %}
+
+				{{ message.body|stripslashes }}
+
+			{%  else %}
+
+				{% if message.body|length > 50 %}
+					{{ message.body|slice(0, 50)|stripslashes }}...
+				{% else %}
+					{{ message.body|stripslashes }}
+				{%  endif %}
+
+			{% endif %}
+
+			{% if message.state != 'system' and message.advert %}
+				(<strong>{{ message.advert.title|slice(0, 30)|stripslashes }}</strong>)
+			{% endif %}
+		</p>
+	</div>
+	<div class="clearfix"></div>
+</li>
+{% set isFirst = false %}
+{% endfor %}
+{% else %}
+<li class="first">
+	<div style="padding: 5px 6px;">{% trans %}No messages{% endtrans %}</div>
+</li>
+{% endif %}
+</ul>

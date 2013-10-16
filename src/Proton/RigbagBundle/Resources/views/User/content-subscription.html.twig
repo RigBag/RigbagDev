@@ -1,0 +1,19 @@
+<div class="span9 offset1">
+	<h2 style="font-weight: 400; margin-bottom: 10px;">{% trans %}Beta version is FREE{% endtrans %}</h2>
+{% if signup %}
+	<div style="margin-top: 40px;">
+		<a href="#" title="" class="btn btn-sub">{% trans %}Next{% endtrans %} &raquo;</a>
+	</div>
+{% endif %}
+</div>
+<script>
+$(document).ready( function() {
+
+	$('.btn-sub').click( function() {
+		{% if signup %}
+			rbApp.callAction( 'profile/subscription/select/free/', 'setUrl(\'/signup/done/\')' );
+		{% endif %}
+		return false;
+	});
+})
+</script>

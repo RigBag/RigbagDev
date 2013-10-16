@@ -1,0 +1,16 @@
+<!-- LI /NEWS/: begin-->
+<li>
+	<div class="ico" style="background-image: url({{ news.twUserPicture }});"></div>
+	<div class="info">
+		<p><a href="http://twitter.com/{{ news.twUserScreenName }}" target="_blank">{{ news.twUserName }}</a></p>
+		<p>{{ news.twUserScreenName }}</p>
+	</div>
+	<div class="clearfix"></div>
+	<div class="tweet">
+		{{ news.content|tweet|raw }}
+	</div>
+	<div class="addedAgo">
+		{% include 'ProtonRigbagBundle:Extras:ago.html.twig' with { 'addedAgo': news.addedAgo } %}
+	</div>
+</li>
+<!-- LI /NEWS/: end -->

@@ -1,0 +1,21 @@
+<!-- QA-LIST: start -->
+<ul id="qa-list">
+	{% include 'ProtonRigbagBundle:Qa:questions-list.html.twig' with { 'questions': questions } %}
+</ul>
+<!-- QA-LIST: end -->
+<script>
+$(document).ready( function() {
+	resizeCirclesSidebar();
+	setTimeout( 'resizeCirclesSidebar()', 500 );
+});
+function resizeCirclesSidebar() {
+	if( $( '.sidebar-container ul' ).height() + 180 >= $('.circles-sidebar').height() ) {
+		$('.header .bottom .arUp').fadeIn('fast');
+		$('.header .bottom .arDown').fadeIn('fast');
+	} else {
+		$('.header .bottom .arUp').fadeOut('fast');
+		$('.header .bottom .arDown').fadeOut('fast');
+	}
+	$('.circles-sidebar .sidebar-container').css( 'height', ( $('.circles-sidebar').height() - 175 ) +'px' );
+}
+</script>

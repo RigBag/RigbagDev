@@ -1,0 +1,21 @@
+{% if addedAgo.days > 0 %}
+	{% if addedAgo.days == 1 %}
+		{% trans %}1 day ago{% endtrans %}
+	{% else %}
+		{{ addedAgo.days }} {% trans %}days ago{% endtrans %}
+	{% endif %}
+{% elseif addedAgo.hours > 0 %}
+	{% if addedAgo.hours == 1 %}
+		{% trans %}1 hour ago{% endtrans %}
+	{% else %}
+		{{ addedAgo.hours }} {% trans %}hours ago{% endtrans %}
+	{% endif %}
+{% elseif addedAgo.minutes > 0 %}
+	{% if addedAgo.minutes == 1 %}
+		{% trans %}1 minute ago{% endtrans %}
+	{% else %}
+		{{ addedAgo.minutes }} {% trans %}minutes ago{% endtrans %}
+	{% endif %}
+{% else %}
+	{% trans %}now{% endtrans %}
+{% endif %}

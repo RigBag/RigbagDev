@@ -1,0 +1,7 @@
+<div class="nav-left">
+	<a href="#" onclick="history.back(); return false;" title="" class="back"><span></span></a>
+</div>
+<h1>{% if myProfile %}{% trans %}My profile{% endtrans %}{% else %}<span>{% trans %}Profile:{% endtrans %}</span> {{ user.name|stripslashes }}{% endif %}</h1>
+{% if myProfile %}
+
+{% endif %}

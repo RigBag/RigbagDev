@@ -1,0 +1,24 @@
+{% if questions is defined and positions is not defined %}
+	{% set positions = questions %}
+{% endif %}
+
+{% if positions %}
+<ul>
+	{% for position in positions %}
+		{% include 'ProtonRigbagBundle:Qa:position-main.html.twig' with { 'position': position } %}
+	{% endfor %}
+</ul>
+{% else %}
+	<div class="no-items">No questions</div>
+{% endif %}
+{% if forceOpen is not defined %}
+	{% set forceOpen = false %}
+{% endif %}
+{% if forceOpen %}
+<script>
+$(document).ready( function() {
+	$('.question-new-form').slideDown(); 
+	$('#headerTop .add').addClass('active');
+});
+</script>
+{% endif %}

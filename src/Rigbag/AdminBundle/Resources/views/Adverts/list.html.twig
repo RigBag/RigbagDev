@@ -1,0 +1,74 @@
+{% extends '::admin.html.twig' %}
+
+{% block body %}
+<div class="row">
+	<div class="span12">
+		<h2>Adverts list</h2>
+		{% if adverts or query %}
+		<form class="form-search form-filter text-right"">
+		  	<input name="q" value="{{ query }}" type="text" class="input-large search-query"/>
+			<button type="submit" class="btn">Search</button>
+		</form>
+		{% endif %}
+		{% if adverts %}
+			<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>&nbsp</th>
+					<th>added</th>
+					<th>user</th>
+					<th>location</th>
+					<th style="width: 60px;">&nbsp;</th>
+				<tr>
+			</thead>
+			<tbody>
+				{% for advert in adverts %}
+				<tr>
+					<td>{{ advert.id }}</td>
+					<td>
+						<a href="{{ path('rb_admin_adverts_view', { advertId: advert.id }) }}">
+						<strong>
+						{% if advert.mode == 'sale' %}
+							For sale:
+						{% elseif advert.mode == 'swap' %}	
+							For swap:
+						{% elseif advert.mode == 'freebie' %}
+							Freebie:
+						{% endif %}
+						</strong>
+						{{ advert.title }}
+						</a>
+					</td>
+					<td>{{ advert.createdAt|date( 'd.m.Y H:i:s' ) }}</td>
+					<td>{{ advert.user.name }}</td>
+					<td>
+						{{ advert.locationDisplay }}
+					</td>
+					<td>
+						<a href="{{ path('rb_admin_adverts_view', { advertId: advert.id }) }}"><i class="icon-info-sign"></i></a>
+						<a href="{{ path('rb_admin_adverts_edit', { advertId: advert.id }) }}"><i class="icon-edit"></i></a>
+						<a onclick="return confirm('Are you sure?');" href="{{ path('rb_admin_adverts_delete', { advertId: advert.id, q:query, page:pagination.actual }) }}"><i class="icon-remove"></i></a>
+					</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+			</table>	
+			<div class="pagination pagination-right">
+			  	<ul>
+				    <li><a href="#">&laquo;</a></li>
+				    {% for page in 1..pagination.lastPage %}
+				    	<li{% if page == pagination.actual %} class="active"{% endif %}><a href="{{ path('rb_admin_adverts_list', { page: page, q: query }) }}">{{ page }}</a></li>
+				    {% endfor %}
+				    <li><a href="#">&raquo;</a></li>
+			  	</ul>
+			</div>
+		{% else %}
+			<div class="alert">
+				No adverts
+			</div>
+		{% endif %}
+		
+	</div>
+</div>
+{% endblock %}

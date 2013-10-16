@@ -1,0 +1,22 @@
+{% for answer in answers %}
+<!-- ANSWER: start -->
+<li>
+	<div class="user">
+		<div class="ico" style="background-image: url({{ mediaUrl }}{{ answer.user.profilePicture|replace({'%size%': '60x60' }) }});"></div>
+		<div class="info">
+			<h4><a href="#/profile/{{ answer.user.id }}/adverts/" class="must-login" title="">{{ answer.user.name|stripslashes }}</a></h4>
+			<p>{% include 'ProtonRigbagBundle:Extras:ago.html.twig' with { 'addedAgo': answer.addedAgo } %}</p>
+			{% if user.id == answer.user.id %}
+			<div class="actions">
+				<a href="#" onclick="if( confirm( 'Are you sure?' ) ) { rbApp.qa.remove( {{ answer.id }}, 'fade-out', $(this).parent().parent().parent().parent() ); } return false;" class="remove">{% trans %}remove{% endtrans %}</a>
+			</div>
+			{% endif %}
+		</div>
+	</div>
+	<div class="question">
+		{{ answer.body|stripslashes }}
+	</div>
+	<div class="clearfix"></div>
+</li>
+<!-- ANSWER: end -->
+{% endfor %}

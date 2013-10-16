@@ -1,0 +1,7 @@
+parameters:
+#    rigbag_admin.example.class: Rigbag\AdminBundle\Example
+
+services:
+#    rigbag_admin.example:
+#        class: %rigbag_admin.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
