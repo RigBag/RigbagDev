@@ -77,7 +77,7 @@
                                 	{% if advert.state == 'enabled' %}
 	                                	{% if user.id != advert.userId %}
 	                                		{% if advert.mode == 'sale' %}
-                                                            {% if payment_mode == '0' %}
+                                                            {% if payment_mode == '1' %}
 	                                			<a href="{{ path('payments_buy', { method: 'paypal', advertId: advert.id }) }}" onclick="" title="" class="btn must-login">{% trans %}Buy now{% endtrans %}</a>
                                                             {% else %}
                                                                 <a href="#" title="" class="btn btn-swap must-login">{% trans %}Buy{% endtrans %}</a>

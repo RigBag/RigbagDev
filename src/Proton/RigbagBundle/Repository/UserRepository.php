@@ -48,12 +48,17 @@ class UserRepository extends EntityRepository
           public function PaymentMode($user ) {
 
 		$query	= $this->createQueryBuilder('u');
-                $query->select('u.payment_mode')
+                $query->select('u.account_type')
                 ->where( 'u.id=:id' )
 				->setParameter( 'id', $user );
 		$query = $query->getQuery();
                 $rs =$query->getResult();
-		return $rs[0]['payment_mode'];
+		if($rs[0]['account_type'] =='annual') {
+                    return 1;
+                } else
+                {
+                    return 0;
+                }
 
 }
 }

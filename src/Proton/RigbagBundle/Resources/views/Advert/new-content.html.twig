@@ -150,18 +150,18 @@
 							</div>
 						</div>
 						<div class="clearfix"></div>
-                              {% if user.accountType == 'annual' %}                 
+                              {% if user.accountType == 'free' %}                 
                                                 <label>{% trans %}Link(please include http:// at the start of the url){% endtrans %}</label>
 			<input type="text"name="link" style="height: 26px;"  value="{{advert.link|stripslashes}}" class="f-link"><div class="clearfix"></div>
-				{% endif %}
-                                        </div>
-				</div>
-
- {% if user.paymentMode == 0 %}					<div style="float: right;">
-					<label>{% trans %}PayPal account{% endtrans %}</label>
+				{% else %}
+                    				<label>{% trans %}PayPal account{% endtrans %}</label>
 					<input name="paypal" type="text" value="{{ advert.paypalId }}" class="f-paypal input-large required email" placeholder="">
 				</div>
 {% endif %}
+                                        </div>
+				</div>
+
+
 			</div>
 
 			<div class="only-swap">
